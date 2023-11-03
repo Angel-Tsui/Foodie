@@ -5,7 +5,8 @@
   margin-right: auto;
   display: flex;
   padding-top: 60px;
-  position: relative;
+  position: fixed;
+  /* position: relative; */
   background-image: linear-gradient(to right, rgba(39, 39, 39, 0.8), rgba(39, 39, 39, 0.8)), url("../../assets/images/HomeBackground.jpg");
   background-size: cover;
   background-repeat: no-repeat;
