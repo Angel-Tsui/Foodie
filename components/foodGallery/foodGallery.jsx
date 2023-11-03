@@ -6,8 +6,8 @@ function FoodGalleryCard(){
         <div className={styles.foodGallery__card}>
             <div className={styles.foodGallery__image}>
                 <Image 
-                    src="/steak.png"
-                    width={30}
+                    src="/juicysteak.jpg"
+                    width={325}
                     height={200}
                     alt="Meat Image"
                 />
@@ -15,9 +15,9 @@ function FoodGalleryCard(){
             <div className={styles.foodGallery__title}>Delicious Meat Title</div>
             <div className={styles.foodGallery__resto}>Resto Name</div>
             <div className={styles.foodGallery__starRate}>Stars</div>
-            <div className={styles.foodGallery__priceAndType}>
+            <div className={styles.foodGallery__priceAndParts}>
                 <div className={styles.foodGallery__price}>$$$</div>
-                <div className={styles.foodGallery__foodType}>Food Type</div>
+                <div className={styles.foodGallery__parts}>Parts of Beef</div>
             </div>
         </div>
     )

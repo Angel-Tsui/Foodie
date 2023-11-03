@@ -1,0 +1,12 @@
+.collectionPageContainer{
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 60;
+    border: 1px solid red;
+}
+
+.collectorList{
+    border: 1px solid red;
+    width: 300px;
+}

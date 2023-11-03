@@ -34,7 +34,7 @@
     font-weight: 500;
 }
 
-.nav__signIn{
+/* .nav__signIn{
     position: relative;
 }
 
@@ -57,10 +57,20 @@
 
 .nav__signIn:hover{
     cursor: pointer;
-}
+} */
 
 .nav__signUp{
+    /* width: 220px;
+    height: 50px;
+    background-color: rgba(114, 17, 17, 0.546);
+    border: 2px solid black;
+    border-radius: 5px; */
     position: relative;
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+    /* color: black; */
+    cursor: pointer;
 }
 
 .nav__signUp::before{
@@ -70,7 +80,7 @@
     bottom: 0;
     width: 100%;
     height: 2px;
-    background-color: #fc2f70;
+    background-color: rgb(114, 17, 17);
     transform-origin: center;
     transform: translate(-50%, 0) scaleX(0);
     transition: transform 0.3s ease-in-out;
