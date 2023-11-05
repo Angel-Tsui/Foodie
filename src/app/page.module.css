@@ -21,7 +21,7 @@
 }
 
 .HomePageContainer__general {
-  width: 50%;
+  width: 45%;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -52,7 +52,7 @@
 }
 
 .foodGalleryContainer div {
-  width: 40%;
+  width: 45%;
 }
 
 .foodGalleryContainer div div {
@@ -65,7 +65,7 @@
 }
 
 .HomePageContainer__signIn {
-  width: 50%;
+  width: 55%;
   height: 100%;
   position: fixed;
   right: 0;
