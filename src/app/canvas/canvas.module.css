@@ -1,0 +1,89 @@
+.canvasContainer {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: space-between;
+}
+
+.canvasContainer__functionPanel {
+  width: 35%;
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.functionPanel__functionOverview {
+  width: 20%;
+  height: inherit;
+  background-color: rgb(29, 27, 27);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.functionOverview__eachFunction {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+  color: grey;
+  cursor: Pointer;
+}
+
+.functionOverview__eachFunction:hover {
+  color: white;
+}
+
+.functionOverview__eachIcon {
+  width: 30px;
+  height: 30px;
+}
+
+.functionOverview__eachText {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.functionPanel__functionUse {
+  width: 80%;
+  height: inherit;
+  background-color: rgb(61, 60, 60);
+}
+
+.canvasContainer__createSpace {
+  width: 65%;
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: space-between;
+}
+
+.createSpace__topFunctionRow {
+  width: 100%;
+  height: 10%;
+  background-color: white;
+}
+
+.createSpace__canvasContainer {
+  width: 100%;
+  height: 80%;
+  background-color: rgb(235, 233, 233);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.canvasContainer__canvas {
+  width: 380px;
+  height: 380px;
+  background-color: white;
+}
+
+.createSpace__bottomFunctionRow {
+  width: 100%;
+  height: 10%;
+  background-color: white;
+}
