@@ -2,10 +2,10 @@
 import styles from "./nav.module.css";
 import Link from "next/link";
 import MyCollection from "../../components/myCollection/myCollection";
+import { useState } from "react";
 import { signIn, signUp, signOut } from "../../firebase/fireAuth";
 
 function toCollection() {
-  // console.log("to Collection")
   window.location.href = "/collection";
 }
 
