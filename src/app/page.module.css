@@ -1,13 +1,18 @@
-.HomePageContainer{
+.HomePageContainer {
   width: 100%;
   height: 100vh;
   margin-left: auto;
   margin-right: auto;
   display: flex;
-  padding-top: 60px;
+  /* padding-top: 60px; */
   position: fixed;
   /* position: relative; */
-  background-image: linear-gradient(to right, rgba(39, 39, 39, 0.8), rgba(39, 39, 39, 0.8)), url("../../assets/images/HomeBackground.jpg");
+  background-image: linear-gradient(
+      to right,
+      rgba(39, 39, 39, 0.8),
+      rgba(39, 39, 39, 0.8)
+    ),
+    url("../../assets/images/HomeBackground.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -15,7 +20,7 @@
   overflow-y: hidden;
 }
 
-.HomePageContainer__general{
+.HomePageContainer__general {
   width: 50%;
   height: 100vh;
   display: flex;
@@ -27,14 +32,14 @@
   left: 0;
 }
 
-.searchBarContainer{
+.searchBarContainer {
   width: fit-content;
   display: flex;
   align-items: center;
-  justify-content:center;
+  justify-content: center;
 }
 
-.foodGalleryContainer{
+.foodGalleryContainer {
   margin-top: 80px;
   width: 95%;
   height: 75%;
@@ -46,11 +51,20 @@
   overflow-y: scroll;
 }
 
-.foodGalleryContainer::-webkit-scrollbar{
+.foodGalleryContainer div {
+  width: 40%;
+}
+
+.foodGalleryContainer div div {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.foodGalleryContainer::-webkit-scrollbar {
   width: 5px;
 }
 
-.HomePageContainer__signIn{
+.HomePageContainer__signIn {
   width: 50%;
   height: 100%;
   position: fixed;
@@ -61,7 +75,7 @@
   align-items: center;
 }
 
-.HomePageContainer__signInBtn{
+/* .HomePageContainer__signInBtn {
   z-index: 1;
   position: relative;
   font-size: inherit;
@@ -74,7 +88,7 @@
 }
 
 .HomePageContainer__signInBtn::before {
-  content: '';
+  content: "";
   z-index: -1;
   position: absolute;
   top: 0;
@@ -94,4 +108,4 @@
 .HomePageContainer__signInBtn:hover::before {
   transform-origin: center left;
   transform: scaleX(1);
-}
+} */

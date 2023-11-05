@@ -1,12 +1,218 @@
-.collectionPageContainer{
-    width: 100vw;
-    height: 100vh;
-    position: fixed;
-    top: 60;
-    border: 1px solid red;
+.collectionPageContainer {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: space-around;
+  background-image: linear-gradient(
+      to right,
+      rgba(39, 39, 39, 0.8),
+      rgba(39, 39, 39, 0.8)
+    ),
+    url("../../../assets/images/HomeBackground.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
-.collectorList{
-    border: 1px solid red;
-    width: 300px;
+.collectorListContainer {
+  border-radius: 9px;
+  padding: 4px;
+  box-shadow: 0px 0px 10px rgb(114, 17, 17);
+  width: 20%;
+  height: 84vh;
+  margin: 10px 0px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.collectionList {
+  border: 3px solid rgb(114, 17, 17);
+  border-radius: 5px;
+  height: 94.6%;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.collectionList__myCollection {
+  background-color: rgb(114, 17, 17);
+  border-radius: 5px;
+}
+
+.collectionList__all {
+  overflow: hidden;
+  overflow-y: scroll;
+}
+
+.collectionList__all::-webkit-scrollbar {
+  width: 0px;
+}
+
+.collectionList__all div:not(:last-child) {
+  margin: 10px 0px;
+}
+
+.collectionGallery {
+  width: 75%;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
+  height: 85vh;
+  margin: 10px 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.collectionGallery__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: white;
+  padding: 10px 0px;
+  height: 50px;
+  width: 95%;
+}
+
+.collectionGallery__titleAndCreate {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.collectionGallery__title {
+  font-weight: 1000;
+  font-size: 24px;
+}
+
+.collectionGallery__create {
+  border: 2px solid rgb(114, 17, 17);
+  background-color: rgb(255, 255, 255);
+  color: rgb(114, 17, 17);
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 5px;
+  cursor: pointer;
+}
+
+.collectionGallery__typeSearch {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 40px;
+}
+
+.collectionGallery__map {
+  background-color: rgba(255, 255, 255, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid rgb(114, 17, 17);
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  color: black;
+}
+
+.collectionGallery__map svg {
+  width: 50%;
+  height: 50%;
+}
+
+.collectionGallery__foodGallery {
+  width: 95%;
+  display: flex;
+  justify-content: space-between;
+  overflow: hidden;
+  overflow-y: scroll;
+  flex-wrap: wrap;
+}
+
+.collectionGallery__foodGallery::-webkit-scrollbar {
+  width: 0px;
+}
+
+.collectionGallery__foodGallery div {
+  width: 30%;
+}
+
+.collectionGallery__foodGallery div div {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+body.active-modal {
+  overflow-y: hidden;
+}
+
+.modal,
+.modal__overlay {
+  width: 100vw;
+  height: 100vh;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal__overlay {
+  background-color: rgba(255, 255, 255, 0.71);
+}
+
+.modal__content {
+  color: black;
+  background-color: white;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  top: 30%;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal__closeButton {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  cursor: pointer;
+}
+
+.modal__title {
+  font-size: 700;
+  margin-bottom: 10px;
+}
+
+.modal__form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal__content input {
+  padding: 10px;
+  margin-top: 5px;
+}
+
+.modal__createButton {
+  border: 1px solid black;
+  background-color: rgb(114, 17, 17);
+  color: white;
+  font-weight: 700;
+  border-radius: 5px;
+  padding: 5px;
+  margin-top: 10px;
+  font-size: 18px;
+  cursor: pointer;
 }

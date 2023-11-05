@@ -1,61 +1,59 @@
-.foodGallery__card{
-    width: 40%;
-    display: flex;
-    flex-direction: column;
-    border: 1px solid #5d0404;
-    /* border: 1px solid rgb(212, 208, 208); */
-    background-color: rgba(0, 0, 0, 0.4);
-    border-radius: 5px;
-    box-shadow: 0px 0px 2px #5d0404;
-    padding: 10px;
-    margin-bottom: 15px;
-    color: white;
-    font-weight: 500;
+.foodGallery__card {
+  /* width: inherit; */
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #5d0404;
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 5px;
+  box-shadow: 0px 0px 2px #5d0404;
+  padding: 10px;
+  margin-bottom: 15px;
+  color: white;
+  font-weight: 500;
+  /* box-sizing: border-box; */
 }
 
-.foodGallery__card:hover{
-    /* background-color: rgba(255, 255, 255, 0.196); */
-    border: 1px solid rgb(212, 208, 208);
-    box-shadow: 0px 0px 2px rgb(212, 208, 208);
-    /* color: black; */
+.foodGallery__card:hover {
+  border: 1px solid rgb(212, 208, 208);
+  box-shadow: 0px 0px 2px rgb(212, 208, 208);
 }
 
-.foodGallery__image{
-    height: 200px;
-    width: 100%;
-    overflow: hidden;
-    position: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.foodGallery__image {
+  height: 200px;
+  width: 100%;
+  overflow: hidden;
+  position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.foodGallery__title{
-    margin-top: 5px;
-    font-size: 18px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+.foodGallery__title {
+  margin-top: 5px;
+  font-size: 18px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.foodGallery__resto{
-    font-size: 14px;
-    color: grey;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+.foodGallery__resto {
+  font-size: 14px;
+  color: grey;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.foodGallery__starRate{
-    height: 20px;
+.foodGallery__starRate {
+  height: 20px;
 }
 
-.foodGallery__priceAndParts{
-    height: 20px;
-    display: flex;
-    justify-content: space-between;
+.foodGallery__priceAndParts {
+  height: 20px;
+  display: flex;
+  justify-content: space-between;
 }
 
-.foodGallery__parts{
-    text-align: right;
+.foodGallery__parts {
+  text-align: right;
 }

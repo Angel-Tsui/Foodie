@@ -1,31 +1,32 @@
-.myCollectionContainer{
-    width: 220px;
-    height: 50px;
-    border: 2px solid rgb(114, 17, 17);
-    border-radius: 5px;
-    background-color: rgba(0, 0, 0, 0.416);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
+.myCollectionContainer {
+  width: 220px;
+  height: 50px;
+  border: 2px solid rgb(114, 17, 17);
+  border-radius: 5px;
+  /* background-color: rgba(0, 0, 0, 0.416); */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  overflow: hidden;
 }
 
-.myIconContainer{
-    width: 30%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.myIconContainer {
+  width: 30%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.myIcon{
-    width: 40px;
-    height: 40px;
-    border: 1px solid grey;
-    border-radius: 50%;
-    overflow: hidden;
-    white-space: nowrap;
+.myIcon {
+  width: 40px;
+  height: 40px;
+  border: 2px solid grey;
+  border-radius: 50%;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
-.myCollection{
-    width: 70%;
+.myCollection {
+  width: 70%;
 }

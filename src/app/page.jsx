@@ -1,6 +1,8 @@
-import styles from './page.module.css'
-import SearchBar from '../../components/searchBar/searchBar'
-import FoodGallery from '../../components/foodGallery/foodGallery'
+import styles from "./page.module.css";
+// import dynamic from "next/dynamic";
+// const SearchBar = dynamic(import("../../components/searchBar/searchBar"));
+import SearchBar from "../../components/searchBar/searchBar";
+import FoodGallery from "../../components/foodGallery/foodGallery";
 
 export default function Home() {
   return (
@@ -17,5 +19,5 @@ export default function Home() {
         {/* <div className={styles.HomePageContainer__signInBtn}>BECOME A COLLECTOR</div> */}
       </div>
     </div>
-  )
+  );
 }
