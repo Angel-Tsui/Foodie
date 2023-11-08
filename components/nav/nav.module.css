@@ -38,42 +38,8 @@
   font-weight: 500;
 }
 
-/* .nav__signIn{
-    position: relative;
-}
-
-.nav__signIn::before{
-    content: "";
-    position: absolute;
-    left: 50%;
-    bottom: 0;
-    width: 100%;
-    height: 2px;
-    background-color: #fc2f70;
-    transform-origin: center;
-    transform: translate(-50%, 0) scaleX(0);
-    transition: transform 0.3s ease-in-out;
-}
-
-.nav__signIn:hover::before{
-    transform: translate(-50%, 0) scaleX(1);
-}
-
-.nav__signIn:hover{
-    cursor: pointer;
-} */
-
 .nav__signUp {
-  /* width: 220px;
-    height: 50px;
-    background-color: rgba(114, 17, 17, 0.546);
-    border: 2px solid black;
-    border-radius: 5px; */
   position: relative;
-  /* display: flex;
-    justify-content: center;
-    align-items: center; */
-  /* color: black; */
   cursor: pointer;
 }
 
@@ -96,4 +62,52 @@
 
 .nav__signUp:hover {
   cursor: pointer;
+}
+
+.menu {
+  position: relative;
+}
+
+.menu__btn {
+  height: 50px;
+  width: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.menu__btn svg {
+  width: 80%;
+  height: 80%;
+}
+
+.menu__dropDown {
+  display: none;
+  background-color: rgb(114, 17, 17);
+  z-index: 1000;
+  position: absolute;
+  right: 0px;
+  min-width: 120px;
+}
+
+.menu__dropDown div {
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.menu__dropDown svg {
+  margin-right: 5px;
+}
+
+.menu:hover .menu__dropDown {
+  display: block;
+}
+
+.menu__dropDown div:hover {
+  background-color: white;
+  color: rgb(114, 17, 17);
 }
