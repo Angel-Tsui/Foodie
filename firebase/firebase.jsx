@@ -1,22 +1,20 @@
-// import { getApps, initializeApp } from 'firebase/app'
-// import '@firebase/firestore'
-// import { getAuth } from 'firebase/auth'
+import { getApps, initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 
-// const firebaseConfig = {
-//     apiKey: "AIzaSyDwhzcilYDtQp31wnkektOeqhrBYuZXiFo",
-//     authDomain: "foodie-fb9ed.firebaseapp.com",
-//     projectId: "foodie-fb9ed",
-//     storageBucket: "foodie-fb9ed.appspot.com",
-//     messagingSenderId: "143514364350",
-//     appId: "1:143514364350:web:f73aa56f9d183ce73671ef"
-//   };
+const firebaseConfig = {
+  apiKey: "AIzaSyDtiddAN8qX239bO-90pEwkI2LFqj26Ikw",
+  authDomain: "food-recordy.firebaseapp.com",
+  projectId: "food-recordy",
+  storageBucket: "food-recordy.appspot.com",
+  messagingSenderId: "333618300131",
+  appId: "1:333618300131:web:156cb9ba5e35324a8fb1d6",
+};
 
-// // Initialize Firebase if this project is not initialized
-// if(!getApps.length){
-//     initializeApp(firebaseConfig)
-// }
+const app = initializeApp(firebaseConfig);
 
-// const firestore = firebase.firestore();
-// const auth = firebase.auth();
+// Initialize Firestore
+export const db = getFirestore(app);
 
-// export default { firestore, auth };
+// Initialize Firebase Authentication
+export const auth = getAuth(app);

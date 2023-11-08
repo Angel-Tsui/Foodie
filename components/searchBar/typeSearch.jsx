@@ -4,7 +4,6 @@ import { BiSearchAlt } from "react-icons/bi";
 
 export default function TypeSearch() {
   return (
-    // <div className={styles.typeSearch}>
     <div className={styles.searchBar__typeSearch}>
       <input
         type="text"
@@ -15,6 +14,5 @@ export default function TypeSearch() {
         <BiSearchAlt />
       </div>
     </div>
-    // </div>
   );
 }

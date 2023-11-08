@@ -1,5 +1,4 @@
 .foodGallery__card {
-  /* width: inherit; */
   display: flex;
   flex-direction: column;
   border: 1px solid #5d0404;
@@ -10,7 +9,6 @@
   margin-bottom: 15px;
   color: white;
   font-weight: 500;
-  /* box-sizing: border-box; */
 }
 
 .foodGallery__card:hover {

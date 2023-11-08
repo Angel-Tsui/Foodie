@@ -1,7 +1,6 @@
 import "./globals.css";
-// import dynamic from 'next/dynamic'
-// const Nav = dynamic(() => import("../../components/nav/nav"), {ssr: false})
-import Nav from "../../components/nav/nav";
+import dynamic from "next/dynamic";
+const Nav = dynamic(() => import("../../components/nav/nav"), { ssr: false });
 
 export const metadata = {
   title: "Create Next App",
