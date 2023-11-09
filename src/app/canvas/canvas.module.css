@@ -55,6 +55,9 @@
   width: 80%;
   height: inherit;
   background-color: rgb(61, 60, 60);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .canvasContainer__createSpace {

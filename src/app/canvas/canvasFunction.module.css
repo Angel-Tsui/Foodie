@@ -1,0 +1,38 @@
+.imageFunctionContainer {
+  width: 95%;
+}
+
+.functionTitle {
+  color: white;
+  font-weight: 700;
+  padding: 10px;
+}
+
+.imageDisplay {
+  margin-top: 10px;
+  height: 80%;
+  /* height: 80%;
+  width: 90%; */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+
+.imageDisplay::-webkit-scrollbar {
+  width: 0px;
+}
+
+.eachImageContainer {
+  height: 150px;
+  /* width: 150px; */
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.eachImage {
+  height: inherit;
+}
