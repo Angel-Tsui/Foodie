@@ -8,36 +8,48 @@
 .meatInfo__input {
   height: inherit;
   width: 50%;
-  border: 1px solid red;
 }
 
 .meatInfo__outputContainer {
   background-color: lightgrey;
   height: inherit;
   width: 50%;
-  border: 1px solid blue;
   display: flex;
   justify-content: center;
-  align-items: center;
+  /* align-items: center; */
+  /* position: relative; */
 }
 
 .meatInfo__output {
   background-color: white;
+  margin-top: 2px;
+  /* position: absolute;
+  top: 10%; */
   height: 500px;
   width: 500px;
-  padding: 10px;
+  /* padding: 10px; */
   box-sizing: border-box;
   position: relative;
 }
 
-.output__mainInfo {
+.output__mainInfoAndRadar {
   display: flex;
-  flex-direction: center;
+}
+
+.output__mainInfo {
+  background-color: rgb(114, 17, 17);
+  flex-direction: column;
+  width: 200px;
+  height: 320px;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  box-sizing: border-box;
 }
 
 .output__image {
   height: 150px;
-  min-width: 150px;
+  width: 150px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -46,11 +58,42 @@
 }
 
 .output__textInfo {
-  margin-left: 10px;
+  width: 150px;
+  color: white;
+  margin-top: 5px;
+  /* margin-left: 10px; */
+}
+
+.output__textInfo div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* width: 100%; */
 }
 
 .output__textInfo div:not(:first-child) {
   margin-top: 5px;
+}
+
+.output__textInfo div svg {
+  width: 15%;
+}
+
+.output__textInfo div path {
+  stroke: white;
+}
+
+.output__resto span {
+  font-size: 14px;
+  color: rgb(206, 202, 202);
+}
+
+.output__textInfo div span:not(:first-child) {
+  width: 80%;
+  font-size: 16px;
+  /* overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap; */
 }
 
 .output__title {
@@ -58,8 +101,20 @@
   font-weight: 1000;
 }
 
+.output__radarChart {
+  width: 300px;
+  padding: 10px;
+}
+
+.radar {
+  position: relative;
+}
+
 .output__description {
   position: absolute;
-  bottom: 10px;
-  width: 97%;
+  bottom: 0px;
+  height: 180px;
+  padding: 10px;
+  box-sizing: border-box;
+  /* width: 97%; */
 }

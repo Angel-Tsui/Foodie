@@ -32,7 +32,7 @@ function AddNewModal() {
   }
 
   function handleCreate() {
-    window.location.href = "/canvas";
+    window.location.href = "/meatInfo";
   }
 
   return (
