@@ -6,8 +6,93 @@
 }
 
 .meatInfo__input {
-  height: inherit;
+  height: 90vh;
+  overflow: hidden;
   width: 50%;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.meatInfo__input::-webkit-scrollbar {
+  width: 0px;
+}
+
+.input__basicInfo,
+.input__radarChart,
+.input__descriptionContainer {
+  width: 60%;
+  border-radius: 5px;
+  box-shadow: 0px 0px 5px grey;
+  padding: 10px;
+  box-sizing: border-box;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.input__descriptionContainer {
+  margin-bottom: 20px;
+}
+
+.input__basicInfo .input__basicInfoHeader,
+.input__radarChart .input__radarChartHeader,
+.input__descriptionContainer .input__descriptionHeader {
+  background-color: rgb(114, 17, 17);
+  margin-bottom: 8px;
+  color: white;
+  font-weight: 700;
+  border-radius: 4px;
+  font-size: 24px;
+  padding: 5px;
+}
+
+.input__basicInfo div:not(:first-child),
+.input__radarChart div:not(:first-child),
+.input__description {
+  font-size: 12px;
+}
+
+.input__basicInfo div:not(:first-child) {
+  margin-top: 8px;
+}
+
+.input__description textarea {
+  width: 98%;
+  height: 100px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.input__radarChartItems {
+  display: flex;
+}
+
+.input__radarChartItems div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.input__tender,
+.input__juicy,
+.input__chewy,
+.input__thick,
+.input__rich {
+  width: 15%;
+}
+
+.input__melts {
+  width: 35%;
+}
+
+.input__basicInfo div input:not(:first-child),
+.input__basicInfo div div select {
+  border: 1px solid grey;
+  border-radius: 5px;
+  padding: 5px;
+  box-shadow: 0px 0px 3px rgb(211, 210, 210);
 }
 
 .input__starRating input[type="radio"] {
@@ -25,18 +110,13 @@
   width: 50%;
   display: flex;
   justify-content: center;
-  /* align-items: center; */
-  /* position: relative; */
 }
 
 .meatInfo__output {
   background-color: white;
   margin-top: 2px;
-  /* position: absolute;
-  top: 10%; */
   height: 500px;
   width: 500px;
-  /* padding: 10px; */
   box-sizing: border-box;
   position: relative;
 }
@@ -70,14 +150,12 @@
   width: 150px;
   color: white;
   margin-top: 5px;
-  /* margin-left: 10px; */
 }
 
 .output__textInfo div {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* width: 100%; */
 }
 
 .output__textInfo div:not(:first-child) {
@@ -100,9 +178,6 @@
 .output__textInfo div span:not(:first-child) {
   width: 80%;
   font-size: 16px;
-  /* overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap; */
 }
 
 .output__title {
@@ -133,5 +208,4 @@
   height: 180px;
   padding: 10px;
   box-sizing: border-box;
-  /* width: 97%; */
 }

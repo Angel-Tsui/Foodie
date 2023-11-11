@@ -99,6 +99,13 @@
   cursor: pointer;
 }
 
+.collectionGallery__create:hover {
+  /* box-shadow: 0px 0px 3px white; */
+  border: 2px solid white;
+  background-color: rgb(114, 17, 17);
+  color: white;
+}
+
 .collectionGallery__typeSearch {
   display: flex;
   align-items: center;
