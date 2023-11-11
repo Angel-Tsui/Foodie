@@ -19,7 +19,7 @@ export default function RadarChart(allRatings) {
         type: "radar",
         data: {
           labels: [
-            "Melt in your mouth",
+            "Melt in the mouth",
             "Tender",
             "Juicy",
             "Chewy",

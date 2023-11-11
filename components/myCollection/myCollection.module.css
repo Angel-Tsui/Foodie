@@ -10,6 +10,10 @@
   overflow: hidden;
 }
 
+.myCollectionContainer:hover {
+  background-color: rgb(114, 17, 17);
+}
+
 .myIconContainer {
   width: 30%;
   display: flex;
