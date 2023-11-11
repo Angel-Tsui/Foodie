@@ -24,60 +24,61 @@ function CollectorList() {
   );
 }
 
-function AddNewModal() {
-  const [modal, setModal] = useState(false);
+// function AddNewModal() {
+//   const [modal, setModal] = useState(false);
 
-  function toggleModal() {
-    setModal(!modal);
-  }
+//   function toggleModal() {
+//     setModal(!modal);
+//   }
 
-  function handleCreate() {
-    window.location.href = "/meatInfo";
-  }
+//   function handleCreate() {
+//     window.location.href = "/meatInfo";
+//   }
 
-  return (
-    <>
-      <div
-        className={styles.collectionGallery__create}
-        onClick={() => {
-          toggleModal();
-        }}
-      >
-        Add New +
-      </div>
+//   return (
+//     <>
+//       <div
+//         className={styles.collectionGallery__create}
+//         onClick={() => {
+//           window.location.href = "/meatInfo";
+//           // toggleModal();
+//         }}
+//       >
+//         Add New +
+//       </div>
 
-      {modal && (
-        <div className={modalStyles.modal}>
-          <div className={modalStyles.modal__overlay}>
-            <div className={modalStyles.modal__content}>
-              <div className={modalStyles.modal__title}>Let's get Started</div>
-              <div
-                className={modalStyles.modal__closeButton}
-                onClick={toggleModal}
-              >
-                X
-              </div>
-              <form className={modalStyles.modal__form}>
-                <input type="text" placeholder="Title" />
-                <input type="text" placeholder="Restaurant Name" />
-                <input type="text" placeholder="Price" />
-                <input type="text" placeholder="Parts of Beef" />
-                <div
-                  className={modalStyles.modal__submitButton}
-                  onClick={() => {
-                    handleCreate();
-                  }}
-                >
-                  Create Design
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      )}
-    </>
-  );
-}
+//       {/* {modal && (
+//         <div className={modalStyles.modal}>
+//           <div className={modalStyles.modal__overlay}>
+//             <div className={modalStyles.modal__content}>
+//               <div className={modalStyles.modal__title}>Let's get Started</div>
+//               <div
+//                 className={modalStyles.modal__closeButton}
+//                 onClick={toggleModal}
+//               >
+//                 X
+//               </div>
+//               <form className={modalStyles.modal__form}>
+//                 <input type="text" placeholder="Title" />
+//                 <input type="text" placeholder="Restaurant Name" />
+//                 <input type="text" placeholder="Price" />
+//                 <input type="text" placeholder="Parts of Beef" />
+//                 <div
+//                   className={modalStyles.modal__submitButton}
+//                   onClick={() => {
+//                     handleCreate();
+//                   }}
+//                 >
+//                   Create Design
+//                 </div>
+//               </form>
+//             </div>
+//           </div>
+//         </div>
+//       )} */}
+//     </>
+//   );
+// }
 
 function CollectionGalleryHeading() {
   return (
@@ -92,7 +93,15 @@ function CollectionGalleryHeading() {
         <div className={styles.collectionGallery__map}>
           <LiaMapMarkedSolid />
         </div>
-        <AddNewModal />
+        <div
+          className={styles.collectionGallery__create}
+          onClick={() => {
+            window.location.href = "/record";
+          }}
+        >
+          Add New +
+        </div>
+        {/* <AddNewModal /> */}
       </div>
     </div>
   );

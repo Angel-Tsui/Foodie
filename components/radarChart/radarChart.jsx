@@ -1,5 +1,5 @@
 "use client";
-import styles from "../../src/app/meatInfo/meatInfo.module.css";
+import styles from "../../src/app/record/record.module.css";
 import { useRef, useEffect, useState } from "react";
 import { Chart } from "chart.js/auto";
 
@@ -22,9 +22,9 @@ export default function RadarChart(allRatings) {
             "Melt in your mouth",
             "Tender",
             "Juicy",
-            "Chery",
+            "Chewy",
             "Thick",
-            "Marble",
+            "Rich",
           ],
           datasets: [
             {
@@ -44,7 +44,6 @@ export default function RadarChart(allRatings) {
           },
         },
       });
-
       chartRef.current.chart = newChart;
     }
   }, [ratingData]);
