@@ -18,14 +18,7 @@ export default function RadarChart(allRatings) {
       let newChart = new Chart(context, {
         type: "radar",
         data: {
-          labels: [
-            "Melt in the mouth",
-            "Tender",
-            "Juicy",
-            "Chewy",
-            "Thick",
-            "Rich",
-          ],
+          labels: ["Fat Ratio", "Tender", "Juicy", "Chewy", "Thick", "Rich"],
           datasets: [
             {
               label: "Your Rating",

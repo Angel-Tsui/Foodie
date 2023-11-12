@@ -13,6 +13,8 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  padding-bottom: 20px;
+  box-sizing: border-box;
 }
 
 .meatInfo__input::-webkit-scrollbar {
@@ -21,7 +23,8 @@
 
 .input__basicInfo,
 .input__radarChart,
-.input__descriptionContainer {
+.input__descriptionContainer,
+.input__starRatingContainer {
   width: 60%;
   border-radius: 5px;
   box-shadow: 0px 0px 5px grey;
@@ -38,7 +41,8 @@
 
 .input__basicInfo .input__basicInfoHeader,
 .input__radarChart .input__radarChartHeader,
-.input__descriptionContainer .input__descriptionHeader {
+.input__descriptionContainer .input__descriptionHeader,
+.input__starRatingContainer .input__starRatingHeader {
   background-color: rgb(114, 17, 17);
   margin-bottom: 8px;
   color: white;
@@ -50,7 +54,8 @@
 
 .input__basicInfo div:not(:first-child),
 .input__radarChart div:not(:first-child),
-.input__description {
+.input__description,
+.input__starRatingContainer div {
   font-size: 12px;
 }
 
@@ -73,22 +78,12 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-}
-
-.input__tender,
-.input__juicy,
-.input__chewy,
-.input__thick,
-.input__rich {
-  width: 15%;
-}
-
-.input__melts {
-  width: 35%;
+  width: 20%;
 }
 
 .input__basicInfo div input:not(:first-child),
-.input__basicInfo div div select {
+.input__basicInfo div div select,
+.input__basicInfo div select {
   border: 1px solid grey;
   border-radius: 5px;
   padding: 5px;
@@ -128,16 +123,16 @@
 .output__mainInfo {
   background-color: rgb(114, 17, 17);
   flex-direction: column;
+  align-items: center;
   width: 200px;
   height: 320px;
   display: flex;
-  align-items: center;
   padding: 10px;
   box-sizing: border-box;
 }
 
 .output__image {
-  height: 150px;
+  /* height: 150px; */
   width: 150px;
   display: flex;
   justify-content: center;
@@ -146,10 +141,14 @@
   position: relative;
 }
 
+.output__image img {
+  width: 100%;
+}
+
 .output__textInfo {
   width: 150px;
   color: white;
-  margin-top: 5px;
+  margin-top: 10px;
 }
 
 .output__textInfo div {
@@ -170,19 +169,21 @@
   stroke: white;
 }
 
-.output__resto span {
-  font-size: 14px;
-  color: rgb(206, 202, 202);
-}
-
-.output__textInfo div span:not(:first-child) {
+.output__textInfo div span:not(.output__resto span),
+.output__textInfo div span:not(.output__name) {
   width: 80%;
-  font-size: 16px;
+  font-size: 14px;
 }
 
-.output__title {
-  font-size: 24px;
-  font-weight: 1000;
+.output__name {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.output__resto span {
+  font-size: 12px;
+  width: 80%;
+  color: rgb(206, 202, 202);
 }
 
 .output__starRating {
