@@ -1,3 +1,4 @@
+"use client";
 export const userToken = getToken();
 
 function getToken() {
@@ -31,4 +32,4 @@ function getUserInfoFromToken() {
   }
 }
 
-export { verify, signInOrSignOut, getUserInfoFromToken };
+export { getUserInfoFromToken, verify, signInOrSignOut };

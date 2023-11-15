@@ -4,8 +4,11 @@ import MyCollection from "../../../components/myCollection/myCollection";
 import TypeSearch from "../../../components/searchBar/typeSearch";
 import { LiaMapMarkedSolid } from "react-icons/lia";
 import FoodGallery from "../../../components/foodGallery/foodGallery";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import modalStyles from "../../../components/modal/modal.module.css";
+import AddNewRecord from "./addNewRecord";
+import { verify, getUserInfoFromToken } from "../../../firebase/verify";
+import { getRecordsData } from "../../../firebase/firestore";
 import dynamic from "next/dynamic";
 const GetName = dynamic(() => import("./getName"), { ssr: false });
 
@@ -80,7 +83,7 @@ function CollectorList() {
 //   );
 // }
 
-function CollectionGalleryHeading() {
+function CollectionGalleryHeading(userId) {
   return (
     <div className={styles.collectionGallery__header}>
       <div className={styles.collectionGallery__titleAndCreate}>
@@ -96,7 +99,7 @@ function CollectionGalleryHeading() {
         <div
           className={styles.collectionGallery__create}
           onClick={() => {
-            window.location.href = "/record";
+            AddNewRecord(userId);
           }}
         >
           Add New +
@@ -107,23 +110,44 @@ function CollectionGalleryHeading() {
   );
 }
 
-function CollectionGallery() {
+function CollectionGallery(allData) {
+  let fullSetData = allData.allData;
+  console.log("in", fullSetData);
   return (
     <div className={styles.collectionGallery__foodGallery}>
-      <FoodGallery />
+      <FoodGallery fullSetData={fullSetData} />
     </div>
   );
 }
 
 export default function Collection() {
+  const [userId, setUserId] = useState("");
+  console.log(userId);
+  const [allData, setAllData] = useState([]);
+  console.log("allData", allData);
+
+  const getUser = useEffect(() => {
+    verify();
+
+    let userInfo = getUserInfoFromToken();
+    let userId = userInfo.userId;
+    setUserId(userId);
+  }, []);
+
+  useEffect(() => {
+    getRecordsData().then((allData) => {
+      setAllData(allData);
+    });
+  }, []);
+
   return (
     <div className={styles.collectionPageContainer}>
       <div className={styles.collectorListContainer}>
         <CollectorList />
       </div>
       <div className={styles.collectionGallery}>
-        <CollectionGalleryHeading />
-        <CollectionGallery />
+        <CollectionGalleryHeading userId={userId} />
+        <CollectionGallery allData={allData} />
       </div>
     </div>
   );

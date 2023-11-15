@@ -19,13 +19,12 @@ const getRecord = (recordId) => {
   return data;
 };
 
-export default function Record(fullSetData) {
-  console.log(fullSetData);
-  console.log(fullSetData.allData);
-  let currentData = fullSetData.allData;
-  console.log(fullSetData.allRatings);
-  let allRatings = fullSetData.allRatings;
+export default function Record(recordId) {
   const [record, setRecord] = useState(getRecord());
+  console.log(record);
+
+  let recordData = getSingleRecordData(recordId);
+  console.log(recordData);
   // const [currentData, setCurrentData] = useState({});
   // const [userId, setUserId] = useState("");
   // console.log(userId);
@@ -49,32 +48,32 @@ export default function Record(fullSetData) {
   //   data();
   // }, []);
 
-  // const [image, setImage] = useState("");
-  // const [imageUrl, setImageUrl] = useState("");
-  // const [name, setName] = useState("");
-  // const [resto, setResto] = useState("");
-  // const [currency, setCurrency] = useState("HKD");
-  // const [price, setPrice] = useState("");
-  // const [parts, setParts] = useState("");
-  // const [cusine, setCuisine] = useState("");
-  // const [cooked, setCooked] = useState("");
-  // const [starRating, setStarRating] = useState(0);
+  const [image, setImage] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
+  const [name, setName] = useState("");
+  const [resto, setResto] = useState("");
+  const [currency, setCurrency] = useState("HKD");
+  const [price, setPrice] = useState("");
+  const [parts, setParts] = useState("");
+  const [cusine, setCuisine] = useState("");
+  const [cooked, setCooked] = useState("");
+  const [starRating, setStarRating] = useState(0);
   const [hover, setHover] = useState(null);
-  // const [fat, setFat] = useState(0);
-  // const [tender, setTender] = useState(0);
-  // const [juicy, setJuicy] = useState(0);
-  // const [chewy, setChewy] = useState(0);
-  // const [thick, setThick] = useState(0);
-  // const [rich, setRich] = useState(0);
-  // const [description, setDescription] = useState("");
-  // const [allRatings, setAllRatings] = useState([
-  //   fat,
-  //   tender,
-  //   juicy,
-  //   chewy,
-  //   thick,
-  //   rich,
-  // ]);
+  const [fat, setFat] = useState(0);
+  const [tender, setTender] = useState(0);
+  const [juicy, setJuicy] = useState(0);
+  const [chewy, setChewy] = useState(0);
+  const [thick, setThick] = useState(0);
+  const [rich, setRich] = useState(0);
+  const [description, setDescription] = useState("");
+  const [allRatings, setAllRatings] = useState([
+    fat,
+    tender,
+    juicy,
+    chewy,
+    thick,
+    rich,
+  ]);
 
   // useEffect(() => {
   //   setRecord(
@@ -140,9 +139,9 @@ export default function Record(fullSetData) {
     // );
   };
 
-  // useEffect(() => {
-  //   setAllRatings([fat, tender, juicy, chewy, thick, rich]);
-  // }, [fat, tender, juicy, chewy, thick, rich]);
+  useEffect(() => {
+    setAllRatings([fat, tender, juicy, chewy, thick, rich]);
+  }, [fat, tender, juicy, chewy, thick, rich]);
 
   return (
     <form id="inputForm">
@@ -169,7 +168,6 @@ export default function Record(fullSetData) {
           <br />
           <select
             id="input__parts"
-            value={currentData.parts}
             onChange={(e) => {
               setParts(e.target.value);
             }}
@@ -217,7 +215,6 @@ export default function Record(fullSetData) {
           Cusine:
           <br />
           <select
-            value={currentData.cusine}
             onChange={(e) => {
               setCuisine(e.target.value);
             }}
@@ -234,10 +231,9 @@ export default function Record(fullSetData) {
           <br />
           <input
             id="input__name"
-            value={currentData.name}
             type="text"
             onChange={(e) => {
-              onChanged(e.target.value);
+              setName(e.target.value);
             }}
           />
           <div className={styles.input__resto}>
@@ -245,7 +241,6 @@ export default function Record(fullSetData) {
             <br />
             <input
               id="input__resto"
-              value={currentData.resto}
               type="text"
               onChange={(e) => {
                 setResto(e.target.value);
@@ -257,7 +252,6 @@ export default function Record(fullSetData) {
             <br />
             <select
               id="input__price--currency"
-              value={currentData.currency}
               onChange={(e) => {
                 setCurrency(e.target.value);
               }}
@@ -269,11 +263,9 @@ export default function Record(fullSetData) {
             </select>
             <input
               id="input__price"
-              value={currentData.price}
               type="number"
               onChange={(e) => {
-                console.log(e.target.value);
-                setAllData.allData.price(e.target.value);
+                setPrice(e.target.value);
               }}
             />
           </div>
@@ -281,7 +273,6 @@ export default function Record(fullSetData) {
             Doneness:
             <br />
             <select
-              value={currentData.cooked}
               id="input__cooked"
               onChange={(e) => {
                 setCooked(e.target.value);
@@ -304,7 +295,6 @@ export default function Record(fullSetData) {
             Tender:
             <br />
             <select
-              value={allRatings[1]}
               onChange={(e) => {
                 setTender(e.target.value);
               }}
@@ -326,7 +316,6 @@ export default function Record(fullSetData) {
             Juicy:
             <br />
             <select
-              value={allRatings[2]}
               onChange={(e) => {
                 setJuicy(e.target.value);
               }}
@@ -348,7 +337,6 @@ export default function Record(fullSetData) {
             Chewy:
             <br />
             <select
-              value={allRatings[3]}
               onChange={(e) => {
                 setChewy(e.target.value);
               }}
@@ -370,7 +358,6 @@ export default function Record(fullSetData) {
             Thick:
             <br />
             <select
-              value={allRatings[4]}
               onChange={(e) => {
                 setThick(e.target.value);
               }}
@@ -392,7 +379,6 @@ export default function Record(fullSetData) {
             Rich:
             <br />
             <select
-              value={allRatings[5]}
               onChange={(e) => {
                 setRich(e.target.value);
               }}
@@ -414,7 +400,6 @@ export default function Record(fullSetData) {
             Fat Ratio:
             <br />
             <select
-              value={allRatings[0]}
               onChange={(e) => {
                 setFat(e.target.value);
               }}
@@ -451,7 +436,6 @@ export default function Record(fullSetData) {
           <br />
           <textarea
             id="input__description"
-            value={currentData.description}
             onChange={(e) => {
               setDescription(e.target.value);
             }}
@@ -480,7 +464,7 @@ export default function Record(fullSetData) {
                   className={styles.star}
                   size={30}
                   color={
-                    rating <= (hover || currentData.starRating)
+                    rating <= (hover || starRating)
                       ? "rgb(114, 17, 17)"
                       : "rgb(219, 218, 218)"
                   }
