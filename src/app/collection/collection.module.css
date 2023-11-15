@@ -133,7 +133,8 @@
 .collectionGallery__foodGallery {
   width: 95%;
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
+  gap: 40px;
   overflow: hidden;
   overflow-y: scroll;
   flex-wrap: wrap;

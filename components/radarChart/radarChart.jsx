@@ -4,6 +4,7 @@ import { useRef, useEffect, useState } from "react";
 import { Chart } from "chart.js/auto";
 
 export default function RadarChart(allRatings) {
+  // console.log("radar allRatings", allRatings.allRatings);
   let ratingData = allRatings.allRatings;
 
   const chartRef = useRef(null);
