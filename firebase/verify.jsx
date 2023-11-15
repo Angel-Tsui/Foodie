@@ -2,16 +2,20 @@
 export const userToken = getToken();
 
 function getToken() {
-  let userToken = window.localStorage.getItem("token");
-  return userToken;
+  if (typeof window != "undefined") {
+    let userToken = window.localStorage.getItem("token");
+    return userToken;
+  }
 }
 
 async function verify() {
-  let userToken = window.localStorage.getItem("token");
-  if (userToken == null) {
-    window.location = "/";
-  } else {
-    return userToken;
+  if (typeof window != "undefined") {
+    let userToken = window.localStorage.getItem("token");
+    if (userToken == null) {
+      window.location = "/";
+    } else {
+      return userToken;
+    }
   }
 }
 
@@ -25,10 +29,12 @@ function signInOrSignOut() {
 }
 
 function getUserInfoFromToken() {
-  let userToken = getToken();
-  if (userToken != null) {
-    userToken = JSON.parse(userToken);
-    return userToken;
+  if (typeof window != "undefined") {
+    let userToken = getToken();
+    if (userToken != null) {
+      userToken = JSON.parse(userToken);
+      return userToken;
+    }
   }
 }
 

@@ -112,7 +112,7 @@ function CollectionGalleryHeading(userId) {
 
 function CollectionGallery(allData) {
   let fullSetData = allData.allData;
-  console.log("in", fullSetData);
+  // console.log("in", fullSetData);
   return (
     <div className={styles.collectionGallery__foodGallery}>
       <FoodGallery fullSetData={fullSetData} />
@@ -122,11 +122,11 @@ function CollectionGallery(allData) {
 
 export default function Collection() {
   const [userId, setUserId] = useState("");
-  console.log(userId);
+  // console.log(userId);
   const [allData, setAllData] = useState([]);
-  console.log("allData", allData);
+  // console.log("allData", allData);
 
-  const getUser = useEffect(() => {
+  useEffect(() => {
     verify();
 
     let userInfo = getUserInfoFromToken();

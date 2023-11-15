@@ -10,11 +10,10 @@ export default function Home() {
           <SearchBar />
         </div>
         <div className={styles.foodGalleryContainer}>
-          <FoodGallery />
+          {/* <FoodGallery /> */}
         </div>
       </div>
-      <div className={styles.HomePageContainer__signIn}>
-      </div>
+      <div className={styles.HomePageContainer__signIn}></div>
     </div>
   );
 }
