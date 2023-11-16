@@ -5,16 +5,12 @@ import handleUploadImage from "../../../../components/radarChart/imageUpload";
 import { FaStar } from "react-icons/fa";
 import DisplayData from "../displayData";
 import { getSingleRecordData, setRecord } from "../../../../firebase/firestore";
-// import dynamic from "next/dynamic";
-// const getUserInfoFromToken = dynamic(() =>
-//   import("../../../../firebase/verify")
-// );
 import { verify, getUserInfoFromToken } from "../../../../firebase/verify";
 
 export default function Record(recordId) {
   let SingleRecordid = recordId.params.recordId;
-  // console.log("singleRedordid", SingleRecordid);
 
+  // Initialize Page and Data
   useEffect(() => {
     verify();
     getSingleRecordData(SingleRecordid).then((recordData) => {
@@ -65,6 +61,7 @@ export default function Record(recordId) {
     thick,
     rich,
   ]);
+  const [isSaved, setIsSaved] = useState(<div>Save</div>);
 
   useEffect(() => {
     setAllRatings([fat, tender, juicy, chewy, thick, rich]);
@@ -98,6 +95,7 @@ export default function Record(recordId) {
       starRating: starRating,
       description: description,
     });
+    setIsSaved(<div>Save</div>);
   }, [
     imageUrl,
     name,
@@ -286,17 +284,9 @@ export default function Record(recordId) {
                       setTender(e.target.value);
                     }}
                   >
-                    <option value={0}>0</option>
-                    <option value={1}>1</option>
-                    <option value={2}>2</option>
-                    <option value={3}>3</option>
-                    <option value={4}>4</option>
-                    <option value={5}>5</option>
-                    <option value={6}>6</option>
-                    <option value={7}>7</option>
-                    <option value={8}>8</option>
-                    <option value={9}>9</option>
-                    <option value={10}>10</option>
+                    {[...Array(11)].map((each, index) => (
+                      <option value={index}>{index}</option>
+                    ))}
                   </select>
                 </div>
                 <div className={styles.input__juicy}>
@@ -308,17 +298,9 @@ export default function Record(recordId) {
                       setJuicy(e.target.value);
                     }}
                   >
-                    <option value={0}>0</option>
-                    <option value={1}>1</option>
-                    <option value={2}>2</option>
-                    <option value={3}>3</option>
-                    <option value={4}>4</option>
-                    <option value={5}>5</option>
-                    <option value={6}>6</option>
-                    <option value={7}>7</option>
-                    <option value={8}>8</option>
-                    <option value={9}>9</option>
-                    <option value={10}>10</option>
+                    {[...Array(11)].map((each, index) => (
+                      <option value={index}>{index}</option>
+                    ))}
                   </select>
                 </div>
                 <div className={styles.input__chewy}>
@@ -330,17 +312,9 @@ export default function Record(recordId) {
                       setChewy(e.target.value);
                     }}
                   >
-                    <option value={0}>0</option>
-                    <option value={1}>1</option>
-                    <option value={2}>2</option>
-                    <option value={3}>3</option>
-                    <option value={4}>4</option>
-                    <option value={5}>5</option>
-                    <option value={6}>6</option>
-                    <option value={7}>7</option>
-                    <option value={8}>8</option>
-                    <option value={9}>9</option>
-                    <option value={10}>10</option>
+                    {[...Array(11)].map((each, index) => (
+                      <option value={index}>{index}</option>
+                    ))}
                   </select>
                 </div>
                 <div className={styles.input__thick}>
@@ -352,17 +326,9 @@ export default function Record(recordId) {
                       setThick(e.target.value);
                     }}
                   >
-                    <option value={0}>0</option>
-                    <option value={1}>1</option>
-                    <option value={2}>2</option>
-                    <option value={3}>3</option>
-                    <option value={4}>4</option>
-                    <option value={5}>5</option>
-                    <option value={6}>6</option>
-                    <option value={7}>7</option>
-                    <option value={8}>8</option>
-                    <option value={9}>9</option>
-                    <option value={10}>10</option>
+                    {[...Array(11)].map((each, index) => (
+                      <option value={index}>{index}</option>
+                    ))}
                   </select>
                 </div>
                 <div className={styles.input__rich}>
@@ -374,17 +340,9 @@ export default function Record(recordId) {
                       setRich(e.target.value);
                     }}
                   >
-                    <option value={0}>0</option>
-                    <option value={1}>1</option>
-                    <option value={2}>2</option>
-                    <option value={3}>3</option>
-                    <option value={4}>4</option>
-                    <option value={5}>5</option>
-                    <option value={6}>6</option>
-                    <option value={7}>7</option>
-                    <option value={8}>8</option>
-                    <option value={9}>9</option>
-                    <option value={10}>10</option>
+                    {[...Array(11)].map((each, index) => (
+                      <option value={index}>{index}</option>
+                    ))}
                   </select>
                 </div>
                 <div className={styles.input__fat}>
@@ -396,17 +354,9 @@ export default function Record(recordId) {
                       setFat(e.target.value);
                     }}
                   >
-                    <option value={0}>0</option>
-                    <option value={1}>1</option>
-                    <option value={2}>2</option>
-                    <option value={3}>3</option>
-                    <option value={4}>4</option>
-                    <option value={5}>5</option>
-                    <option value={6}>6</option>
-                    <option value={7}>7</option>
-                    <option value={8}>8</option>
-                    <option value={9}>9</option>
-                    <option value={10}>10</option>
+                    {[...Array(11)].map((each, index) => (
+                      <option value={index}>{index}</option>
+                    ))}
                   </select>
                 </div>
               </div>
@@ -480,9 +430,14 @@ export default function Record(recordId) {
               type="submit"
               onClick={(e) => {
                 handleSubmit(e);
+                // setIsClicked(!isClicked);
+                setIsSaved(<div className={styles.loader}></div>);
+                setTimeout(() => {
+                  setIsSaved(<div>Saved</div>);
+                }, 2000);
               }}
             >
-              Save
+              {isSaved}
             </div>
           </form>
         </div>
