@@ -7,6 +7,7 @@ import {
   getDoc,
   onSnapshot,
   updateDoc,
+  orderBy,
 } from "firebase/firestore";
 
 const setRecord = async (
@@ -24,6 +25,8 @@ const setRecord = async (
   description,
   userId
 ) => {
+  console.log(userId);
+  let timestamp = Date.now();
   await setDoc(doc(firestore, "records", recordId), {
     imageUrl: imageUrl,
     name: name,
@@ -36,6 +39,7 @@ const setRecord = async (
     starRating: starRating,
     allRatings: allRatings,
     description: description,
+    timestamp: timestamp,
     userId: userId,
   });
 };
@@ -49,34 +53,6 @@ const getSingleRecordData = async (recordId) => {
   const singleData = await getDoc(doc(firestore, "records", id));
   return singleData.data();
 };
-
-// onSnapshot(colRef, (recordId) => {
-//   async (recordId) => {
-//     // console.log("recordId", recordId);
-//     let id = recordId.recordId;
-//     // console.log(id);
-//     const singleData = await getDoc(doc(firestore, "records", id));
-//     return singleData.data();
-//   };
-// });
-// import {firestore} from './firebase'
-// import {getUserInfoFromToken} from '../components/verify'
-
-// function getId() {
-//   let userInfo = getUserInfoFromToken();
-//   let signedInId = userInfo["userId"];
-//   return signedInId;
-// }
-// const getId = (id) => {
-//   return id;
-// };
-// const docRef = doc(firestore, "records", );
-
-// const getSingleRecordData = async () => {
-
-//   const doc = await getDoc(docRef);
-//   console.log("data", doc.data(), doc.id);
-// };
 
 const getRecordsData = async () => {
   let recordsCollection = await getDocs(colRef);
@@ -132,48 +108,9 @@ const addRecordsData = async (
   });
 };
 
-const updateRecordsData = () => {};
-//   getDocs(colRef).then((snapshot) => {
-//     console.log(snapshot.docs);
-//   });
-//   const userid = await getId();
-//   const data = snapshot.docs.map((doc) => ({
-//     id: doc.id,
-//     ...doc.data(),
-//   }));
-//   return data;
-
-// const getData = async () => {
-//     const userid = await getId()
-//     const snapshot = await firestore.collection("data").where("userid", "==", userid).orderBy("timestamp").get()
-//     const data = snapshot.docs.map((doc) => ({
-//         id: doc.id,
-//         ...doc.data(),
-//     }));
-//     return data
-// }
-
-// const createData = async (debCred, price, desc, timestamp) => {
-//     const userid = await getId()
-//     const ref = await firestore.collection("data").add({debCred, price, desc, timestamp, userid});
-
-//     const newData = {
-//         id : ref.id,
-//         ...{debCred, price, desc},
-//     };
-
-//     return newData;
-// }
-
 // const deleteDataById = async (id) => {
 //     const deleteData = await firestore.collection("data").doc(id).delete()
 //     return deleteData
 // }
 
-export {
-  getRecordsData,
-  setRecord,
-  getSingleRecordData,
-  addRecordsData,
-  updateRecordsData,
-};
+export { getRecordsData, setRecord, getSingleRecordData, addRecordsData };

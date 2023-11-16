@@ -118,6 +118,8 @@ export default function Record(recordId) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    // console.log(userId);
+
     setRecord(
       SingleRecordid,
       imageUrl,
@@ -434,7 +436,7 @@ export default function Record(recordId) {
                 setIsSaved(<div className={styles.loader}></div>);
                 setTimeout(() => {
                   setIsSaved(<div>Saved</div>);
-                }, 2000);
+                }, 1500);
               }}
             >
               {isSaved}
