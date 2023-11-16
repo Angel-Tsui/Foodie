@@ -132,7 +132,7 @@ export default function Collection() {
   const [userId, setUserId] = useState("");
   // console.log(userId);
   const [allData, setAllData] = useState([]);
-  console.log("allData", allData);
+  // console.log("allData", allData);
 
   useEffect(() => {
     verify();
@@ -140,13 +140,30 @@ export default function Collection() {
     let userInfo = getUserInfoFromToken();
     let userId = userInfo.userId;
     setUserId(userId);
-  }, []);
+    // console.log("effect", userId);
 
-  useEffect(() => {
-    getRecordsData().then((allData) => {
+    let filterInfo = {
+      orderMethod: "timestamp",
+      AscOrDesc: "desc",
+      userId: userId,
+    };
+
+    getRecordsData({ filterInfo }).then((allData) => {
       setAllData(allData);
     });
   }, []);
+
+  // useEffect(() => {
+  //   console.log("effect", userId);
+  //   let filterInfo = {
+  //     orderMethod: "timestamp",
+  //     AscOrDesc: "desc",
+  //     userId: userId,
+  //   };
+  //   getRecordsData({ filterInfo }).then((allData) => {
+  //     setAllData(allData);
+  //   });
+  // }, []);
 
   return (
     <div className={styles.collectionPageContainer}>
