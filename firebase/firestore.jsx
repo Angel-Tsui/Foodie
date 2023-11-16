@@ -5,8 +5,11 @@ import {
   getDocs,
   addDoc,
   getDoc,
+  deleteDoc,
   onSnapshot,
   updateDoc,
+  query,
+  where,
   orderBy,
 } from "firebase/firestore";
 
@@ -25,7 +28,7 @@ const setRecord = async (
   description,
   userId
 ) => {
-  console.log(userId);
+  // console.log(userId);
   let timestamp = Date.now();
   await setDoc(doc(firestore, "records", recordId), {
     imageUrl: imageUrl,
@@ -54,14 +57,44 @@ const getSingleRecordData = async (recordId) => {
   return singleData.data();
 };
 
-const getRecordsData = async () => {
-  let recordsCollection = await getDocs(colRef);
+const getRecordsData = async (filterInfo) => {
+  // console.log("props", filterInfo);
+  let filters = filterInfo.filterInfo;
+  // console.log("orderMethod", filters.orderMethod);
+  // console.log("AscOrDesc", filters.AscOrDesc);
+  let orderedData;
+
+  const getOrder = () => {
+    if (filters.orderMethod && filters.AscOrDesc) {
+      // orderedData = query(
+      //   colRef,
+      //   orderBy(filters.orderMethod, filters.AscOrDesc)
+      // );
+      return orderBy(filters.orderMethod, filters.AscOrDesc);
+    } else {
+      return null;
+    }
+  };
+
+  const getfilters = () => {
+    if (filters.userId) {
+      // console.log("searching for ", filters.userId);
+      // orderedData = query(colRef, where("userId", "==", filters.userId));
+      return where("userId", "==", filters.userId);
+    } else {
+      return null;
+    }
+  };
+
+  orderedData = query(colRef, getfilters(), getOrder());
+
+  let recordsCollection = await getDocs(orderedData);
   try {
     let recordsData = [];
     recordsCollection.docs.forEach((doc) => {
       recordsData.push({ id: doc.id, ...doc.data() });
     });
-    // console.log(recordsData);
+    // console.log("recordsData", recordsData);
     return recordsData;
   } catch (e) {
     console.log(e.message);
@@ -79,12 +112,6 @@ const addRecordsData = async (
   cooked,
   starRating,
   allRatings,
-  //   fat,
-  //   tender,
-  //   juicy,
-  //   chewy,
-  //   thick,
-  //   rich,
   description
 ) => {
   addDoc(colRef, {
@@ -98,19 +125,22 @@ const addRecordsData = async (
     cooked: cooked,
     starRating: starRating,
     allRatings: allRatings,
-    // fat: fat,
-    // tender: tender,
-    // juicy: juicy,
-    // chewy: chewy,
-    // thick: thick,
-    // rich: rich,
     description: description,
   });
 };
 
-// const deleteDataById = async (id) => {
-//     const deleteData = await firestore.collection("data").doc(id).delete()
-//     return deleteData
-// }
+const deleteDataById = async (e, SingleRecordid) => {
+  e.preventDefault();
+  const docRef = doc(firestore, "records", SingleRecordid);
+  deleteDoc(docRef).then(() => {
+    window.location.href = "/collection";
+  });
+};
 
-export { getRecordsData, setRecord, getSingleRecordData, addRecordsData };
+export {
+  getRecordsData,
+  setRecord,
+  getSingleRecordData,
+  addRecordsData,
+  deleteDataById,
+};

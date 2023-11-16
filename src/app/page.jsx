@@ -7,9 +7,13 @@ import FoodGallery from "../../components/foodGallery/foodGallery";
 
 export default function Home() {
   const [allData, setAllData] = useState([]);
-  console.log("Main Page allData", allData);
+  // console.log("Main Page allData", allData);
+  let filterInfo = {
+    orderMethod: "starRating",
+    AscOrDesc: "desc",
+  };
   useEffect(() => {
-    getRecordsData().then((allData) => {
+    getRecordsData({ filterInfo }).then((allData) => {
       setAllData(allData);
     });
   }, []);

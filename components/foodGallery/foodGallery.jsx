@@ -52,6 +52,8 @@ export default function FoodGallery(props) {
     <>
       {allData.map((data) => (
         <div
+          id={data.id}
+          key={data.id}
           onClick={() => {
             {
               action == "redirect"

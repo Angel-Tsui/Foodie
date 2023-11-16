@@ -4,8 +4,16 @@ import { useState, useEffect } from "react";
 import handleUploadImage from "../../../../components/radarChart/imageUpload";
 import { FaStar } from "react-icons/fa";
 import DisplayData from "../displayData";
-import { getSingleRecordData, setRecord } from "../../../../firebase/firestore";
-import { verify, getUserInfoFromToken } from "../../../../firebase/verify";
+import {
+  getSingleRecordData,
+  setRecord,
+  deleteDataById,
+} from "../../../../firebase/firestore";
+import {
+  verify,
+  getUserInfoFromToken,
+  confirmUser,
+} from "../../../../firebase/verify";
 
 export default function Record(recordId) {
   let SingleRecordid = recordId.params.recordId;
@@ -13,6 +21,7 @@ export default function Record(recordId) {
   // Initialize Page and Data
   useEffect(() => {
     verify();
+
     getSingleRecordData(SingleRecordid).then((recordData) => {
       // console.log("recordData", recordData);
       setImageUrl(recordData.imageUrl);
@@ -239,9 +248,9 @@ export default function Record(recordId) {
                     }}
                   >
                     <option value="HKD">HKD</option>
-                    <option value="JPY">JPY</option>
+                    {/* <option value="JPY">JPY</option>
                     <option value="TWD">TWD</option>
-                    <option value="USD">USD</option>
+                    <option value="USD">USD</option> */}
                   </select>
                   <input
                     id="input__price"
@@ -442,6 +451,15 @@ export default function Record(recordId) {
               {isSaved}
             </div>
           </form>
+
+          <div
+            className={styles.delete}
+            onClick={(e) => {
+              deleteDataById(e, SingleRecordid);
+            }}
+          >
+            Delete Collection
+          </div>
         </div>
 
         <div className={styles.meatInfo__outputContainer}>
