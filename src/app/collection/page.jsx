@@ -12,10 +12,16 @@ import { getRecordsData } from "../../../firebase/firestore";
 import dynamic from "next/dynamic";
 const GetName = dynamic(() => import("./getName"), { ssr: false });
 
-function CollectorList() {
+function CollectorList(userId) {
+  userId = userId.userId;
+  console.log("userId", userId);
   return (
     <div className={styles.collectionList}>
-      <div className={styles.collectionList__myCollection}>
+      <div
+        className={styles.collectionList__myCollection}
+        id={userId}
+        key={userId}
+      >
         <MyCollection />
       </div>
       <div className={styles.collectionList__all}>
@@ -110,12 +116,14 @@ function CollectionGalleryHeading(userId) {
   );
 }
 
-function CollectionGallery(allData) {
-  let fullSetData = allData.allData;
+function CollectionGallery(props) {
+  // console.log(props.allData);
+  // console.log(props.action);
+  let fullSetData = props.allData;
   // console.log("in", fullSetData);
   return (
     <div className={styles.collectionGallery__foodGallery}>
-      <FoodGallery fullSetData={fullSetData} />
+      <FoodGallery fullSetData={fullSetData} action={props.action} />
     </div>
   );
 }
@@ -124,7 +132,7 @@ export default function Collection() {
   const [userId, setUserId] = useState("");
   // console.log(userId);
   const [allData, setAllData] = useState([]);
-  // console.log("allData", allData);
+  console.log("allData", allData);
 
   useEffect(() => {
     verify();
@@ -143,11 +151,11 @@ export default function Collection() {
   return (
     <div className={styles.collectionPageContainer}>
       <div className={styles.collectorListContainer}>
-        <CollectorList />
+        <CollectorList userId={userId} />
       </div>
       <div className={styles.collectionGallery}>
         <CollectionGalleryHeading userId={userId} />
-        <CollectionGallery allData={allData} />
+        <CollectionGallery allData={allData} action={"redirect"} />
       </div>
     </div>
   );
