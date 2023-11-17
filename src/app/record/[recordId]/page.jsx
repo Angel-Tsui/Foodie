@@ -143,7 +143,17 @@ export default function Record(recordId) {
       allRatings,
       description,
       userId
-    );
+    )
+      .then(() => {
+        console.log("success");
+        setIsSaved(<div className={styles.loader}></div>);
+        setTimeout(() => {
+          setIsSaved(<div>Saved</div>);
+        }, 1500);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
   };
 
   return (
@@ -155,21 +165,28 @@ export default function Record(recordId) {
               <div className={styles.input__basicInfoHeader}>
                 Basic Information
               </div>
-              <div>
+              <div className={styles.input__image}>
                 <input
                   type="file"
+                  id="input__image"
                   onChange={(e) => {
                     setImage(e.target.files[0]);
                   }}
                 />
-                <button
-                  onClick={async (e) => {
-                    const genurl = await handleUploadImage(e, image);
-                    setImageUrl(genurl);
-                  }}
-                >
-                  Upload
-                </button>
+                {image != "" ? (
+                  <span
+                    className={styles.uploads}
+                    onClick={async (e) => {
+                      const genurl = await handleUploadImage(e, image);
+                      setImageUrl(genurl);
+                      setImage("");
+                    }}
+                  >
+                    Upload
+                  </span>
+                ) : (
+                  <span></span>
+                )}
               </div>
               <div className={styles.input__parts}>
                 Part of Beef:
@@ -182,20 +199,48 @@ export default function Record(recordId) {
                   }}
                 >
                   <option>Please Select</option>
-                  <option value="Tongue">Tongue</option>
-                  <option value="Fillet">Fillet</option>
-                  <option value="Short Ribs">Short Ribs</option>
-                  <option value="Rib Finger">Ribs</option>
-                  <option value="Prime Rib">Prime Rib</option>
-                  <option value="Angus Rib Eye">Angus Rib Eye</option>
-                  <option value="Rib Eye">Rib Eye</option>
-                  <option value="Strip">Strip</option>
-                  <option value="Tenderloin">Tenderloin</option>
-                  <option value="Knuckle">Knuckle</option>
-                  <option value="Shank">Shank</option>
-                  <option value="Tendon">Tendon</option>
-                  <option value="Brisket">Brisket</option>
-                  <option value="Ox Tail">Ox Tail</option>
+                  <option value="Tongue" key="Tongue">
+                    Tongue
+                  </option>
+                  <option value="Fillet" key="Fillet">
+                    Fillet
+                  </option>
+                  <option value="Short Ribs" key="Short Ribs">
+                    Short Ribs
+                  </option>
+                  <option value="Rib Finger" key="Rib Finger">
+                    Ribs
+                  </option>
+                  <option value="Prime Rib" key="Prime Rib">
+                    Prime Rib
+                  </option>
+                  <option value="Angus Rib Eye" key="Angus Rib Eye">
+                    Angus Rib Eye
+                  </option>
+                  <option value="Rib Eye" key="Rib Eye">
+                    Rib Eye
+                  </option>
+                  <option value="Strip" key="Strip">
+                    Strip
+                  </option>
+                  <option value="Tenderloin" key="Tenderloin">
+                    Tenderloin
+                  </option>
+                  <option value="Knuckle" key="Knuckle">
+                    Knuckle
+                  </option>
+                  <option value="Shank" key="Shank">
+                    Shank
+                  </option>
+                  <option value="Tendon" key="Tendon">
+                    Tendon
+                  </option>
+                  <option value="Brisket" key="Brisket">
+                    Brisket
+                  </option>
+                  <option value="Ox Tail" key="Ox Tail">
+                    Ox Tail
+                  </option>
                 </select>
               </div>
               <div className={styles.input__cusine}>
@@ -208,10 +253,18 @@ export default function Record(recordId) {
                   }}
                 >
                   <option>Please Select</option>
-                  <option value="Western">Western</option>
-                  <option value="Japanese">Japanese</option>
-                  <option value="Korean">Koren</option>
-                  <option value="Chinese">Chinese</option>
+                  <option value="Western" key="Western">
+                    Western
+                  </option>
+                  <option value="Japanese" key="Japanese">
+                    Japanese
+                  </option>
+                  <option value="Korean" key="Korean">
+                    Koren
+                  </option>
+                  <option value="Chinese" key="Chinese">
+                    Chinese
+                  </option>
                 </select>
               </div>
               <div className={styles.input__name}>
@@ -247,7 +300,9 @@ export default function Record(recordId) {
                       setCurrency(e.target.value);
                     }}
                   >
-                    <option value="HKD">HKD</option>
+                    <option value="HKD" key="HKD">
+                      HKD
+                    </option>
                     {/* <option value="JPY">JPY</option>
                     <option value="TWD">TWD</option>
                     <option value="USD">USD</option> */}
@@ -272,11 +327,21 @@ export default function Record(recordId) {
                     }}
                   >
                     <option>Please Select</option>
-                    <option value="Rare">Rare</option>
-                    <option value="Medium-rare">Medium-rare</option>
-                    <option value="Medium">Medium</option>
-                    <option value="Medium-well">Medium-well</option>
-                    <option value="Well-done">Well-done</option>
+                    <option value="Rare" key="Rare">
+                      Rare
+                    </option>
+                    <option value="Medium-rare" key="Medium-rare">
+                      Medium-rare
+                    </option>
+                    <option value="Medium" key="Medium">
+                      Medium
+                    </option>
+                    <option value="Medium-well" key="Medium-well">
+                      Medium-well
+                    </option>
+                    <option value="Well-done" key="Well-done">
+                      Well-done
+                    </option>
                   </select>
                 </div>
               </div>
@@ -296,7 +361,9 @@ export default function Record(recordId) {
                     }}
                   >
                     {[...Array(11)].map((each, index) => (
-                      <option value={index}>{index}</option>
+                      <option value={index} key={`Tender${index}`}>
+                        {index}
+                      </option>
                     ))}
                   </select>
                 </div>
@@ -310,7 +377,9 @@ export default function Record(recordId) {
                     }}
                   >
                     {[...Array(11)].map((each, index) => (
-                      <option value={index}>{index}</option>
+                      <option value={index} key={`Juicy${index}`}>
+                        {index}
+                      </option>
                     ))}
                   </select>
                 </div>
@@ -324,7 +393,9 @@ export default function Record(recordId) {
                     }}
                   >
                     {[...Array(11)].map((each, index) => (
-                      <option value={index}>{index}</option>
+                      <option value={index} key={`Chewy${index}`}>
+                        {index}
+                      </option>
                     ))}
                   </select>
                 </div>
@@ -338,7 +409,9 @@ export default function Record(recordId) {
                     }}
                   >
                     {[...Array(11)].map((each, index) => (
-                      <option value={index}>{index}</option>
+                      <option value={index} key={`Thick${index}`}>
+                        {index}
+                      </option>
                     ))}
                   </select>
                 </div>
@@ -352,7 +425,9 @@ export default function Record(recordId) {
                     }}
                   >
                     {[...Array(11)].map((each, index) => (
-                      <option value={index}>{index}</option>
+                      <option value={index} key={`Rich${index}`}>
+                        {index}
+                      </option>
                     ))}
                   </select>
                 </div>
@@ -366,7 +441,9 @@ export default function Record(recordId) {
                     }}
                   >
                     {[...Array(11)].map((each, index) => (
-                      <option value={index}>{index}</option>
+                      <option value={index} key={`Fat${index}`}>
+                        {index}
+                      </option>
                     ))}
                   </select>
                 </div>
@@ -441,11 +518,6 @@ export default function Record(recordId) {
               type="submit"
               onClick={(e) => {
                 handleSubmit(e);
-                // setIsClicked(!isClicked);
-                setIsSaved(<div className={styles.loader}></div>);
-                setTimeout(() => {
-                  setIsSaved(<div>Saved</div>);
-                }, 1500);
               }}
             >
               {isSaved}
