@@ -17,8 +17,11 @@ const app = initializeApp(firebaseConfig);
 // Initialize Firestore
 export const firestore = getFirestore(app);
 
-// Collection reference
+// Collection reference to "records"
 export const colRef = collection(firestore, "records");
+
+// Collection reference to "users"
+export const usersColRef = collection(firestore, "users");
 
 // Initialize Firebase Authentication
 export const auth = getAuth(app);

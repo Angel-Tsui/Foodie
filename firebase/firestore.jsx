@@ -13,6 +13,7 @@ import {
   orderBy,
 } from "firebase/firestore";
 
+// Records
 const setRecord = async (
   recordId,
   imageUrl,
@@ -52,7 +53,6 @@ const getSingleRecordData = async (recordId) => {
   // let id = recordId.recordId;
   // console.log(id);
   let id = recordId;
-  // console.log("id", id);
   const singleData = await getDoc(doc(firestore, "records", id));
   return singleData.data();
 };

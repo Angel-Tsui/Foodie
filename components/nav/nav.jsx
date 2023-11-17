@@ -7,6 +7,8 @@ import { ImExit } from "react-icons/im";
 import { CgProfile } from "react-icons/cg";
 import { useState } from "react";
 import modalStyles from "../modal/modal.module.css";
+import { firestore } from "../../firebase/firebase";
+import { doc, setDoc } from "firebase/firestore";
 import { auth } from "../../firebase/firebase";
 import {
   createUserWithEmailAndPassword,
@@ -131,31 +133,61 @@ function SignIn() {
 
 function SignUp() {
   const [modal, setModal] = useState(false);
+  // const [authResult, setAuthResult] = useState({});
+  // console.log(authResult);
 
   function toggleModal() {
     setModal(!modal);
   }
   const [userStatus, setUserStatus] = useState({});
 
-  async function fireSignUp(signUpUserEmail, signUpUserPw) {
+  const fireSignUp = async (signUpUserEmail, signUpUserPw) => {
     // create User in Firebase
+    let userCred;
+    // console.log("in fireSignUp");
     try {
-      const userCred = await createUserWithEmailAndPassword(
+      userCred = await createUserWithEmailAndPassword(
         auth,
         signUpUserEmail,
         signUpUserPw
       );
-      return {
-        success: true,
-        user: userCred,
-      };
     } catch (err) {
+      // console.log("create error", err.message);
       return {
         error: true,
         message: err.message,
       };
     }
-  }
+
+    let userId = userCred.user.uid;
+    // console.log(userCred.user);
+    let userEmail = userCred.user.email;
+    let userName = userEmail.split("@")[0];
+    userName = userName.toUpperCase();
+    // console.log("userName", userName);
+    let userInfo = {
+      userEmail: userCred.user.email,
+      userId: userCred.user.uid,
+    };
+
+    try {
+      await setDoc(doc(firestore, "users", userId), {
+        userEmail: userEmail,
+        userDisplayName: userName,
+        userPhotoURL: "",
+      }).catch((err) => {
+        console.log(err.message);
+      });
+
+      return { success: true, user: userInfo };
+    } catch (err) {
+      console.log("save error", err.message);
+      return {
+        error: true,
+        message: err.message,
+      };
+    }
+  };
 
   async function handleSignUp(e) {
     e.preventDefault();
@@ -168,6 +200,7 @@ function SignUp() {
     }
 
     const authResult = await fireSignUp(signUpUserEmail, signUpUserPw);
+    // console.log("authResult", authResult);
     if (Object.keys(authResult).includes("success")) {
       setUserStatus({
         success: true,
@@ -259,6 +292,11 @@ function signOut() {
   window.location.href = "/";
 }
 
+function editProfile() {
+  console.log("edit profile");
+  window.location.href = "/profile";
+}
+
 export default function Nav() {
   return (
     <div className={styles.nav}>
@@ -286,7 +324,12 @@ export default function Nav() {
                 <RxHamburgerMenu />
               </div>
               <div className={styles.menu__dropDown}>
-                <div className={styles.menu__profile}>
+                <div
+                  className={styles.menu__profile}
+                  onClick={() => {
+                    editProfile();
+                  }}
+                >
                   <CgProfile />
                   Profile
                 </div>
