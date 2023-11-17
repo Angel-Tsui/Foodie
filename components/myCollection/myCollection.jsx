@@ -10,10 +10,10 @@ export default function MyCollection() {
   const [userProPic, setUserProPic] = useState("/profile.jpg");
 
   let userInfo = getUserInfoFromToken();
-  // console.log(userInfo);
-  let userId = userInfo.userId;
-  // console.log(userId);
-  if (userId != null) {
+  if (userInfo != null) {
+    // console.log(userInfo);
+    let userId = userInfo.userId;
+    // console.log(userId);
     getDoc(doc(firestore, "users", userId))
       .then((singleData) => {
         setUserProPic(singleData.data().userPhotoURL);
@@ -22,6 +22,7 @@ export default function MyCollection() {
         console.log(e.message);
       });
   }
+
   // console.log(userProPic);
   return (
     <div className={styles.myCollectionContainer}>
