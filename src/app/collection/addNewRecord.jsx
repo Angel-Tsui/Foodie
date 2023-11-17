@@ -2,7 +2,8 @@ import { v4 } from "uuid";
 import { setRecord } from "../../../firebase/firestore";
 
 export default function AddNewRecord(userId) {
-  userId = userId.userId;
+  // console.log("add new", userId);
+  // userId = userId.userId;
   // console.log(userId);
 
   if (userId) {
