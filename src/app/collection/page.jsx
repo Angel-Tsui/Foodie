@@ -9,6 +9,8 @@ import modalStyles from "../../../components/modal/modal.module.css";
 import AddNewRecord from "./addNewRecord";
 import { verify, getUserInfoFromToken } from "../../../firebase/verify";
 import { getRecordsData } from "../../../firebase/firestore";
+import { firestore } from "../../../firebase/firebase";
+import { doc, getDoc } from "firebase/firestore";
 import dynamic from "next/dynamic";
 const GetName = dynamic(() => import("./getName"), { ssr: false });
 
@@ -89,12 +91,28 @@ function CollectorList(userId) {
 //   );
 // }
 
-function CollectionGalleryHeading(userId) {
+// function getName(userId) {
+//   userId = userId.userId;
+//   console.log(userId);
+//   if (userId != null) {
+//     getDoc(doc(firestore, "users", userId.userId))
+//       .then((singleData) => {
+//         console.log(singleData.data());
+//       })
+//       .catch((e) => {
+//         console.log(e.message);
+//       });
+//     return userId.userId;
+//   }
+// }
+
+function CollectionGalleryHeading(userInfo) {
   return (
     <div className={styles.collectionGallery__header}>
       <div className={styles.collectionGallery__titleAndCreate}>
         <div className={styles.collectionGallery__title}>
-          <GetName />
+          {/* <GetName userId={userId} /> */}
+          <span>{userInfo.userName}</span>
         </div>
       </div>
       <div className={styles.collectionGallery__typeSearch}>
@@ -105,7 +123,7 @@ function CollectionGalleryHeading(userId) {
         <div
           className={styles.collectionGallery__create}
           onClick={() => {
-            AddNewRecord(userId);
+            AddNewRecord(userInfo.userId);
           }}
         >
           Add New +
@@ -133,7 +151,7 @@ export default function Collection() {
   // console.log(userId);
   const [allData, setAllData] = useState([]);
   // console.log("allData", allData);
-
+  const [userName, setUserName] = useState("");
   useEffect(() => {
     verify();
 
@@ -141,6 +159,17 @@ export default function Collection() {
     let userId = userInfo.userId;
     setUserId(userId);
     // console.log("effect", userId);
+
+    console.log(userId);
+    if (userId != null) {
+      getDoc(doc(firestore, "users", userId))
+        .then((singleData) => {
+          setUserName(singleData.data().userDisplayName);
+        })
+        .catch((e) => {
+          console.log(e.message);
+        });
+    }
 
     let filterInfo = {
       orderMethod: "timestamp",
@@ -171,7 +200,7 @@ export default function Collection() {
         <CollectorList userId={userId} />
       </div>
       <div className={styles.collectionGallery}>
-        <CollectionGalleryHeading userId={userId} />
+        <CollectionGalleryHeading userId={userId} userName={userName} />
         <CollectionGallery allData={allData} action={"redirect"} />
       </div>
     </div>

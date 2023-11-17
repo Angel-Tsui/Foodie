@@ -28,6 +28,13 @@
   border-radius: 50%;
   overflow: hidden;
   white-space: nowrap;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.myIcon img {
+  width: 100%;
 }
 
 .myCollection {
