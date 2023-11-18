@@ -2,6 +2,7 @@
 import styles from "../record.module.css";
 import { useState, useEffect } from "react";
 import handleUploadImage from "../../../../components/radarChart/imageUpload";
+import { uploadOutputImage } from "../../../../components/radarChart/imageUpload";
 import { FaStar } from "react-icons/fa";
 import DisplayData from "../displayData";
 import {
@@ -14,6 +15,8 @@ import {
   getUserInfoFromToken,
   confirmUser,
 } from "../../../../firebase/verify";
+import { DocumentReference, doc } from "firebase/firestore";
+import * as htmlToImage from "html-to-image";
 
 export default function Record(recordId) {
   let SingleRecordid = recordId.params.recordId;
@@ -23,7 +26,7 @@ export default function Record(recordId) {
     verify();
 
     getSingleRecordData(SingleRecordid).then((recordData) => {
-      console.log("recordData", recordData);
+      // console.log("recordData", recordData);
       if (recordData) {
         setImageUrl(recordData.imageUrl);
         setName(recordData.name);
@@ -73,6 +76,9 @@ export default function Record(recordId) {
     rich,
   ]);
   const [isSaved, setIsSaved] = useState(<div>Save</div>);
+  // const [outputPrev, setOutputPrev] = useState("")
+  const [output, setOutput] = useState("");
+  console.log("output", output);
 
   useEffect(() => {
     setAllRatings([fat, tender, juicy, chewy, thick, rich]);
@@ -129,7 +135,26 @@ export default function Record(recordId) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // console.log(userId);
+    // const output =
+    // console.log(output);
+    htmlToImage
+      .toPng(document.querySelector("#output__toPNG"))
+      .then((dataUrl) => {
+        // console.log("imageUrl", dataUrl);
+        let outputImage = new Image();
+        outputImage.src = dataUrl;
+        // console.log("output image", outputImage.src);
+        let cleanOutputImageUrl = outputImage.src.substring(22);
+        console.log("clean", cleanOutputImageUrl);
+        const firebaseOutput = uploadOutputImage(cleanOutputImageUrl);
+        console.log("firebaseOutput", firebaseOutput);
+        setOutput(firebaseOutput);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    console.log(userId);
     if (imageUrl == "") {
       setIsSaved("Please Upload Image");
     } else if (name == "") {
@@ -185,6 +210,7 @@ export default function Record(recordId) {
                   type="file"
                   id="input__image"
                   onChange={(e) => {
+                    // console.log("image", e.target.files[0]);
                     setImage(e.target.files[0]);
                   }}
                 />
@@ -192,7 +218,9 @@ export default function Record(recordId) {
                   <span
                     className={styles.uploads}
                     onClick={async (e) => {
+                      console.log("upload image", image);
                       const genurl = await handleUploadImage(e, image);
+                      console.log("genurl", genurl);
                       setImageUrl(genurl);
                       setImage("");
                     }}
@@ -534,6 +562,17 @@ export default function Record(recordId) {
             >
               {isSaved}
             </div>
+            {/* <div
+              className={styles.saveButton}
+              type="submit"
+              onClick={(e) => {
+                let downloadOutput = document.querySelector("#output__toPNG");
+                downloadOutput.href = 
+                handleDownload(e);
+              }}
+            >
+              Download
+            </div> */}
           </form>
 
           <div
