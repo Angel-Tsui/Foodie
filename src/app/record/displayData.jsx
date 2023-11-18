@@ -22,7 +22,7 @@ export default function DisplayData(fullSetData) {
   let recordData = fullSetData.allData;
   let ratingData = fullSetData.allRatings;
   return (
-    <div className={styles.meatInfo__output}>
+    <div className={styles.meatInfo__output} id="output__toPNG">
       <div className={styles.output__mainInfoAndRadar}>
         <div className={styles.output__mainInfo}>
           <div className={styles.output__image}>

@@ -30,7 +30,7 @@ const setRecord = async (
   userId
 ) => {
   // console.log(userId);
-  console.log(imageUrl);
+  // console.log(imageUrl);
   let timestamp = Date.now();
   await setDoc(doc(firestore, "records", recordId), {
     imageUrl: imageUrl,
