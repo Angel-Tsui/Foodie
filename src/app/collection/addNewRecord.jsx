@@ -19,7 +19,7 @@ export default function AddNewRecord(userId) {
       "",
       "",
       "",
-      [0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0],
       "",
       userId
     );

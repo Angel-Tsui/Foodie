@@ -23,23 +23,25 @@ export default function Record(recordId) {
     verify();
 
     getSingleRecordData(SingleRecordid).then((recordData) => {
-      // console.log("recordData", recordData);
-      setImageUrl(recordData.imageUrl);
-      setName(recordData.name);
-      setResto(recordData.resto);
-      setCurrency(recordData.currency);
-      setPrice(recordData.price);
-      setParts(recordData.parts);
-      setCuisine(recordData.cusine);
-      setCooked(recordData.cooked);
-      setStarRating(recordData.starRating);
-      setFat(recordData.allRatings[0]);
-      setTender(recordData.allRatings[1]);
-      setJuicy(recordData.allRatings[2]);
-      setChewy(recordData.allRatings[3]);
-      setThick(recordData.allRatings[4]);
-      setRich(recordData.allRatings[5]);
-      setDescription(recordData.description);
+      console.log("recordData", recordData);
+      if (recordData) {
+        setImageUrl(recordData.imageUrl);
+        setName(recordData.name);
+        setResto(recordData.resto);
+        setCurrency(recordData.currency);
+        setPrice(recordData.price);
+        setParts(recordData.parts);
+        setCuisine(recordData.cusine);
+        setCooked(recordData.cooked);
+        setStarRating(recordData.starRating);
+        setFat(recordData.allRatings[0]);
+        setTender(recordData.allRatings[1]);
+        setJuicy(recordData.allRatings[2]);
+        setChewy(recordData.allRatings[3]);
+        setThick(recordData.allRatings[4]);
+        setRich(recordData.allRatings[5]);
+        setDescription(recordData.description);
+      }
     });
   }, []);
 
@@ -128,32 +130,45 @@ export default function Record(recordId) {
     e.preventDefault();
 
     // console.log(userId);
-
-    setRecord(
-      SingleRecordid,
-      imageUrl,
-      name,
-      resto,
-      currency,
-      price,
-      parts,
-      cusine,
-      cooked,
-      starRating,
-      allRatings,
-      description,
-      userId
-    )
-      .then(() => {
-        console.log("success");
-        setIsSaved(<div className={styles.loader}></div>);
-        setTimeout(() => {
-          setIsSaved(<div>Saved</div>);
-        }, 1500);
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
+    if (imageUrl == "") {
+      setIsSaved("Please Upload Image");
+    } else if (name == "") {
+      setIsSaved("Please Set Name of Dish");
+    } else if (resto == "") {
+      setIsSaved("Please Set Restaurant Name");
+    } else if (price == "") {
+      setIsSaved("Please Set Price");
+    } else if (parts == "") {
+      setIsSaved("Please Set Parts");
+    } else if (starRating == "") {
+      setIsSaved("Please Rating Overall");
+    } else {
+      setRecord(
+        SingleRecordid,
+        imageUrl,
+        name,
+        resto,
+        currency,
+        price,
+        parts,
+        cusine,
+        cooked,
+        starRating,
+        allRatings,
+        description,
+        userId
+      )
+        .then(() => {
+          console.log("success");
+          setIsSaved(<div className={styles.loader}></div>);
+          setTimeout(() => {
+            setIsSaved(<div>Saved</div>);
+          }, 1500);
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
+    }
   };
 
   return (
@@ -213,9 +228,6 @@ export default function Record(recordId) {
                   </option>
                   <option value="Prime Rib" key="Prime Rib">
                     Prime Rib
-                  </option>
-                  <option value="Angus Rib Eye" key="Angus Rib Eye">
-                    Angus Rib Eye
                   </option>
                   <option value="Rib Eye" key="Rib Eye">
                     Rib Eye
@@ -351,6 +363,22 @@ export default function Record(recordId) {
                 Rate your Dish
               </div>
               <div className={styles.input__radarChartItems}>
+                <div className={styles.input__fat}>
+                  Fat Ratio:
+                  <br />
+                  <select
+                    value={allRatings[0]}
+                    onChange={(e) => {
+                      setFat(e.target.value);
+                    }}
+                  >
+                    {[...Array(11)].map((each, index) => (
+                      <option value={index} key={`Fat${index}`}>
+                        {index}
+                      </option>
+                    ))}
+                  </select>
+                </div>
                 <div className={styles.input__tender}>
                   Tender:
                   <br />
@@ -426,22 +454,6 @@ export default function Record(recordId) {
                   >
                     {[...Array(11)].map((each, index) => (
                       <option value={index} key={`Rich${index}`}>
-                        {index}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div className={styles.input__fat}>
-                  Fat Ratio:
-                  <br />
-                  <select
-                    value={allRatings[0]}
-                    onChange={(e) => {
-                      setFat(e.target.value);
-                    }}
-                  >
-                    {[...Array(11)].map((each, index) => (
-                      <option value={index} key={`Fat${index}`}>
                         {index}
                       </option>
                     ))}
