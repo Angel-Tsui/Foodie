@@ -30,6 +30,7 @@ const setRecord = async (
   userId
 ) => {
   // console.log(userId);
+  console.log(imageUrl);
   let timestamp = Date.now();
   await setDoc(doc(firestore, "records", recordId), {
     imageUrl: imageUrl,
@@ -45,6 +46,8 @@ const setRecord = async (
     description: description,
     timestamp: timestamp,
     userId: userId,
+  }).catch((err) => {
+    console.log(err.message);
   });
 };
 
@@ -53,7 +56,11 @@ const getSingleRecordData = async (recordId) => {
   // let id = recordId.recordId;
   // console.log(id);
   let id = recordId;
-  const singleData = await getDoc(doc(firestore, "records", id));
+  const singleData = await getDoc(doc(firestore, "records", id)).catch(
+    (err) => {
+      console.log(err.message);
+    }
+  );
   return singleData.data();
 };
 

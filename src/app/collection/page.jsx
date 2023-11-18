@@ -11,6 +11,7 @@ import { verify, getUserInfoFromToken } from "../../../firebase/verify";
 import { getRecordsData } from "../../../firebase/firestore";
 import { firestore } from "../../../firebase/firebase";
 import { doc, getDoc } from "firebase/firestore";
+import { v4 } from "uuid";
 import dynamic from "next/dynamic";
 const GetName = dynamic(() => import("./getName"), { ssr: false });
 
@@ -123,7 +124,9 @@ function CollectionGalleryHeading(userInfo) {
         <div
           className={styles.collectionGallery__create}
           onClick={() => {
-            AddNewRecord(userInfo.userId);
+            // AddNewRecord(userInfo.userId);
+            let recordId = v4();
+            window.location.href = "/record/" + recordId;
           }}
         >
           Add New +
