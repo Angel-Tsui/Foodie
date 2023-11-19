@@ -13,6 +13,41 @@ import {
   orderBy,
 } from "firebase/firestore";
 
+// Output (save to firestore)
+const outputFile = async (recordId, ouputUrl, userId) => {
+  // console.log(userId);
+  console.log("outputFile", ouputUrl);
+  await setDoc(doc(firestore, "outputs", recordId), {
+    ouputUrl: ouputUrl,
+    userId: userId,
+  }).catch((err) => {
+    console.log(err.message);
+  });
+};
+
+// Output (get image from firestore)
+const getSingleOutputData = async (outputId) => {
+  console.log("id", outputId);
+  const singleData = await getDoc(doc(firestore, "outputs", outputId)).catch(
+    (err) => {
+      console.log(err.message);
+    }
+  );
+  console.log(singleData.data());
+  return singleData.data();
+};
+
+const getOnlyOutputImage = async (outputId) => {
+  console.log("in getOnlyOutputImage", outputId);
+  let outputInfo = await getSingleOutputData(outputId).catch((err) => {
+    console.log("error", err.message);
+  });
+  console.log(outputInfo);
+  let outputImageUrl = await outputInfo.ouputUrl;
+  // console.log("img", outputImageUrl);
+  return outputImageUrl;
+};
+
 // Records
 const setRecord = async (
   recordId,
@@ -150,4 +185,7 @@ export {
   getSingleRecordData,
   addRecordsData,
   deleteDataById,
+  outputFile,
+  getSingleOutputData,
+  getOnlyOutputImage,
 };

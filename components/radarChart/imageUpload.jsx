@@ -21,11 +21,17 @@ export default async function handleUploadImage(e, img) {
 async function uploadOutputImage(cleanOutputImageUrl) {
   const imgStoreOutput = ref(imgStore, `outputs/${v4()}`);
   console.log("saving image to firebase", cleanOutputImageUrl);
-  const message = "outputImage";
-  const snapshot = await uploadString(imgStoreOutput, message, "base64url");
+  const message = cleanOutputImageUrl;
+  const snapshot = await uploadString(
+    imgStoreOutput,
+    message,
+    "data_url"
+  ).catch((err) => {
+    console.log(err.message);
+  });
   console.log("got image", snapshot);
   const url = await getDownloadURL(snapshot.ref);
-  console.log(url);
+  console.log("download", url);
   return url;
 }
 
