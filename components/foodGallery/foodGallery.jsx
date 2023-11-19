@@ -1,6 +1,13 @@
+"use client";
 import styles from "./foodGallery.module.css";
 import Image from "next/image";
 import { FaStar } from "react-icons/fa";
+import modalStyles from "../modal/modal.module.css";
+import { useState } from "react";
+import {
+  getSingleOutputData,
+  getOnlyOutputImage,
+} from "../../firebase/firestore";
 
 function FoodGalleryCard(data) {
   // console.log("Food Gallery data", data);
@@ -41,12 +48,60 @@ function FoodGalleryCard(data) {
   );
 }
 
+function displayOutputImage(outputId) {
+  console.log("got", outputId);
+
+  // setModal(!modal);
+  // function toggleModal() {
+  //   console.log("open modal");
+
+  // }
+
+  getOnlyOutputImage(outputId).then((outputFile) => {
+    // let outputImageUrl = outputFile;
+    console.log("img", outputFile);
+    return (
+      <>
+        {/* <div
+          className={styles.nav__signUp}
+          onClick={() => {
+            toggleModal();
+            setUserStatus("");
+          }}
+        >
+          SIGN IN
+        </div> */}
+
+        {modal && (
+          <div className={modalStyles.modal}>
+            <div className={modalStyles.modal__overlay}>
+              <div className={modalStyles.modal__content}>
+                {/* <div className={modalStyles.modal__title}>Sign In</div> */}
+                <div
+                  className={modalStyles.modal__closeButton}
+                  onClick={toggleModal}
+                >
+                  X
+                </div>
+                <div className={modalStyles.imageContainer}>
+                  <img src={outputFile} className={modalStyles.image} />
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </>
+    );
+  });
+}
+
 export default function FoodGallery(props) {
   // console.log("foodGallery main", props);
   let allData = props.fullSetData;
   // console.log("fullSetData", allData);
   let action = props.action;
   // console.log("FoodGallery main", action);
+  const [modal, setModal] = useState(false);
 
   return (
     <>
@@ -58,7 +113,42 @@ export default function FoodGallery(props) {
             {
               action == "redirect"
                 ? (window.location.href = "/record/" + data.id)
-                : console.log("open modal");
+                : console.log("open modal", data.id);
+              {
+                getOnlyOutputImage(data.id).then((outputFile) => {
+                  console.log("img", outputFile);
+                  setModal(!modal);
+                  function display(modal, outputFile) {
+                    console.log("in display", modal, outputFile);
+                    return (
+                      modal && (
+                        <div className={modalStyles.modal}>
+                          <div className={modalStyles.modal__overlay}>
+                            <div className={modalStyles.modal__content}>
+                              {/* <div className={modalStyles.modal__title}>Sign In</div> */}
+                              <div
+                                className={modalStyles.modal__closeButton}
+                                onClick={setModal(!modal)}
+                              >
+                                X
+                              </div>
+                              <div className={modalStyles.imageContainer}>
+                                <img
+                                  src={outputFile}
+                                  className={modalStyles.image}
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      )
+                    );
+                  }
+                  display(modal, outputFile);
+                });
+
+                // displayOutputImage(data.id);
+              }
             }
           }}
         >
