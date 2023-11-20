@@ -75,11 +75,12 @@ export default function Profile() {
       console.log(err.message);
     });
 
-    console.log("update successful");
+    // console.log("update successful");
     setIsSaved(<div className={styles.loader}></div>);
     setTimeout(() => {
       setIsSaved(<div>Saved</div>);
     }, 1500);
+    window.location.href = "/profile";
   };
 
   const changePassword = () => {
