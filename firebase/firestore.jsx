@@ -16,7 +16,7 @@ import {
 // Output (save to firestore)
 const outputFile = async (recordId, ouputUrl, userId) => {
   // console.log(userId);
-  console.log("outputFile", ouputUrl);
+  // console.log("outputFile", ouputUrl);
   await setDoc(doc(firestore, "outputs", recordId), {
     ouputUrl: ouputUrl,
     userId: userId,
@@ -27,20 +27,20 @@ const outputFile = async (recordId, ouputUrl, userId) => {
 
 // Output (get image from firestore)
 const getSingleOutputData = async (outputId) => {
-  console.log("id", outputId);
+  // console.log("id", outputId);
   const singleData = await getDoc(doc(firestore, "outputs", outputId)).catch(
     (err) => {
       console.log(err.message);
     }
   );
-  console.log(singleData.data());
+  // console.log(singleData.data());
   return singleData.data();
 };
 
 const getOnlyOutputImage = async (outputId) => {
-  console.log("in getOnlyOutputImage", outputId);
+  // console.log("in getOnlyOutputImage", outputId);
   let outputInfo = await getSingleOutputData(outputId).catch((err) => {
-    console.log("error", err.message);
+    // console.log("error", err.message);
   });
   console.log(outputInfo);
   let outputImageUrl = await outputInfo.ouputUrl;

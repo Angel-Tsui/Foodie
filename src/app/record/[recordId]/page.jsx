@@ -49,6 +49,10 @@ export default function Record(recordId) {
         setDescription(recordData.description);
       }
     });
+    // getOnlyOutputImage(SingleRecordid).then((outputImage) => {
+    //   // console.log("current", outputImage);
+    //   setOutput(outputImage);
+    // });
   }, []);
 
   const [userId, setUserId] = useState("");
@@ -136,39 +140,21 @@ export default function Record(recordId) {
     setUserId(user);
   });
 
-  const downloadOutput = async (imageUrl, imageName, forceDownload = false) => {
-    console.log("in downloadOutput", imageUrl, imageName);
-    // if (!forceDownload) {
-    //   const exportToLocal = document.createElement("a");
-    //   exportToLocal.href = imageUrl;
-    //   exportToLocal.download = imageName;
-    //   document.body.appendChild(exportToLocal);
-    //   exportToLocal.click();
-    //   document.body.removeChild(exportToLocal);
-    // }
-    const imageBlob = await fetch(imageUrl);
-    // .then((response) => {
-    //   response.arrayBuffer();
-    // })
-    // .then((buffer) => {
-    //   new Blob([buffer], { type: "image/png" });
-    // })
-    // .catch((err) => {
-    //   console.log(err.message);
-    // });
-    const response = imageBlob.arrayBuffer();
-    const buffer = new blob([buffer], { type: "image/png" }).catch((err) => {
-      console.log(err.message);
-    });
+  const downloadOutput = async (output, name) => {
+    // console.log("downloading", output);
+    const image = await fetch(output);
+    console.log("image", image);
+    const imageBlog = await image.blob();
+    console.log("imageBlog", imageBlog);
+    const imageURL = URL.createObjectURL(imageBlog);
+    console.log("imageURL", imageURL);
 
-    console.log(imageBlob, URL.createObjectURL(imageBlob));
-
-    // const exportToLocal = document.createElement("a");
-    // exportToLocal.href = URL.createObjectURL(imageBlob);
-    // exportToLocal.download = imageName;
-    // document.body.appendChild(exportToLocal);
-    // exportToLocal.click();
-    // document.body.removeChild(exportToLocal);
+    const link = document.createElement("a");
+    link.href = imageURL;
+    link.download = name;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   const handleSubmit = (e) => {
@@ -256,7 +242,6 @@ export default function Record(recordId) {
                     onClick={async (e) => {
                       // console.log("upload image", image);
                       const genurl = await handleUploadImage(e, image);
-                      console.log("genurl", genurl);
                       setImageUrl(genurl);
                       setImage("");
                     }}
@@ -598,27 +583,18 @@ export default function Record(recordId) {
             >
               {isSaved}
             </div>
-            {/* {output != "" && (
+            {output != "" && (
               <div
                 className={styles.saveButton}
                 type="submit"
                 onClick={async (e) => {
                   e.preventDefault();
-                  // let downloadOutput = document.querySelector("#output__toPNG");
-                  // downloadOutput.href = handleDownload(e);
-                  // downloadOutput(output, "YUME");
-
-                  const downloadOutput = async (output) => {
-                    console.log("out", output);
-                    // let outputImageUrl = await getOnlyOutputImage(output);
-                    // saveAs(output, "YUME");
-                  };
-                  await downloadOutput(output);
+                  downloadOutput(output, name);
                 }}
               >
-                Download
+                Export to PNG
               </div>
-            )} */}
+            )}
           </form>
 
           <div

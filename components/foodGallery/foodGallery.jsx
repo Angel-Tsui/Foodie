@@ -101,7 +101,8 @@ export default function FoodGallery(props) {
   // console.log("fullSetData", allData);
   let action = props.action;
   // console.log("FoodGallery main", action);
-  const [modal, setModal] = useState(false);
+  // const [modal, setModal] = useState(false);
+  // console.log("modal status", modal);
 
   return (
     <>
@@ -114,37 +115,40 @@ export default function FoodGallery(props) {
               action == "redirect"
                 ? (window.location.href = "/record/" + data.id)
                 : console.log("open modal", data.id);
+              // window.open("/output/" + data.id);
+              // // getOnlyOutputImage(data.id).then(() => {
+
+              // // });
+
               {
                 getOnlyOutputImage(data.id).then((outputFile) => {
                   console.log("img", outputFile);
-                  setModal(!modal);
-                  function display(modal, outputFile) {
-                    console.log("in display", modal, outputFile);
-                    return (
-                      modal && (
-                        <div className={modalStyles.modal}>
-                          <div className={modalStyles.modal__overlay}>
-                            <div className={modalStyles.modal__content}>
-                              {/* <div className={modalStyles.modal__title}>Sign In</div> */}
-                              <div
-                                className={modalStyles.modal__closeButton}
-                                onClick={setModal(!modal)}
-                              >
-                                X
-                              </div>
-                              <div className={modalStyles.imageContainer}>
-                                <img
-                                  src={outputFile}
-                                  className={modalStyles.image}
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      )
-                    );
-                  }
-                  display(modal, outputFile);
+                  // setModal(true);
+                  // function display(modal, outputFile) {
+                  //   console.log("in display", modal, outputFile);
+                  //   return (
+                  //     <div className={modalStyles.modal}>
+                  //       <div className={modalStyles.modal__overlay}>
+                  //         <div className={modalStyles.modal__content}>
+                  //           {/* <div className={modalStyles.modal__title}>Sign In</div> */}
+                  //           <div
+                  //             className={modalStyles.modal__closeButton}
+                  //             onClick={setModal(!modal)}
+                  //           >
+                  //             X
+                  //           </div>
+                  //           <div className={modalStyles.imageContainer}>
+                  //             <img
+                  //               src={outputFile}
+                  //               className={modalStyles.image}
+                  //             />
+                  //           </div>
+                  //         </div>
+                  //       </div>
+                  //     </div>
+                  //   );
+                  // }
+                  // display(modal, outputFile);
                 });
 
                 // displayOutputImage(data.id);

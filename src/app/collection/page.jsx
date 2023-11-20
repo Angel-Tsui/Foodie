@@ -12,12 +12,12 @@ import { getRecordsData } from "../../../firebase/firestore";
 import { firestore } from "../../../firebase/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { v4 } from "uuid";
-import dynamic from "next/dynamic";
-const GetName = dynamic(() => import("./getName"), { ssr: false });
+// import dynamic from "next/dynamic";
+// const GetName = dynamic(() => import("./getName"), { ssr: false });
 
 function CollectorList(userId) {
   userId = userId.userId;
-  console.log("userId", userId);
+  // console.log("userId", userId);
   return (
     <div className={styles.collectionList}>
       <div
