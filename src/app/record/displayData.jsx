@@ -21,6 +21,7 @@ export default function DisplayData(fullSetData) {
   // console.log(fullSetData.allRatings);
   let recordData = fullSetData.allData;
   let ratingData = fullSetData.allRatings;
+  // console.log(recordData.imageUrl);
   return (
     <div className={styles.meatInfo__output} id="output__toPNG">
       <div className={styles.output__mainInfoAndRadar}>

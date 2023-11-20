@@ -4,6 +4,7 @@ import SearchBar from "../../components/searchBar/searchBar";
 import { useState, useEffect } from "react";
 import { getRecordsData } from "../../firebase/firestore";
 import FoodGallery from "../../components/foodGallery/foodGallery";
+import modalStyles from "../../components/modal/modal.module.css";
 
 export default function Home() {
   const [allData, setAllData] = useState([]);
@@ -17,6 +18,8 @@ export default function Home() {
       setAllData(allData);
     });
   }, []);
+  const [modal, setModal] = useState();
+
   return (
     <div className={styles.HomePageContainer}>
       <div className={styles.HomePageContainer__general}>
@@ -27,7 +30,6 @@ export default function Home() {
           <FoodGallery fullSetData={allData} />
         </div>
       </div>
-      <div className={styles.HomePageContainer__signIn}></div>
     </div>
   );
 }
