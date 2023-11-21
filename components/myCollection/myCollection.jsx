@@ -28,12 +28,11 @@ export default function MyCollection() {
     <div className={styles.myCollectionContainer}>
       <div className={styles.myIconContainer}>
         <div className={styles.myIcon}>
-          {userProPic != null ? (
+          {userProPic != "" ? (
             <img src={userProPic} />
           ) : (
             <img src="/profile.jpg" />
           )}
-          {/* <Image src={userProPic} width={50} height={50} alt="icon" /> */}
         </div>
       </div>
       <div className={styles.myCollection}>MY COLLECTION</div>

@@ -53,6 +53,7 @@
   justify-content: center;
   align-items: center;
   padding: 5px;
+  cursor: pointer;
 }
 
 .searchBar div:last-child {
@@ -63,4 +64,28 @@
   padding: 8px;
   color: white;
   box-shadow: 0px 0px 5px rgb(212, 208, 208);
+}
+
+.filterIcon {
+  background-color: rgba(255, 255, 255, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid rgb(114, 17, 17);
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  color: black;
+  cursor: pointer;
+}
+
+.filterIcon svg {
+  width: 50%;
+  height: 50%;
+}
+
+.filterSelectorContainer {
+  width: 300px;
+  height: 400px;
+  background-color: rgba(255, 255, 255, 0.447);
 }
