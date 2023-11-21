@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { getRecordsData } from "../../firebase/firestore";
 import FoodGallery from "../../components/foodGallery/foodGallery";
 import modalStyles from "../../components/modal/modal.module.css";
+import Modal from "../../components/modal/modal";
 
 export default function Home() {
   const [allData, setAllData] = useState([]);
@@ -18,7 +19,9 @@ export default function Home() {
       setAllData(allData);
     });
   }, []);
-  const [modal, setModal] = useState();
+
+  const [output, setOutput] = useState("");
+  console.log("at home", output);
 
   return (
     <div className={styles.HomePageContainer}>
@@ -27,7 +30,13 @@ export default function Home() {
           <SearchBar />
         </div>
         <div className={styles.foodGalleryContainer}>
-          <FoodGallery fullSetData={allData} />
+          <Modal
+            action="displayOutput"
+            fullSetData={allData}
+            pop={setOutput}
+            output={output}
+          />
+          {/* <FoodGallery fullSetData={allData} pop={setOutput} /> */}
         </div>
       </div>
     </div>

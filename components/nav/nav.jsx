@@ -15,6 +15,8 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { signInOrSignOut, userToken } from "../../firebase/verify";
+import Modal from "../modal/modal";
+// export const NavContext = createContext();
 
 function SignIn() {
   const [modal, setModal] = useState(false);
@@ -69,66 +71,6 @@ function SignIn() {
       }
     }
   }
-
-  return (
-    <>
-      <div
-        className={styles.nav__signUp}
-        onClick={() => {
-          toggleModal();
-          setUserStatus("");
-        }}
-      >
-        SIGN IN
-      </div>
-
-      {modal && (
-        <div className={modalStyles.modal}>
-          <div className={modalStyles.modal__overlay}>
-            <div className={modalStyles.modal__content}>
-              <div className={modalStyles.modal__title}>Sign In</div>
-              <div
-                className={modalStyles.modal__closeButton}
-                onClick={toggleModal}
-              >
-                X
-              </div>
-              <form className={modalStyles.modal__form} id="signInForm">
-                <input
-                  type="text"
-                  placeholder="Email Address"
-                  id="signInUserEmail"
-                />
-                <input
-                  type="password"
-                  placeholder="Password"
-                  id="signInUserPw"
-                />
-                <div
-                  className={modalStyles.modal__submitButton}
-                  onClick={(e) => {
-                    handleSignIn(e);
-                  }}
-                >
-                  Sign In
-                </div>
-              </form>
-              {Object.keys(userStatus).includes("error") && (
-                <div className={modalStyles.negative}>
-                  {userStatus["message"]}
-                </div>
-              )}
-              {Object.keys(userStatus).includes("success") && (
-                <div className={modalStyles.positive}>
-                  {userStatus["message"]}
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
-    </>
-  );
 }
 
 function SignUp() {
@@ -298,7 +240,11 @@ function editProfile() {
 }
 
 export default function Nav() {
+  // const [signIn, setSignIn] = useState();
+  // const [signUp, setSignUp] = useState();
+
   return (
+    // <NavContext.Provider value={[signIn, setSignIn]}>
     <div className={styles.nav}>
       <div className={styles.nav__companyName}>
         <Link href="/">UNIVERSAL MEAT EXPO</Link>
@@ -306,8 +252,10 @@ export default function Nav() {
       <div className={styles.nav__user}>
         {userToken == null && (
           <>
-            <SignUp />
-            <SignIn />
+            {/* <SignUp /> */}
+            <Modal action="signUp" />
+            <Modal action="signIn" />
+            {/* <SignIn /> */}
           </>
         )}
         {userToken != null && (
@@ -343,5 +291,8 @@ export default function Nav() {
         )}
       </div>
     </div>
+    // </NavContext.Provider>
   );
 }
+
+export { SignIn };
