@@ -150,7 +150,7 @@ function CollectionGallery(props) {
         fullSetData={fullSetData}
         pop={props.func}
         output={props.output}
-        nextStep="redirect"
+        nextStep="allowFurtherAction"
       />
       {/* <FoodGallery fullSetData={fullSetData} action={props.action} /> */}
     </div>

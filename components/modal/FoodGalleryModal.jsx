@@ -48,6 +48,7 @@ export default function FoodGalleryModal(action) {
           triggerModal={foodGalleryOpenModal}
           getCardId={setCardId}
           getCardName={setCardName}
+          nextStep={action.nextStep}
         />
       )}
 
