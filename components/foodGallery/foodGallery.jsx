@@ -48,7 +48,7 @@ export default function FoodGallery(props) {
   // console.log("foodGallery main", props);
   let allData = props.fullSetData;
   // console.log("fullSetData", allData);
-  let action = props.action;
+  let nextStep = props.nextStep;
   // if (action != "redirect") {
   //   const [output, setOutput] = useContext(Context);
   //   // const [modal, setModal] = useContext(Context);
@@ -63,18 +63,17 @@ export default function FoodGallery(props) {
           key={data.id}
           onClick={() => {
             {
-              action == "redirect"
-                ? (window.location.href = "/record/" + data.id)
-                : console.log("open modal", data.id);
-              // console.log("in Food", output);
-
-              {
-                getOnlyOutputImage(data.id).then((outputFile) => {
-                  // console.log("img", outputFile);
-                  props.pop(outputFile);
-                  props.triggerModal();
-                });
-              }
+              getOnlyOutputImage(data.id).then((outputFile) => {
+                // console.log("img", outputFile);
+                props.pop(outputFile);
+                props.triggerModal();
+                {
+                  nextStep != null && props.getCardId(data.id);
+                }
+                {
+                  nextStep != null && props.getCardName(data.name);
+                }
+              });
             }
           }}
         >

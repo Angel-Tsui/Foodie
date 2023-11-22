@@ -4,8 +4,8 @@ import SearchBar from "../../components/searchBar/searchBar";
 import { useState, useEffect } from "react";
 import { getRecordsData } from "../../firebase/firestore";
 import FoodGallery from "../../components/foodGallery/foodGallery";
-import modalStyles from "../../components/modal/modal.module.css";
-import Modal from "../../components/modal/modal";
+// import modalStyles from "../../components/modal/modal.module.css";
+import FoodGalleryModal from "../../components/modal/FoodGalleryModal";
 
 export default function Home() {
   const [allData, setAllData] = useState([]);
@@ -21,7 +21,7 @@ export default function Home() {
   }, []);
 
   const [output, setOutput] = useState("");
-  console.log("at home", output);
+  // console.log("at home", output);
 
   return (
     <div className={styles.HomePageContainer}>
@@ -30,7 +30,7 @@ export default function Home() {
           <SearchBar />
         </div>
         <div className={styles.foodGalleryContainer}>
-          <Modal
+          <FoodGalleryModal
             action="displayOutput"
             fullSetData={allData}
             pop={setOutput}

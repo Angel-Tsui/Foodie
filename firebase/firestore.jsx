@@ -42,7 +42,7 @@ const getOnlyOutputImage = async (outputId) => {
   let outputInfo = await getSingleOutputData(outputId).catch((err) => {
     // console.log("error", err.message);
   });
-  console.log(outputInfo);
+  // console.log(outputInfo);
   let outputImageUrl = await outputInfo.ouputUrl;
   // console.log("img", outputImageUrl);
   return outputImageUrl;
@@ -171,8 +171,7 @@ const addRecordsData = async (
   });
 };
 
-const deleteDataById = async (e, SingleRecordid) => {
-  e.preventDefault();
+const deleteDataById = async (SingleRecordid) => {
   const docRef = doc(firestore, "records", SingleRecordid);
   deleteDoc(docRef).then(() => {
     window.location.href = "/collection";

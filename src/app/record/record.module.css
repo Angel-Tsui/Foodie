@@ -140,10 +140,17 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 5px;
 }
 
 .saveButton:hover {
   box-shadow: 3px 3px 5px grey;
+}
+
+.saveBtnInner {
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
 .loader {
@@ -170,9 +177,12 @@
   margin-right: auto;
   margin-top: 40px;
   cursor: pointer;
-  text-decoration: underline;
+  /* text-decoration: underline; */
   color: rgb(114, 17, 17);
   font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
 .meatInfo__output {
