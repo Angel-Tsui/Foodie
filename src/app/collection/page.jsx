@@ -139,7 +139,7 @@ function CollectionGalleryHeading(userInfo) {
 }
 
 function CollectionGallery(props) {
-  console.log("in CollectionGallery", props);
+  // console.log("in CollectionGallery", props);
   // console.log(props.action);
   let fullSetData = props.allData;
   // console.log("in", fullSetData);
@@ -164,7 +164,7 @@ export default function Collection() {
   // console.log("allData", allData);
   const [userName, setUserName] = useState("");
   const [output, setOutput] = useState("");
-  console.log("at collection", output);
+  // console.log("at collection", output);
 
   useEffect(() => {
     verify();
@@ -174,7 +174,7 @@ export default function Collection() {
     setUserId(userId);
     // console.log("effect", userId);
 
-    console.log(userId);
+    // console.log(userId);
     if (userId != null) {
       getDoc(doc(firestore, "users", userId))
         .then((singleData) => {

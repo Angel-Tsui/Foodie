@@ -45,7 +45,7 @@ function FoodGalleryCard(data) {
 }
 
 export default function FoodGallery(props) {
-  console.log("foodGallery main", props);
+  // console.log("foodGallery main", props);
   let allData = props.fullSetData;
   // console.log("fullSetData", allData);
   let nextStep = props.nextStep;

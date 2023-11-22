@@ -42,7 +42,7 @@ const getOnlyOutputImage = async (outputId) => {
   let outputInfo = await getSingleOutputData(outputId).catch((err) => {
     // console.log("error", err.message);
   });
-  console.log(outputInfo);
+  // console.log(outputInfo);
   let outputImageUrl = await outputInfo.ouputUrl;
   // console.log("img", outputImageUrl);
   return outputImageUrl;

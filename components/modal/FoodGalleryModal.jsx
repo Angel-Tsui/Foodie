@@ -9,14 +9,14 @@ import { TfiDownload } from "react-icons/tfi";
 import { downloadOutput } from "../../util/export";
 
 export default function FoodGalleryModal(action) {
-  console.log("action", action);
-  console.log("id", action.action.fullSetData);
+  // console.log("action", action.nextStep);
+  // console.log("id", action.action.fullSetData);
   // console.log("fullsetData", action.fullSetData);
   const [modal, setModal] = useState(false);
-  console.log("modal", modal);
+  // console.log("modal", modal);
 
   let toDo = action.action;
-  console.log("toDo", toDo);
+  // console.log("toDo", toDo);
 
   // Search Bar Filter Functions
 
@@ -74,7 +74,7 @@ export default function FoodGalleryModal(action) {
                       src={action.output}
                       className={styles.modal__outputImage}
                     />
-                    {action.nextStep != "" && (
+                    {action.nextStep != undefined && (
                       <div className={styles.furtherAction}>
                         <div
                           className={styles.deleteBtn}
