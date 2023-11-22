@@ -1,5 +1,6 @@
 "use client";
 import styles from "./nav.module.css";
+// import createStyles from "../../src/app/collection/collection.module.css";
 import Link from "next/link";
 import MyCollection from "../../components/myCollection/myCollection";
 import { RxHamburgerMenu } from "react-icons/rx";
@@ -16,7 +17,7 @@ import {
 } from "firebase/auth";
 import { signInOrSignOut, userToken } from "../../firebase/verify";
 import Modal from "../modal/modal";
-// export const NavContext = createContext();
+import { v4 } from "uuid";
 
 function SignIn() {
   const [modal, setModal] = useState(false);
@@ -265,7 +266,18 @@ export default function Nav() {
                 window.location.href = "/collection";
               }}
             >
-              <MyCollection />
+              <div className={styles.userAction}>
+                <div
+                  className={styles.collectionGallery__create}
+                  onClick={() => {
+                    let recordId = v4();
+                    window.open("/record/" + recordId);
+                  }}
+                >
+                  Create Collection +
+                </div>
+                <MyCollection />
+              </div>
             </div>
             <div className={styles.menu}>
               <div className={styles.menu__btn}>

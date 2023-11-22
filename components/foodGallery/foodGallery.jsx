@@ -45,7 +45,7 @@ function FoodGalleryCard(data) {
 }
 
 export default function FoodGallery(props) {
-  // console.log("foodGallery main", props);
+  console.log("foodGallery main", props);
   let allData = props.fullSetData;
   // console.log("fullSetData", allData);
   let action = props.action;
@@ -73,6 +73,8 @@ export default function FoodGallery(props) {
                   // console.log("img", outputFile);
                   props.pop(outputFile);
                   props.triggerModal();
+                  props.getCardId(data.id);
+                  props.getCardName(data.name);
                 });
               }
             }

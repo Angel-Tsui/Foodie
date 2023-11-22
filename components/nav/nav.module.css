@@ -64,6 +64,32 @@
   cursor: pointer;
 }
 
+.userAction {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.collectionGallery__create {
+  border: 2px solid rgb(114, 17, 17);
+  background-color: rgb(255, 255, 255);
+  color: rgb(114, 17, 17);
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0px 5px;
+  cursor: pointer;
+  height: 50px;
+}
+
+.collectionGallery__create:hover {
+  /* box-shadow: 0px 0px 3px white; */
+  border: 2px solid white;
+  background-color: rgb(114, 17, 17);
+  color: white;
+}
+
 .menu {
   position: relative;
 }

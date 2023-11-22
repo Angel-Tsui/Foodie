@@ -47,6 +47,37 @@ body.active-modal {
 }
 
 /* .modal__outputImageContainer {
+  display: flex;
+  align-items: center;
+} */
+
+.furtherAction {
+  background-color: rgb(114, 17, 17);
+  height: 30px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: white;
+  font-size: 14px;
+  /* padding: 5px; */
+}
+
+.furtherAction div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  cursor: pointer;
+  height: inherit;
+  /* padding: 0px 15px; */
+  border-radius: 5px;
+}
+
+.furtherAction div:hover {
+  background-color: rgb(91, 14, 14);
+}
+
+/* .modal__outputImageContainer {
   width: 500px;
   height: 500px;
 } */

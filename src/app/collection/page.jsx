@@ -11,6 +11,7 @@ import { verify, getUserInfoFromToken } from "../../../firebase/verify";
 import { getRecordsData } from "../../../firebase/firestore";
 import { firestore } from "../../../firebase/firebase";
 import { doc, getDoc } from "firebase/firestore";
+import FoodGalleryModal from "../../../components/modal/FoodGalleryModal";
 import { v4 } from "uuid";
 // import dynamic from "next/dynamic";
 // const GetName = dynamic(() => import("./getName"), { ssr: false });
@@ -126,10 +127,10 @@ function CollectionGalleryHeading(userInfo) {
           onClick={() => {
             // AddNewRecord(userInfo.userId);
             let recordId = v4();
-            window.location.href = "/record/" + recordId;
+            window.open("/record/" + recordId);
           }}
         >
-          Add New +
+          Create Collection +
         </div>
         {/* <AddNewModal /> */}
       </div>
@@ -138,13 +139,20 @@ function CollectionGalleryHeading(userInfo) {
 }
 
 function CollectionGallery(props) {
-  // console.log(props.allData);
+  console.log("in CollectionGallery", props);
   // console.log(props.action);
   let fullSetData = props.allData;
   // console.log("in", fullSetData);
   return (
     <div className={styles.collectionGallery__foodGallery}>
-      <FoodGallery fullSetData={fullSetData} action={props.action} />
+      <FoodGalleryModal
+        action="collectionPreview"
+        fullSetData={fullSetData}
+        pop={props.func}
+        output={props.output}
+        nextStep="redirect"
+      />
+      {/* <FoodGallery fullSetData={fullSetData} action={props.action} /> */}
     </div>
   );
 }
@@ -155,6 +163,9 @@ export default function Collection() {
   const [allData, setAllData] = useState([]);
   // console.log("allData", allData);
   const [userName, setUserName] = useState("");
+  const [output, setOutput] = useState("");
+  console.log("at collection", output);
+
   useEffect(() => {
     verify();
 
@@ -204,7 +215,12 @@ export default function Collection() {
       </div>
       <div className={styles.collectionGallery}>
         <CollectionGalleryHeading userId={userId} userName={userName} />
-        <CollectionGallery allData={allData} action={"redirect"} />
+        <CollectionGallery
+          allData={allData}
+          action={"redirect"}
+          func={setOutput}
+          output={output}
+        />
       </div>
     </div>
   );

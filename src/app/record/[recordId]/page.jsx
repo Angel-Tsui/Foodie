@@ -17,9 +17,14 @@ import {
   getUserInfoFromToken,
   confirmUser,
 } from "../../../../firebase/verify";
-import { DocumentReference, doc } from "firebase/firestore";
+// import { DocumentReference, doc } from "firebase/firestore";
 import * as htmlToImage from "html-to-image";
-import { saveAs } from "file-saver";
+// import { saveAs } from "file-saver";
+import { AiOutlineDelete } from "react-icons/ai";
+import { TfiDownload } from "react-icons/tfi";
+import { AiOutlineSave } from "react-icons/ai";
+import { AiFillSave } from "react-icons/ai";
+import { downloadOutput } from "../../../../util/export";
 
 export default function Record(recordId) {
   let SingleRecordid = recordId.params.recordId;
@@ -82,7 +87,11 @@ export default function Record(recordId) {
     thick,
     rich,
   ]);
-  const [isSaved, setIsSaved] = useState(<div>Save</div>);
+  const [isSaved, setIsSaved] = useState(
+    <div className={styles.saveBtnInner}>
+      Save <AiOutlineSave />
+    </div>
+  );
   // const [outputPrev, setOutputPrev] = useState("")
   const [output, setOutput] = useState("");
   // console.log("output", output);
@@ -119,7 +128,11 @@ export default function Record(recordId) {
       starRating: starRating,
       description: description,
     });
-    setIsSaved(<div>Save</div>);
+    setIsSaved(
+      <div className={styles.saveBtnInner}>
+        Save <AiOutlineSave />
+      </div>
+    );
     setOutput("");
   }, [
     imageUrl,
@@ -140,22 +153,22 @@ export default function Record(recordId) {
     setUserId(user);
   });
 
-  const downloadOutput = async (output, name) => {
-    // console.log("downloading", output);
-    const image = await fetch(output);
-    console.log("image", image);
-    const imageBlog = await image.blob();
-    console.log("imageBlog", imageBlog);
-    const imageURL = URL.createObjectURL(imageBlog);
-    console.log("imageURL", imageURL);
+  // const downloadOutput = async (output, name) => {
+  //   // console.log("downloading", output);
+  //   const image = await fetch(output);
+  //   console.log("image", image);
+  //   const imageBlog = await image.blob();
+  //   console.log("imageBlog", imageBlog);
+  //   const imageURL = URL.createObjectURL(imageBlog);
+  //   console.log("imageURL", imageURL);
 
-    const link = document.createElement("a");
-    link.href = imageURL;
-    link.download = name;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
+  //   const link = document.createElement("a");
+  //   link.href = imageURL;
+  //   link.download = name;
+  //   document.body.appendChild(link);
+  //   link.click();
+  //   document.body.removeChild(link);
+  // };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -209,7 +222,11 @@ export default function Record(recordId) {
           // console.log("success");
           setIsSaved(<div className={styles.loader}></div>);
           setTimeout(() => {
-            setIsSaved(<div>Saved</div>);
+            setIsSaved(
+              <div className={styles.saveBtnInner}>
+                Saved <AiFillSave />
+              </div>
+            );
           }, 1500);
         })
         .catch((err) => {
@@ -593,6 +610,7 @@ export default function Record(recordId) {
                 }}
               >
                 Export to PNG
+                <TfiDownload />
               </div>
             )}
           </form>
@@ -600,10 +618,12 @@ export default function Record(recordId) {
           <div
             className={styles.delete}
             onClick={(e) => {
-              deleteDataById(e, SingleRecordid);
+              e.preventDefault()
+              deleteDataById(SingleRecordid);
             }}
           >
             Delete Collection
+            <AiOutlineDelete />
           </div>
         </div>
 

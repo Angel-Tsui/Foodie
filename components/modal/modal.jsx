@@ -1,7 +1,6 @@
 "use client";
 import styles from "./modal.module.css";
-// import createstyles from "../../src/app/collection/collection.module.css";
-import { useState, useEffect, createContext } from "react";
+import { useState } from "react";
 import { auth } from "../../firebase/firebase";
 import {
   createUserWithEmailAndPassword,
@@ -9,10 +8,8 @@ import {
 } from "firebase/auth";
 import { firestore } from "../../firebase/firebase";
 import { doc, setDoc } from "firebase/firestore";
-import { signInOrSignOut, userToken } from "../../firebase/verify";
+import { signInOrSignOut } from "../../firebase/verify";
 import { IoFilterOutline } from "react-icons/io5";
-import FoodGallery from "../foodGallery/foodGallery";
-// export const Context = createContext();
 
 export default function Modal(action) {
   console.log("action", action);
@@ -27,11 +24,6 @@ export default function Modal(action) {
   // console.log("userStatus", userStatus);
 
   // Search Bar Filter Functions
-
-  // Home Page FoodGallery Functions
-  const foodGalleryOpenModal = () => {
-    setModal(true);
-  };
 
   // Nav Bar SignUp Functions
   async function fireSignIn(signInUserEmail, signInUserPw) {
@@ -211,15 +203,6 @@ export default function Modal(action) {
         </div>
       )}
 
-      {/* Home Page FoodGallery Display Card Button */}
-      {toDo == "displayOutput" && (
-        <FoodGallery
-          fullSetData={action.fullSetData}
-          pop={action.pop}
-          triggerModal={foodGalleryOpenModal}
-        />
-      )}
-
       {/* Open All Modals */}
       {modal && (
         <div className={styles.modal}>
@@ -240,16 +223,6 @@ export default function Modal(action) {
                   <>
                     <div className={styles.modal__title}>Filter</div>
                   </>
-                )}
-
-                {/* Home Page FoodGallery Output Display Modal Content */}
-                {action.output != "" && (
-                  <div className={styles.modal__outputImageContainer}>
-                    <img
-                      src={action.output}
-                      className={styles.modal__outputImage}
-                    />
-                  </div>
                 )}
 
                 {/* Nav Bar SignIn Modal Content */}
