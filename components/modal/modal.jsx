@@ -10,20 +10,56 @@ import { firestore } from "../../firebase/firebase";
 import { doc, setDoc } from "firebase/firestore";
 import { signInOrSignOut } from "../../firebase/verify";
 import { IoFilterOutline } from "react-icons/io5";
+import filterOptions from "../../assets/inputOptions/Options.json";
 
 export default function Modal(action) {
-  console.log("action", action);
+  // console.log("action", action);
   // console.log("fullsetData", action.fullSetData);
   const [modal, setModal] = useState(false);
-  console.log("modal", modal);
+  // console.log("modal", modal);
 
   let toDo = action.action;
-  console.log("toDo", toDo);
+  // console.log("toDo", toDo);
 
   const [userStatus, setUserStatus] = useState({});
   // console.log("userStatus", userStatus);
 
   // Search Bar Filter Functions
+  // console.log(filterOptions);
+  const [radio, setRadio] = useState(false);
+  const [cusines, setCusines] = useState("");
+  const [doneness, setDoneness] = useState([]);
+  const [checked, setChecked] = useState(false);
+  const [parts, setParts] = useState([]);
+  console.log("c", cusines, "d", doneness, "p", parts);
+
+  const handleRadio = (e) => {
+    setCusines(e.target.value);
+  };
+  const handleCheck = (e) => {
+    setChecked(!checked);
+    if (filterOptions.doneness.includes(e.target.value)) {
+      if (e.target.checked == true && doneness.length < 3) {
+        setDoneness((doneness) => [...doneness, e.target.value]);
+        setUserStatus("");
+      } else if (e.target.checked == false) {
+        setDoneness(doneness.filter((d) => d !== e.target.value));
+      } else {
+        e.target.checked = false;
+        setUserStatus({ error: true, message: "Max 3 Checks" });
+      }
+    } else {
+      if (e.target.checked == true && parts.length < 3) {
+        setParts((parts) => [...parts, e.target.value]);
+        setUserStatus("");
+      } else if (e.target.checked == false) {
+        setParts(parts.filter((p) => p !== e.target.value));
+      } else {
+        e.target.checked = false;
+        setUserStatus({ error: true, message: "Max 3 Checks" });
+      }
+    }
+  };
 
   // Nav Bar SignUp Functions
   async function fireSignIn(signInUserEmail, signInUserPw) {
@@ -217,99 +253,179 @@ export default function Modal(action) {
               >
                 X
               </div>
-              <div className={styles.modal__filter}>
-                {/* Search Bar Filter Modal Content */}
-                {toDo == "filter" && (
-                  <>
-                    <div className={styles.modal__title}>Filter</div>
-                  </>
-                )}
-
-                {/* Nav Bar SignIn Modal Content */}
-                {action.output == null && toDo == "signIn" && (
-                  <>
-                    <div className={styles.modal__title}>Sign In</div>
-                    <form className={styles.modal__form} id="signInForm">
-                      <input
-                        type="text"
-                        placeholder="Email Address"
-                        id="signInUserEmail"
-                      />
-                      <input
-                        type="password"
-                        placeholder="Password"
-                        id="signInUserPw"
-                      />
-                      <div
-                        className={styles.modal__submitButton}
-                        onClick={(e) => {
-                          handleSignIn(e);
-                        }}
-                      >
-                        Sign In
+              {/* Search Bar Filter Modal Content */}
+              {toDo == "filter" && (
+                <div className={styles.modal__filterContainer}>
+                  <form>
+                    <div className={styles.modal__filterInner}>
+                      <div className={styles.modal__filterLeft}>
+                        <div
+                          className={styles.modal__filterFields}
+                          id="doneness"
+                        >
+                          Doneness (Max 3 Checks)
+                        </div>
+                        <div className={styles.modal__filterOptions}>
+                          {filterOptions.doneness.map((done) => (
+                            <div>
+                              {" "}
+                              <input
+                                type="checkbox"
+                                id={done}
+                                key={done}
+                                value={done}
+                                onChange={(e) => {
+                                  handleCheck(e);
+                                }}
+                              />
+                              {done}
+                            </div>
+                          ))}
+                        </div>
+                        <div className={styles.modal__filterFields} id="part">
+                          Part of Beef (Max 3 Checks)
+                        </div>
+                        <div className={styles.modal__filterOptions}>
+                          <div className={styles.modal__filterPart}>
+                            {filterOptions.parts.map((part) => (
+                              <div>
+                                <input
+                                  type="checkbox"
+                                  id={part}
+                                  key={part}
+                                  value={part}
+                                  onChange={(e) => {
+                                    handleCheck(e);
+                                  }}
+                                />
+                                {part}
+                              </div>
+                            ))}
+                          </div>
+                        </div>
                       </div>
-                    </form>
-                    {Object.keys(userStatus).includes("error") && (
-                      <div className={styles.negative}>
-                        {userStatus["message"]}
+                      <div className={styles.modal__filterRight}>
+                        <div className={styles.modal__filterFields} id="cusine">
+                          Cusine
+                        </div>
+                        <div className={styles.modal__filterOptions}>
+                          {filterOptions.cusine.map((cus) => (
+                            <div>
+                              <input
+                                type="radio"
+                                id={cus}
+                                key={cus}
+                                value={cus}
+                                name="cusine"
+                                onChange={(e) => handleRadio(e)}
+                              />
+                              {cus}
+                            </div>
+                          ))}
+                        </div>
+                        <div className={styles.modal__filterFields} id="price">
+                          Price
+                        </div>
+                        <div className={styles.modal__filterOptions}></div>
+                        {/* <div className={styles.modal__filterCollector}> */}
+                        <div
+                          className={styles.modal__filterFields}
+                          id="collector"
+                        >
+                          Collector Name
+                        </div>
+                        <div className={styles.modal__filterOptions}>
+                          <input type="text" />
+                        </div>
+                        {/* </div> */}
+                        <div className={styles.modal__buttons}>
+                          <div
+                            className={styles.modal__submitButton}
+                            onClick={(e) => {
+                              console.log(e);
+                            }}
+                          >
+                            Search
+                          </div>
+                          <div
+                            className={styles.modal__clearButton}
+                            onClick={(e) => {
+                              setRadio(false);
+                              setChecked(false);
+                              setCusines("");
+                              setDoneness("");
+                              setParts([]);
+                            }}
+                          >
+                            Clear All Search
+                          </div>
+                        </div>
                       </div>
-                    )}
-                    {Object.keys(userStatus).includes("success") && (
-                      <div className={styles.positive}>
-                        {userStatus["message"]}
-                      </div>
-                    )}
-                  </>
-                )}
-
-                {/* Nav Bar SignUp Modal Content */}
-                {toDo == "signUp" && (
-                  <>
-                    <div className={styles.modal__title}>
-                      BECOME A COLLECTOR
                     </div>
+                  </form>
+                </div>
+              )}
+
+              {/* Nav Bar SignIn Modal Content */}
+
+              {action.output == null && toDo == "signIn" && (
+                <div className={styles.signInSignUp}>
+                  <div className={styles.modal__title}>Sign In</div>
+                  <form className={styles.modal__form} id="signInForm">
+                    <input
+                      type="text"
+                      placeholder="Email Address"
+                      id="signInUserEmail"
+                    />
+                    <input
+                      type="password"
+                      placeholder="Password"
+                      id="signInUserPw"
+                    />
                     <div
-                      className={styles.modal__closeButton}
-                      onClick={() => {
-                        setModal(!modal);
-                        action = "";
+                      className={styles.modal__submitButton}
+                      onClick={(e) => {
+                        handleSignIn(e);
                       }}
                     >
-                      X
+                      Sign In
                     </div>
-                    <form className={styles.modal__form} id="signUpForm">
-                      <input
-                        type="text"
-                        placeholder="Email Address"
-                        id="signUpUserEmail"
-                      />
-                      <input
-                        type="password"
-                        placeholder="Password"
-                        id="signUpUserPw"
-                      />
-                      <div
-                        className={styles.modal__submitButton}
-                        onClick={(e) => {
-                          handleSignUp(e);
-                        }}
-                      >
-                        BECOME A COLLECTOR
-                      </div>
-                    </form>
-                    {Object.keys(userStatus).includes("error") && (
-                      <div className={styles.negative}>
-                        {userStatus["message"]}
-                      </div>
-                    )}
-                    {Object.keys(userStatus).includes("success") && (
-                      <div className={styles.positive}>
-                        {userStatus["message"]}
-                      </div>
-                    )}
-                  </>
-                )}
-              </div>
+                  </form>
+                </div>
+              )}
+
+              {/* Nav Bar SignUp Modal Content */}
+              {toDo == "signUp" && (
+                <div className={styles.signInSignUp}>
+                  <div className={styles.modal__title}>BECOME A COLLECTOR</div>
+                  <form className={styles.modal__form} id="signUpForm">
+                    <input
+                      type="text"
+                      placeholder="Email Address"
+                      id="signUpUserEmail"
+                    />
+                    <input
+                      type="password"
+                      placeholder="Password"
+                      id="signUpUserPw"
+                    />
+                    <div
+                      className={styles.modal__submitButton}
+                      onClick={(e) => {
+                        handleSignUp(e);
+                      }}
+                    >
+                      BECOME A COLLECTOR
+                    </div>
+                  </form>
+                </div>
+              )}
+              {Object.keys(userStatus).includes("error") && (
+                <div className={styles.negative}>{userStatus["message"]}</div>
+              )}
+              {Object.keys(userStatus).includes("success") && (
+                <div className={styles.positive}>{userStatus["message"]}</div>
+              )}
             </div>
           </div>
         </div>
