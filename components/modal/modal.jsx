@@ -32,8 +32,8 @@ export default function Modal(action) {
   const [checked, setChecked] = useState(false);
   const [parts, setParts] = useState([]);
   const [status, setStatus] = useState(styles.inactive);
-  console.log("c", cusines, "d", doneness, "p", parts);
-  console.log("checked", checked, "r", radio);
+  // console.log("c", cusines, "d", doneness, "p", parts);
+  // console.log("checked", checked, "r", radio);
 
   const handleRadio = (e) => {
     if (cusines) {
@@ -373,7 +373,7 @@ export default function Modal(action) {
                           <div
                             className={styles.modal__submitButton}
                             onClick={(e) => {
-                              console.log(e);
+                              // console.log(e);
                             }}
                           >
                             Search
