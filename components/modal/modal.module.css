@@ -73,6 +73,10 @@ body.active-modal {
   display: flex;
   /* justify-content: center; */
   gap: 20px;
+  height: 50px;
+  align-items: flex-end;
+  /* position: absolute;
+  bottom: 20px; */
 }
 
 .modal__submitButton {
@@ -225,7 +229,7 @@ body.active-modal {
 .modal__filterInner {
   display: flex;
   width: 800px;
-  height: 370px;
+  height: 400px;
 }
 
 .modal__filterCollector {
@@ -236,11 +240,16 @@ body.active-modal {
 .modal__filterLeft {
   flex: none;
   width: 50%;
+  position: relative;
 }
 
 .modal__filterRight {
   flex: none;
   width: 50%;
+}
+
+.modal__RightFilters {
+  height: 80%;
 }
 
 .modal__filterFields {
@@ -255,15 +264,89 @@ body.active-modal {
   margin-bottom: 30px;
 }
 
-.modal__filterPart {
+.modal__filterOptions div label:hover {
+  cursor: pointer;
+}
+
+.modal__part {
   display: flex;
   flex-wrap: wrap;
 }
 
-.modal__filterPart div {
-  width: 50%;
-  margin-bottom: 5px;
+.modal__doneness label {
+  width: 100%;
+  /* margin-bottom: 5px; */
   display: flex;
   align-items: center;
   gap: 5px;
+}
+
+.modal__part label {
+  width: 50%;
+  /* margin-bottom: 5px; */
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.modal__cusine label,
+.inactive {
+  border: 1.5px solid rgb(91, 14, 14);
+  border-radius: 20px;
+  padding: 5px 10px;
+  margin-right: 8px;
+}
+
+.active {
+  background-color: rgb(91, 14, 14);
+  color: white;
+}
+
+.modal__filterInner input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  height: 2px;
+  width: 2px;
+  background-color: rgba(128, 128, 128, 0.395);
+  outline: none;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal__filterInner input[type="checkbox"]:after {
+  background-color: rgba(128, 128, 128, 0.395);
+  /* content: "Y"; */
+  font-size: 15px;
+  font-weight: 300;
+  color: white;
+  display: none;
+}
+
+.modal__filterInner input[type="checkbox"] content {
+  background-color: transparent;
+}
+
+.modal__filterInner input[type="checkbox"]:hover {
+  background-color: rgba(32, 32, 32, 0.432);
+}
+
+.modal__filterInner input[type="checkbox"]:checked {
+  background-color: rgb(91, 14, 14);
+}
+
+.modal__filterInner input[type="checkbox"]:checked:after {
+  display: block;
+  background-color: rgba(128, 128, 128, 0.395);
+}
+
+.modal__filterInner input[type="radio"] {
+  display: none;
+}
+
+.modal__filterInner input[type="radio"]:checked {
+  background-color: rgb(91, 14, 14);
+  color: white;
+  font-weight: 700;
 }

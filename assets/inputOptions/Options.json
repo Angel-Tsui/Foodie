@@ -13,7 +13,7 @@
     "Tendon",
     "Tongue"
   ],
-  "cusine": ["Western", "Japanese", "Koren", "Chinese"],
+  "cusine": ["Western", "Japanese", "Korean", "Chinese"],
   "currency": ["HKD"],
   "doneness": ["Rare", "Medium-rare", "Medium", "Medium-well", "Well-done"]
 }
