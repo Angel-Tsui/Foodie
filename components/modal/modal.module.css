@@ -113,14 +113,17 @@ body.active-modal {
 }
 
 .positive {
+  font-size: 20px;
   color: green;
 }
 
 .neutral {
+  font-size: 20px;
   color: black;
 }
 
 .negative {
+  font-size: 20px;
   color: red;
 }
 
@@ -152,7 +155,7 @@ body.active-modal {
 }
 
 .signInSignUp {
-  width: 300px;
+  width: 350px;
   display: flex;
   flex-direction: column;
   align-items: center;
