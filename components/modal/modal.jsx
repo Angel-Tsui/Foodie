@@ -31,10 +31,19 @@ export default function Modal(action) {
   const [doneness, setDoneness] = useState([]);
   const [checked, setChecked] = useState(false);
   const [parts, setParts] = useState([]);
+  const [status, setStatus] = useState(styles.inactive);
   console.log("c", cusines, "d", doneness, "p", parts);
+  console.log("checked", checked, "r", radio);
 
   const handleRadio = (e) => {
+    if (cusines) {
+      let orgSelected = document.querySelector(`#${cusines}`);
+      orgSelected.classList.remove(styles.active);
+    }
     setCusines(e.target.value);
+    let selectedValue = e.target.value;
+    let activeRadioOption = document.querySelector(`#${selectedValue}`);
+    activeRadioOption.classList.add(styles.active);
   };
   const handleCheck = (e) => {
     setChecked(!checked);
@@ -48,7 +57,7 @@ export default function Modal(action) {
         e.target.checked = false;
         setUserStatus({ error: true, message: "Max 3 Checks" });
       }
-    } else {
+    } else if (filterOptions.parts.includes(e.target.value)) {
       if (e.target.checked == true && parts.length < 3) {
         setParts((parts) => [...parts, e.target.value]);
         setUserStatus("");
@@ -59,6 +68,19 @@ export default function Modal(action) {
         setUserStatus({ error: true, message: "Max 3 Checks" });
       }
     }
+    // else {
+    //   setCusines("");
+    //   if (e.target.checked == true && cusines.length < 1) {
+    //     setCusines(e.target.value);
+    //     // setCusines((cusines) => [...cusines, e.target.value]);
+    //   } else if (e.target.checked == false) {
+    //     setCusines("");
+    //     // setCusines(cusines.filter((p) => p !== e.target.value));
+    //   } else {
+    //     e.target.checked = false;
+    //     setUserStatus({ error: true, message: "Max 1 Checks" });
+    //   }
+    // }
   };
 
   // Nav Bar SignUp Functions
@@ -266,29 +288,30 @@ export default function Modal(action) {
                           Doneness (Max 3 Checks)
                         </div>
                         <div className={styles.modal__filterOptions}>
-                          {filterOptions.doneness.map((done) => (
-                            <div>
-                              {" "}
-                              <input
-                                type="checkbox"
-                                id={done}
-                                key={done}
-                                value={done}
-                                onChange={(e) => {
-                                  handleCheck(e);
-                                }}
-                              />
-                              {done}
-                            </div>
-                          ))}
+                          <div className={styles.modal__doneness}>
+                            {filterOptions.doneness.map((done) => (
+                              <label>
+                                <input
+                                  type="checkbox"
+                                  id={done}
+                                  key={done}
+                                  value={done}
+                                  onChange={(e) => {
+                                    handleCheck(e);
+                                  }}
+                                />
+                                {done}
+                              </label>
+                            ))}
+                          </div>
                         </div>
                         <div className={styles.modal__filterFields} id="part">
                           Part of Beef (Max 3 Checks)
                         </div>
                         <div className={styles.modal__filterOptions}>
-                          <div className={styles.modal__filterPart}>
+                          <div className={styles.modal__part}>
                             {filterOptions.parts.map((part) => (
-                              <div>
+                              <label>
                                 <input
                                   type="checkbox"
                                   id={part}
@@ -299,45 +322,53 @@ export default function Modal(action) {
                                   }}
                                 />
                                 {part}
-                              </div>
+                              </label>
                             ))}
                           </div>
                         </div>
                       </div>
                       <div className={styles.modal__filterRight}>
-                        <div className={styles.modal__filterFields} id="cusine">
-                          Cusine
-                        </div>
-                        <div className={styles.modal__filterOptions}>
-                          {filterOptions.cusine.map((cus) => (
-                            <div>
-                              <input
-                                type="radio"
-                                id={cus}
-                                key={cus}
-                                value={cus}
-                                name="cusine"
-                                onChange={(e) => handleRadio(e)}
-                              />
-                              {cus}
+                        <div className={styles.modal__RightFilters}>
+                          <div
+                            className={styles.modal__filterFields}
+                            id="cusine"
+                          >
+                            Cusine
+                          </div>
+                          <div className={styles.modal__filterOptions}>
+                            <div className={styles.modal__cusine}>
+                              {filterOptions.cusine.map((cus) => (
+                                <label id={cus} className="cus">
+                                  <input
+                                    type="radio"
+                                    id={cus}
+                                    key={cus}
+                                    value={cus}
+                                    name="cusine"
+                                    onChange={(e) => handleRadio(e)}
+                                  />
+                                  {cus}
+                                </label>
+                              ))}
                             </div>
-                          ))}
+                          </div>
+                          <div
+                            className={styles.modal__filterFields}
+                            id="price"
+                          >
+                            Price
+                          </div>
+                          <div className={styles.modal__filterOptions}></div>
+                          <div
+                            className={styles.modal__filterFields}
+                            id="collector"
+                          >
+                            Collector Name
+                          </div>
+                          <div className={styles.modal__filterOptions}>
+                            <input type="text" />
+                          </div>
                         </div>
-                        <div className={styles.modal__filterFields} id="price">
-                          Price
-                        </div>
-                        <div className={styles.modal__filterOptions}></div>
-                        {/* <div className={styles.modal__filterCollector}> */}
-                        <div
-                          className={styles.modal__filterFields}
-                          id="collector"
-                        >
-                          Collector Name
-                        </div>
-                        <div className={styles.modal__filterOptions}>
-                          <input type="text" />
-                        </div>
-                        {/* </div> */}
                         <div className={styles.modal__buttons}>
                           <div
                             className={styles.modal__submitButton}
@@ -355,6 +386,19 @@ export default function Modal(action) {
                               setCusines("");
                               setDoneness("");
                               setParts([]);
+                              if (cusines) {
+                                let orgSelected = document.querySelector(
+                                  `#${cusines}`
+                                );
+                                orgSelected.classList.remove(styles.active);
+                              }
+                              let allSelectedCheckbox =
+                                document.querySelectorAll(
+                                  "input[type = checkbox]"
+                                );
+                              allSelectedCheckbox.forEach(
+                                (each) => (each.checked = false)
+                              );
                             }}
                           >
                             Clear All Search
@@ -367,7 +411,6 @@ export default function Modal(action) {
               )}
 
               {/* Nav Bar SignIn Modal Content */}
-
               {action.output == null && toDo == "signIn" && (
                 <div className={styles.signInSignUp}>
                   <div className={styles.modal__title}>Sign In</div>
