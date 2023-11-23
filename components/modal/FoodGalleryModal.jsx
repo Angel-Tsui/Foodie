@@ -6,6 +6,7 @@ import { deleteDataById } from "../../firebase/firestore";
 import { IoOpenOutline } from "react-icons/io5";
 import { AiOutlineDelete } from "react-icons/ai";
 import { TfiDownload } from "react-icons/tfi";
+import { RxCross2 } from "react-icons/rx";
 import { downloadOutput } from "../../util/export";
 
 export default function FoodGalleryModal(action) {
@@ -64,7 +65,7 @@ export default function FoodGalleryModal(action) {
                   action = "";
                 }}
               >
-                X
+                <RxCross2 />
               </div>
               <div className={styles.modal__filter}>
                 {/* Home Page FoodGallery Output Display Modal Content */}

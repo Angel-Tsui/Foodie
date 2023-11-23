@@ -10,6 +10,7 @@ import { firestore } from "../../firebase/firebase";
 import { doc, setDoc } from "firebase/firestore";
 import { signInOrSignOut } from "../../firebase/verify";
 import { IoFilterOutline } from "react-icons/io5";
+import { RxCross2 } from "react-icons/rx";
 import filterOptions from "../../assets/inputOptions/Options.json";
 
 export default function Modal(action) {
@@ -68,19 +69,6 @@ export default function Modal(action) {
         setUserStatus({ error: true, message: "Max 3 Checks" });
       }
     }
-    // else {
-    //   setCusines("");
-    //   if (e.target.checked == true && cusines.length < 1) {
-    //     setCusines(e.target.value);
-    //     // setCusines((cusines) => [...cusines, e.target.value]);
-    //   } else if (e.target.checked == false) {
-    //     setCusines("");
-    //     // setCusines(cusines.filter((p) => p !== e.target.value));
-    //   } else {
-    //     e.target.checked = false;
-    //     setUserStatus({ error: true, message: "Max 1 Checks" });
-    //   }
-    // }
   };
 
   // Nav Bar SignUp Functions
@@ -273,7 +261,7 @@ export default function Modal(action) {
                   action = "";
                 }}
               >
-                X
+                <RxCross2 />
               </div>
               {/* Search Bar Filter Modal Content */}
               {toDo == "filter" && (
@@ -386,6 +374,7 @@ export default function Modal(action) {
                               setCusines("");
                               setDoneness("");
                               setParts([]);
+                              setUserStatus("");
                               if (cusines) {
                                 let orgSelected = document.querySelector(
                                   `#${cusines}`
