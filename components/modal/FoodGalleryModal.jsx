@@ -74,6 +74,7 @@ export default function FoodGalleryModal(action) {
                       src={action.output}
                       className={styles.modal__outputImage}
                     />
+                    {/* Collection Page FoodGallery Output Display Modal Additional Content */}
                     {action.nextStep != undefined && (
                       <div className={styles.furtherAction}>
                         <div
@@ -107,15 +108,6 @@ export default function FoodGalleryModal(action) {
                     )}
                   </div>
                 )}
-                {/* Collection Page FoodGallery Output Display Modal Content */}
-                {/* {action.preview != "" && (
-                  <div className={styles.modal__outputImageContainer}>
-                    <img
-                      src={action.preview}
-                      className={styles.modal__outputImage}
-                    />
-                  </div>
-                )} */}
               </div>
             </div>
           </div>

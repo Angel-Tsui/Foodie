@@ -1,6 +1,7 @@
 "use client";
 import styles from "../record.module.css";
 import { useState, useEffect } from "react";
+import InputOptions from "../../../../assets/inputOptions/Options.json";
 import handleUploadImage from "../../../../components/radarChart/imageUpload";
 import { uploadOutputImage } from "../../../../components/radarChart/imageUpload";
 import { FaStar } from "react-icons/fa";
@@ -153,23 +154,6 @@ export default function Record(recordId) {
     setUserId(user);
   });
 
-  // const downloadOutput = async (output, name) => {
-  //   // console.log("downloading", output);
-  //   const image = await fetch(output);
-  //   console.log("image", image);
-  //   const imageBlog = await image.blob();
-  //   console.log("imageBlog", imageBlog);
-  //   const imageURL = URL.createObjectURL(imageBlog);
-  //   console.log("imageURL", imageURL);
-
-  //   const link = document.createElement("a");
-  //   link.href = imageURL;
-  //   link.download = name;
-  //   document.body.appendChild(link);
-  //   link.click();
-  //   document.body.removeChild(link);
-  // };
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -280,45 +264,11 @@ export default function Record(recordId) {
                   }}
                 >
                   <option>Please Select</option>
-                  <option value="Tongue" key="Tongue">
-                    Tongue
-                  </option>
-                  <option value="Fillet" key="Fillet">
-                    Fillet
-                  </option>
-                  <option value="Short Ribs" key="Short Ribs">
-                    Short Ribs
-                  </option>
-                  <option value="Rib Finger" key="Rib Finger">
-                    Ribs
-                  </option>
-                  <option value="Prime Rib" key="Prime Rib">
-                    Prime Rib
-                  </option>
-                  <option value="Rib Eye" key="Rib Eye">
-                    Rib Eye
-                  </option>
-                  <option value="Strip" key="Strip">
-                    Strip
-                  </option>
-                  <option value="Tenderloin" key="Tenderloin">
-                    Tenderloin
-                  </option>
-                  <option value="Knuckle" key="Knuckle">
-                    Knuckle
-                  </option>
-                  <option value="Shank" key="Shank">
-                    Shank
-                  </option>
-                  <option value="Tendon" key="Tendon">
-                    Tendon
-                  </option>
-                  <option value="Brisket" key="Brisket">
-                    Brisket
-                  </option>
-                  <option value="Ox Tail" key="Ox Tail">
-                    Ox Tail
-                  </option>
+                  {InputOptions.parts.map((part) => (
+                    <option id={part} key={part} value={part}>
+                      {part}
+                    </option>
+                  ))}
                 </select>
               </div>
               <div className={styles.input__cusine}>
@@ -331,18 +281,11 @@ export default function Record(recordId) {
                   }}
                 >
                   <option>Please Select</option>
-                  <option value="Western" key="Western">
-                    Western
-                  </option>
-                  <option value="Japanese" key="Japanese">
-                    Japanese
-                  </option>
-                  <option value="Korean" key="Korean">
-                    Koren
-                  </option>
-                  <option value="Chinese" key="Chinese">
-                    Chinese
-                  </option>
+                  {InputOptions.cusine.map((cus) => (
+                    <option id={cus} key={cus} value={cus}>
+                      {cus}
+                    </option>
+                  ))}
                 </select>
               </div>
               <div className={styles.input__name}>
@@ -378,12 +321,11 @@ export default function Record(recordId) {
                       setCurrency(e.target.value);
                     }}
                   >
-                    <option value="HKD" key="HKD">
-                      HKD
-                    </option>
-                    {/* <option value="JPY">JPY</option>
-                    <option value="TWD">TWD</option>
-                    <option value="USD">USD</option> */}
+                    {InputOptions.currency.map((cur) => (
+                      <option id={cur} key={cur} value={cur}>
+                        {cur}
+                      </option>
+                    ))}
                   </select>
                   <input
                     id="input__price"
@@ -405,21 +347,11 @@ export default function Record(recordId) {
                     }}
                   >
                     <option>Please Select</option>
-                    <option value="Rare" key="Rare">
-                      Rare
-                    </option>
-                    <option value="Medium-rare" key="Medium-rare">
-                      Medium-rare
-                    </option>
-                    <option value="Medium" key="Medium">
-                      Medium
-                    </option>
-                    <option value="Medium-well" key="Medium-well">
-                      Medium-well
-                    </option>
-                    <option value="Well-done" key="Well-done">
-                      Well-done
-                    </option>
+                    {InputOptions.doneness.map((done) => (
+                      <option id={done} key={done} value={done}>
+                        {done}
+                      </option>
+                    ))}
                   </select>
                 </div>
               </div>
@@ -428,11 +360,12 @@ export default function Record(recordId) {
               <div className={styles.input__radarChartHeader}>
                 Rate your Dish
               </div>
-              <div className={styles.input__radarChartItems}>
+              <div className={styles.input__radarChartItems} key="Fat">
                 <div className={styles.input__fat}>
                   Fat Ratio:
                   <br />
                   <select
+                    key="fat"
                     value={allRatings[0]}
                     onChange={(e) => {
                       setFat(e.target.value);
@@ -445,10 +378,11 @@ export default function Record(recordId) {
                     ))}
                   </select>
                 </div>
-                <div className={styles.input__tender}>
+                <div className={styles.input__tender} key="Tender">
                   Tender:
                   <br />
                   <select
+                    key="tender"
                     value={allRatings[1]}
                     onChange={(e) => {
                       setTender(e.target.value);
@@ -461,10 +395,11 @@ export default function Record(recordId) {
                     ))}
                   </select>
                 </div>
-                <div className={styles.input__juicy}>
+                <div className={styles.input__juicy} key="Juicy">
                   Juicy:
                   <br />
                   <select
+                    key="juicy"
                     value={allRatings[2]}
                     onChange={(e) => {
                       setJuicy(e.target.value);
@@ -477,10 +412,11 @@ export default function Record(recordId) {
                     ))}
                   </select>
                 </div>
-                <div className={styles.input__chewy}>
+                <div className={styles.input__chewy} key="Chewy">
                   Chewy:
                   <br />
                   <select
+                    key="chewy"
                     value={allRatings[3]}
                     onChange={(e) => {
                       setChewy(e.target.value);
@@ -493,10 +429,11 @@ export default function Record(recordId) {
                     ))}
                   </select>
                 </div>
-                <div className={styles.input__thick}>
+                <div className={styles.input__thick} key="Thick">
                   Thick:
                   <br />
                   <select
+                    key="thick"
                     value={allRatings[4]}
                     onChange={(e) => {
                       setThick(e.target.value);
@@ -509,10 +446,11 @@ export default function Record(recordId) {
                     ))}
                   </select>
                 </div>
-                <div className={styles.input__rich}>
+                <div className={styles.input__rich} key="Rich">
                   Rich:
                   <br />
                   <select
+                    key="rich"
                     value={allRatings[5]}
                     onChange={(e) => {
                       setRich(e.target.value);
@@ -574,6 +512,7 @@ export default function Record(recordId) {
                       <FaStar
                         className={styles.star}
                         size={30}
+                        key={index}
                         color={
                           rating <= (hover || starRating)
                             ? "rgb(114, 17, 17)"
@@ -618,7 +557,7 @@ export default function Record(recordId) {
           <div
             className={styles.delete}
             onClick={(e) => {
-              e.preventDefault()
+              e.preventDefault();
               deleteDataById(SingleRecordid);
             }}
           >

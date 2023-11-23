@@ -1,74 +1,6 @@
+/* Modal Basic Styling */
 body.active-modal {
   overflow-y: hidden;
-}
-
-.nav__signUp {
-  position: relative;
-  cursor: pointer;
-}
-
-.nav__signUp::before {
-  content: "";
-  position: absolute;
-  left: 50%;
-  bottom: 0;
-  width: 100%;
-  height: 2px;
-  background-color: rgb(114, 17, 17);
-  transform-origin: center;
-  transform: translate(-50%, 0) scaleX(0);
-  transition: transform 0.3s ease-in-out;
-}
-
-.nav__signUp:hover::before {
-  transform: translate(-50%, 0) scaleX(1);
-}
-
-.nav__signUp:hover {
-  cursor: pointer;
-}
-
-.filterIcon {
-  background-color: rgba(255, 255, 255, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid rgb(114, 17, 17);
-  border-radius: 50%;
-  height: 40px;
-  width: 40px;
-  color: black;
-  cursor: pointer;
-}
-
-.filterIcon svg {
-  width: 50%;
-  height: 50%;
-}
-
-.furtherAction {
-  background-color: rgb(114, 17, 17);
-  height: 30px;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  color: white;
-  font-size: 14px;
-  border-radius: 5px;
-}
-
-.furtherAction div {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
-  cursor: pointer;
-  height: inherit;
-  border-radius: 5px;
-}
-
-.furtherAction div:hover {
-  background-color: rgb(91, 14, 14);
 }
 
 .modal__outputImage {
@@ -137,16 +69,43 @@ body.active-modal {
   margin-top: 5px;
 }
 
+.modal__buttons {
+  display: flex;
+  /* justify-content: center; */
+  gap: 20px;
+}
+
 .modal__submitButton {
   border: 1px solid black;
   background-color: rgb(114, 17, 17);
   color: white;
   font-weight: 700;
   border-radius: 5px;
-  padding: 5px;
+  padding: 8px;
   margin-top: 10px;
   font-size: 18px;
   cursor: pointer;
+  width: fit-content;
+  text-align: center;
+}
+
+.modal__clearButton {
+  border: 1px solid rgb(114, 17, 17);
+  background-color: white;
+  color: rgb(114, 17, 17);
+  font-weight: 700;
+  border-radius: 5px;
+  padding: 8px;
+  margin-top: 10px;
+  font-size: 18px;
+  cursor: pointer;
+  width: fit-content;
+  text-align: center;
+}
+
+.modal__submitButton:hover,
+.modal__clearButton:hover {
+  box-shadow: 2px 2px 3px grey;
 }
 
 .positive {
@@ -161,6 +120,41 @@ body.active-modal {
   color: red;
 }
 
+/* Nav Bar SignIn & SignUp Styling */
+.nav__signUp {
+  position: relative;
+  cursor: pointer;
+}
+
+.nav__signUp::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background-color: rgb(114, 17, 17);
+  transform-origin: center;
+  transform: translate(-50%, 0) scaleX(0);
+  transition: transform 0.3s ease-in-out;
+}
+
+.nav__signUp:hover::before {
+  transform: translate(-50%, 0) scaleX(1);
+}
+
+.nav__signUp:hover {
+  cursor: pointer;
+}
+
+.signInSignUp {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* FoodGallery Home Page Basic Styling */
 .imageContainer {
   height: 500px;
   width: 500px;
@@ -170,4 +164,106 @@ body.active-modal {
 .image {
   width: 100%;
   height: 100%;
+}
+
+/* FoodGallery Collection Page Additional Styling */
+.furtherAction {
+  background-color: rgb(114, 17, 17);
+  height: 30px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: white;
+  font-size: 14px;
+  border-radius: 5px;
+}
+
+.furtherAction div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  cursor: pointer;
+  height: inherit;
+  border-radius: 5px;
+}
+
+.furtherAction div:hover {
+  background-color: rgb(91, 14, 14);
+}
+
+/* Search Bar Filter Styling */
+.filterIcon {
+  background-color: rgba(255, 255, 255, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid rgb(114, 17, 17);
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  color: black;
+  cursor: pointer;
+}
+
+.filterIcon svg {
+  width: 50%;
+  height: 50%;
+}
+
+/* .modal__filter {
+  padding: 15px;
+} */
+
+.modal__filterContainer form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+}
+
+.modal__filterInner {
+  display: flex;
+  width: 800px;
+  height: 370px;
+}
+
+.modal__filterCollector {
+  display: flex;
+  align-items: center;
+}
+
+.modal__filterLeft {
+  flex: none;
+  width: 50%;
+}
+
+.modal__filterRight {
+  flex: none;
+  width: 50%;
+}
+
+.modal__filterFields {
+  font-weight: 700;
+  /* margin-top: 30px; */
+}
+
+.modal__filterOptions {
+  font-size: 16px;
+  font-weight: 500;
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+
+.modal__filterPart {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.modal__filterPart div {
+  width: 50%;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
