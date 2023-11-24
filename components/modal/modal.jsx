@@ -9,10 +9,11 @@ import {
 import { firestore } from "../../firebase/firebase";
 import { doc, setDoc } from "firebase/firestore";
 import { signInOrSignOut } from "../../firebase/verify";
-import { IoFilterOutline } from "react-icons/io5";
 import { RxCross2 } from "react-icons/rx";
+import { VscFilter } from "react-icons/vsc";
 import ReactSlider from "react-slider";
 import filterOptions from "../../assets/inputOptions/Options.json";
+import { getRecordsData } from "../../firebase/firestore";
 
 export default function Modal(action) {
   // console.log("action", action);
@@ -36,13 +37,8 @@ export default function Modal(action) {
   const [status, setStatus] = useState(styles.inactive);
   const [MIN, setMIN] = useState(0);
   const [MAX, setMAX] = useState(2000);
-  // let MIN = 0;
-  // let MAX = 1000;
   const [priceRange, setPriceRange] = useState([MIN, MAX]);
-  // console.log(priceRange);
-  // console.log("c", cusines, "d", doneness, "p", parts, "pr", priceRange);
-  // console.log("checked", checked, "r", radio);
-
+  // const [filterInfo, setFilter] = useState({});
   const handleRadio = (e) => {
     if (cusines) {
       let orgSelected = document.querySelector(`#${cusines}`);
@@ -76,6 +72,26 @@ export default function Modal(action) {
         setUserStatus({ error: true, message: "Max 3 Checks" });
       }
     }
+  };
+  const handleSearch = () => {
+    console.log("c", cusines, "d", doneness, "p", parts, "pr", priceRange);
+    let filterInfo = {};
+    if (cusines) {
+      filterInfo.cusines = cusines;
+    }
+    if (doneness) {
+      filterInfo.doneness = doneness;
+    }
+    if (parts) {
+      filterInfo.parts = parts;
+    }
+    if (priceRange[0] != 0 || priceRange[1] != 2000) {
+      filterInfo.lower = priceRange[0];
+      filterInfo.upper = priceRange[1];
+    }
+    console.log("filterInfo", filterInfo);
+    console.log(window.location.href);
+    getRecordsData(filterInfo);
   };
 
   // Nav Bar SignUp Functions
@@ -225,7 +241,9 @@ export default function Modal(action) {
             // setFilter(true);
           }}
         >
-          <IoFilterOutline />
+          {/* <IoFilterOutline /> */}
+          {/* <CiFilter /> */}
+          <VscFilter />
         </div>
       )}
 
@@ -365,29 +383,29 @@ export default function Modal(action) {
                                 : `Above $ ${priceRange[0]}`}
                               {/* </div> */}
                             </div>
-                            <ReactSlider
-                              className={styles.slider}
-                              onChange={setPriceRange}
-                              value={priceRange}
-                              min={MIN}
-                              max={MAX}
-                              // className="horizontal-slider"
-                              // defaultValue={[0, 100]}
-                              thumbClassName={styles.thumb}
-                              // trackClassName="example-track"
-                              renderThumb={(props, state) => (
-                                <div {...props}></div>
-                              )}
-
-                              // value={priceRange}
-
-                              // marks
-
-                              // ariaLabel={["Lower Price", "Upper Price"]}
-                              // markClassName="example-mark"
-                            />
+                            <div className={styles.slider}>
+                              <ReactSlider
+                                // className={}
+                                onChange={setPriceRange}
+                                value={priceRange}
+                                min={MIN}
+                                max={MAX}
+                                marks={[500, 1000, 1500]}
+                                step={100}
+                                minDistance={500}
+                                markClassName={styles.mark}
+                                thumbClassName={styles.thumb}
+                                trackClassName={styles.track}
+                                renderTrack={(props, state) => (
+                                  <div {...props} />
+                                )}
+                                renderThumb={(props, state) => (
+                                  <div {...props}></div>
+                                )}
+                              />
+                            </div>
                           </div>
-                          <div
+                          {/* <div
                             className={styles.modal__filterFields}
                             id="collector"
                           >
@@ -395,13 +413,27 @@ export default function Modal(action) {
                           </div>
                           <div className={styles.modal__filterOptions}>
                             <input type="text" />
-                          </div>
+                          </div> */}
                         </div>
                         <div className={styles.modal__buttons}>
                           <div
                             className={styles.modal__submitButton}
                             onClick={(e) => {
-                              // console.log(e);
+                              if (
+                                doneness.length == 0 &&
+                                parts.length == 0 &&
+                                cusines == "" &&
+                                priceRange[0] == MIN &&
+                                priceRange[1] == MAX
+                              ) {
+                                setUserStatus({
+                                  error: true,
+                                  message:
+                                    "Please Filter With At Least 1 Criteria",
+                                });
+                              } else {
+                                handleSearch(e);
+                              }
                             }}
                           >
                             Search
