@@ -100,7 +100,7 @@ const getSingleRecordData = async (recordId) => {
 };
 
 const getRecordsData = async (filterInfo) => {
-  // console.log("props", filterInfo);
+  console.log("getRecordsData props", filterInfo);
   let filters = filterInfo.filterInfo;
   // console.log("orderMethod", filters.orderMethod);
   // console.log("AscOrDesc", filters.AscOrDesc);
@@ -123,7 +123,23 @@ const getRecordsData = async (filterInfo) => {
       // console.log("searching for ", filters.userId);
       // orderedData = query(colRef, where("userId", "==", filters.userId));
       return where("userId", "==", filters.userId);
-    } else {
+    } else if (filters.cusines) {
+      return where("cusine", "==", filters.cusines);
+    } else if (filters.doneness) {
+      filters.doneness.forEach((done) => {
+        return where("doneness", "==", done);
+      });
+    } else if (filters.parts) {
+      filters.parts.forEach((part) => {
+        return where("parts", "==", part);
+      });
+    }
+    // else if (filters.lower) {
+    //   where("price", ">=", filters.lower);
+    // } else if (filters.upper) {
+    //   where("price", "<=", filters.upper);
+    // }
+    else {
       return null;
     }
   };
