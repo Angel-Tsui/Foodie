@@ -47,6 +47,16 @@
   text-overflow: ellipsis;
 }
 
+.foodGallery__starAndCusine {
+  display: flex;
+  justify-content: space-between;
+}
+
+.foodGallery__cusine {
+  font-size: 14px;
+  text-align: right;
+}
+
 .foodGallery__starRate {
   height: 20px;
 }

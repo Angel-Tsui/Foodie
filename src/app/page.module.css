@@ -31,10 +31,15 @@
 }
 
 .searchBarContainer {
-  width: fit-content;
+  /* width: 89.1%; */
+  /* width: 600px; */
+  margin-top: 10px;
+  /* padding-left: 20px; */
+  /* width: fit-content; */
   display: flex;
   align-items: center;
   justify-content: center;
+  /* gap: 10px; */
 }
 
 .foodGalleryContainer {
@@ -62,6 +67,10 @@
 
 .foodGalleryContainer::-webkit-scrollbar {
   width: 5px;
+}
+
+.noMatch {
+  color: white;
 }
 
 .HomePageContainer__signIn {

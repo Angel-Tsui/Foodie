@@ -19,19 +19,25 @@ function FoodGalleryCard(data) {
       </div>
       <div className={styles.foodGallery__title}>{data.name}</div>
       <div className={styles.foodGallery__resto}>{data.resto}</div>
-      <div className={styles.foodGallery__starRate}>
-        {[...Array(5)].map((star, index) => {
-          const rating = index + 1;
 
-          return (
-            <FaStar
-              key={index}
-              size={15}
-              color={rating <= data.starRating ? "white" : "rgb(114, 113, 113)"}
-            />
-          );
-        })}
-        <span key={data.starRating}></span>
+      <div className={styles.foodGallery__starAndCusine}>
+        <div className={styles.foodGallery__starRate}>
+          {[...Array(5)].map((star, index) => {
+            const rating = index + 1;
+
+            return (
+              <FaStar
+                key={index}
+                size={15}
+                color={
+                  rating <= data.starRating ? "white" : "rgb(114, 113, 113)"
+                }
+              />
+            );
+          })}
+          <span key={data.starRating}></span>
+        </div>
+        <div className={styles.foodGallery__cusine}>{data.cusine}</div>
       </div>
 
       <div className={styles.foodGallery__priceAndParts}>

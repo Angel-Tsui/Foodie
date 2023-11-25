@@ -11,8 +11,11 @@ import { doc, setDoc } from "firebase/firestore";
 import { signInOrSignOut } from "../../firebase/verify";
 import { RxCross2 } from "react-icons/rx";
 import { VscFilter } from "react-icons/vsc";
+import { FiFilter } from "react-icons/fi";
+// import { LuFilterX } from "react-icons/lu";
 import ReactSlider from "react-slider";
 import filterOptions from "../../assets/inputOptions/Options.json";
+import { gatekeepFilterSearch } from "../../firebase/firestore";
 import { getRecordsData } from "../../firebase/firestore";
 
 export default function Modal(action) {
@@ -73,25 +76,23 @@ export default function Modal(action) {
       }
     }
   };
-  const handleSearch = () => {
-    console.log("c", cusines, "d", doneness, "p", parts, "pr", priceRange);
-    let filterInfo = {};
+
+  const handleReset = () => {
+    setRadio(false);
+    setChecked(false);
+    setCusines("");
+    setDoneness("");
+    setParts([]);
+    setUserStatus("");
+    setPriceRange([0, 2000]);
     if (cusines) {
-      filterInfo.cusines = cusines;
+      let orgSelected = document.querySelector(`#${cusines}`);
+      orgSelected.classList.remove(styles.active);
     }
-    if (doneness) {
-      filterInfo.doneness = doneness;
-    }
-    if (parts) {
-      filterInfo.parts = parts;
-    }
-    if (priceRange[0] != 0 || priceRange[1] != 2000) {
-      filterInfo.lower = priceRange[0];
-      filterInfo.upper = priceRange[1];
-    }
-    console.log("filterInfo", filterInfo);
-    console.log(window.location.href);
-    getRecordsData(filterInfo);
+    let allSelectedCheckbox = document.querySelectorAll(
+      "input[type = checkbox]"
+    );
+    allSelectedCheckbox.forEach((each) => (each.checked = false));
   };
 
   // Nav Bar SignUp Functions
@@ -238,12 +239,13 @@ export default function Modal(action) {
           onClick={() => {
             // console.log("open filter modal");
             setModal(true);
+            action.additionalFilter({});
+            handleReset();
             // setFilter(true);
           }}
         >
-          {/* <IoFilterOutline /> */}
-          {/* <CiFilter /> */}
-          <VscFilter />
+          <FiFilter />
+          <div className={styles.filterIconText}>Apply Filters</div>
         </div>
       )}
 
@@ -346,7 +348,7 @@ export default function Modal(action) {
                             className={styles.modal__filterFields}
                             id="cusine"
                           >
-                            Cusine
+                            Cuisine
                           </div>
                           <div className={styles.modal__filterOptions}>
                             <div className={styles.modal__cusine}>
@@ -432,7 +434,17 @@ export default function Modal(action) {
                                     "Please Filter With At Least 1 Criteria",
                                 });
                               } else {
-                                handleSearch(e);
+                                // console.log("action", action.additionalFilter);
+                                action.additionalFilter(
+                                  gatekeepFilterSearch(
+                                    cusines,
+                                    doneness,
+                                    parts,
+                                    priceRange
+                                  )
+                                );
+                                setModal(!modal);
+                                // handleSearch();
                               }
                             }}
                           >
@@ -440,27 +452,28 @@ export default function Modal(action) {
                           </div>
                           <div
                             className={styles.modal__clearButton}
-                            onClick={(e) => {
-                              setRadio(false);
-                              setChecked(false);
-                              setCusines("");
-                              setDoneness("");
-                              setParts([]);
-                              setUserStatus("");
-                              setPriceRange([0, 2000]);
-                              if (cusines) {
-                                let orgSelected = document.querySelector(
-                                  `#${cusines}`
-                                );
-                                orgSelected.classList.remove(styles.active);
-                              }
-                              let allSelectedCheckbox =
-                                document.querySelectorAll(
-                                  "input[type = checkbox]"
-                                );
-                              allSelectedCheckbox.forEach(
-                                (each) => (each.checked = false)
-                              );
+                            onClick={() => {
+                              handleReset();
+                              // setRadio(false);
+                              // setChecked(false);
+                              // setCusines("");
+                              // setDoneness("");
+                              // setParts([]);
+                              // setUserStatus("");
+                              // setPriceRange([0, 2000]);
+                              // if (cusines) {
+                              //   let orgSelected = document.querySelector(
+                              //     `#${cusines}`
+                              //   );
+                              //   orgSelected.classList.remove(styles.active);
+                              // }
+                              // let allSelectedCheckbox =
+                              //   document.querySelectorAll(
+                              //     "input[type = checkbox]"
+                              //   );
+                              // allSelectedCheckbox.forEach(
+                              //   (each) => (each.checked = false)
+                              // );
                             }}
                           >
                             Clear All Search
