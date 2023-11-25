@@ -65,14 +65,14 @@ const setRecord = async (
   userId
 ) => {
   // console.log(userId);
-  // console.log(imageUrl);
+  let number = parseInt(price);
   let timestamp = Date.now();
   await setDoc(doc(firestore, "records", recordId), {
     imageUrl: imageUrl,
     name: name,
     resto: resto,
     currency: currency,
-    price: price,
+    price: number,
     parts: parts,
     cusine: cusine,
     cooked: cooked,
@@ -99,51 +99,99 @@ const getSingleRecordData = async (recordId) => {
   return singleData.data();
 };
 
+const gatekeepFilterSearch = (cusines, doneness, parts, priceRange) => {
+  // console.log("in handleFilterSearch");
+  // console.log("c", cusines, "d", doneness, "p", parts, "pr", priceRange);
+  let filterInfo = {};
+  if (cusines != "") {
+    filterInfo.cusines = cusines;
+  }
+  if (doneness.length != 0) {
+    filterInfo.doneness = doneness;
+  }
+  if (parts.length != 0) {
+    filterInfo.parts = parts;
+  }
+  if (priceRange[0] != 0 || priceRange[1] != 2000) {
+    filterInfo.lower = priceRange[0];
+    filterInfo.upper = priceRange[1];
+  }
+  // console.log("filterInfo", filterInfo);
+  // console.log(window.location.href);
+  return filterInfo;
+  // getRecordsData(filterInfo);
+};
+
 const getRecordsData = async (filterInfo) => {
-  console.log("getRecordsData props", filterInfo);
-  let filters = filterInfo.filterInfo;
+  // console.log("getRecordsData props", filterInfo);
+  // let filters = filterInfo.filterInfo;
   // console.log("orderMethod", filters.orderMethod);
   // console.log("AscOrDesc", filters.AscOrDesc);
   let orderedData;
 
   const getOrder = () => {
-    if (filters.orderMethod && filters.AscOrDesc) {
-      // orderedData = query(
-      //   colRef,
-      //   orderBy(filters.orderMethod, filters.AscOrDesc)
-      // );
-      return orderBy(filters.orderMethod, filters.AscOrDesc);
+    if (filterInfo.orderMethod && filterInfo.AscOrDesc) {
+      if (
+        filterInfo.additionalFilter.lower ||
+        filterInfo.additionalFilter.upper
+      ) {
+        return orderBy("price", "desc");
+      }
+      if (filterInfo.additionalFilter.restaurant != undefined) {
+        return orderBy("resto", "asc");
+      }
+      return orderBy(filterInfo.orderMethod, filterInfo.AscOrDesc);
     } else {
       return null;
     }
   };
 
   const getfilters = () => {
-    if (filters.userId) {
-      // console.log("searching for ", filters.userId);
-      // orderedData = query(colRef, where("userId", "==", filters.userId));
-      return where("userId", "==", filters.userId);
-    } else if (filters.cusines) {
-      return where("cusine", "==", filters.cusines);
-    } else if (filters.doneness) {
-      filters.doneness.forEach((done) => {
-        return where("doneness", "==", done);
-      });
-    } else if (filters.parts) {
-      filters.parts.forEach((part) => {
-        return where("parts", "==", part);
-      });
+    // console.log("getfilters", filterInfo.additionalFilter);
+    if (filterInfo.additionalFilter.restaurant != undefined) {
+      return where("resto", ">=", filterInfo.additionalFilter.restaurant);
     }
-    // else if (filters.lower) {
-    //   where("price", ">=", filters.lower);
-    // } else if (filters.upper) {
-    //   where("price", "<=", filters.upper);
-    // }
-    else {
+    if (filterInfo.additionalFilter.restaurant != undefined) {
+      return where("resto", "<=", filterInfo.additionalFilter.restaurant);
+    }
+    if (filterInfo.additionalFilter.cusines != undefined) {
+      // console.log("c", filterInfo.additionalFilter.cusines);
+      return where("cusine", "==", filterInfo.additionalFilter.cusines);
+    }
+    if (filterInfo.additionalFilter.doneness != undefined) {
+      // console.log("ddd", filterInfo.additionalFilter.doneness);
+      return where("cooked", "in", filterInfo.additionalFilter.doneness);
+      // filterInfo.doneness.forEach((done) => {
+      //   return where("doneness", "==", done);
+      // });
+    }
+    if (filterInfo.additionalFilter.parts != undefined) {
+      // console.log("p", filterInfo.additionalFilter.parts);
+      return where("parts", "in", filterInfo.additionalFilter.parts);
+      // filterInfo.parts.forEach((part) => {
+      //   return where("parts", "==", part);
+      // });
+    }
+    if (filterInfo.additionalFilter.lower != undefined) {
+      // console.log("fill lower", filterInfo.additionalFilter.lower);
+      return where("price", ">=", filterInfo.additionalFilter.lower);
+    }
+    if (filterInfo.additionalFilter.upper != undefined) {
+      // console.log("fill upper", filterInfo.additionalFilter.upper);
+      return where("price", "<=", filterInfo.additionalFilter.upper);
+    }
+    if (filterInfo.userId != undefined) {
+      // console.log("user", filterInfo.userId);
+      // console.log("searching for ", filterInfo.userId);
+      // orderedData = query(colRef, where("userId", "==", filterInfo.userId));
+      return where("userId", "==", filterInfo.userId);
+    } else {
       return null;
     }
   };
 
+  // console.log("all filters", getfilters());
+  // console.log("order", getOrder());
   orderedData = query(colRef, getfilters(), getOrder());
 
   let recordsCollection = await getDocs(orderedData);
@@ -203,4 +251,5 @@ export {
   outputFile,
   getSingleOutputData,
   getOnlyOutputImage,
+  gatekeepFilterSearch,
 };

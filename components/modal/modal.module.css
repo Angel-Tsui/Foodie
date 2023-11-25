@@ -202,21 +202,35 @@ body.active-modal {
 
 /* Search Bar Filter Styling */
 .filterIcon {
-  background-color: rgba(255, 255, 255, 0.5);
+  /* background-color: rgba(255, 255, 255, 0.5); */
+  background-color: rgba(255, 255, 255, 0.196);
+  border: 1px solid rgb(212, 208, 208);
+  color: rgba(255, 255, 255, 0.635);
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid rgb(114, 17, 17);
-  border-radius: 50%;
+  /* border: 1px solid rgb(114, 17, 17); */
+  border-radius: 50px;
   height: 40px;
-  width: 40px;
-  color: black;
+  width: fit-content;
+  /* color: black; */
   cursor: pointer;
+  gap: 5px;
+  padding: 0px 8px;
 }
 
 .filterIcon svg {
   width: 50%;
   height: 50%;
+}
+
+.filterIconText {
+  font-size: 14.5px;
+  white-space: nowrap;
+}
+
+.filterIcon:hover {
+  color: white;
 }
 
 /* .modal__filter {

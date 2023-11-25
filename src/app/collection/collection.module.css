@@ -152,3 +152,8 @@
   width: 100%;
   box-sizing: border-box;
 }
+
+.createNow {
+  margin-top: 200px;
+  color: white;
+}

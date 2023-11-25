@@ -67,7 +67,7 @@ export default function Record(recordId) {
   const [name, setName] = useState("");
   const [resto, setResto] = useState("");
   const [currency, setCurrency] = useState("HKD");
-  const [price, setPrice] = useState("");
+  const [price, setPrice] = useState(0);
   const [parts, setParts] = useState("");
   const [cusine, setCuisine] = useState("");
   const [cooked, setCooked] = useState("");
@@ -164,7 +164,7 @@ export default function Record(recordId) {
       setIsSaved("Please Set Name of Dish");
     } else if (resto == "") {
       setIsSaved("Please Set Restaurant Name");
-    } else if (price == "") {
+    } else if (price == 0) {
       setIsSaved("Please Set Price");
     } else if (parts == "") {
       setIsSaved("Please Set Parts");
@@ -272,7 +272,7 @@ export default function Record(recordId) {
                 </select>
               </div>
               <div className={styles.input__cusine}>
-                Cusine:
+                Cuisine:
                 <br />
                 <select
                   value={cusine}

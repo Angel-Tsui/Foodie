@@ -108,17 +108,17 @@ function CollectorList(userId) {
 //   }
 // }
 
-function CollectionGalleryHeading(userInfo) {
+function CollectionGalleryHeading(props) {
   return (
     <div className={styles.collectionGallery__header}>
       <div className={styles.collectionGallery__titleAndCreate}>
         <div className={styles.collectionGallery__title}>
           {/* <GetName userId={userId} /> */}
-          <span>{userInfo.userName}</span>
+          <span>{props.userName}</span>
         </div>
       </div>
       <div className={styles.collectionGallery__typeSearch}>
-        <TypeSearch />
+        {/* <TypeSearch filter={props.filter} /> */}
         <div className={styles.collectionGallery__map}>
           <LiaMapMarkedSolid />
         </div>
@@ -165,6 +165,8 @@ export default function Collection() {
   const [userName, setUserName] = useState("");
   const [output, setOutput] = useState("");
   // console.log("at collection", output);
+  const [additionalFilter, setAdditionalFilter] = useState({});
+  // console.log("collection page additionalFilter", additionalFilter);
 
   useEffect(() => {
     verify();
@@ -189,12 +191,14 @@ export default function Collection() {
       orderMethod: "timestamp",
       AscOrDesc: "desc",
       userId: userId,
+      additionalFilter: additionalFilter,
     };
+    // console.log(filterInfo);
 
-    getRecordsData({ filterInfo }).then((allData) => {
+    getRecordsData(filterInfo).then((allData) => {
       setAllData(allData);
     });
-  }, []);
+  }, [additionalFilter]);
 
   // useEffect(() => {
   //   console.log("effect", userId);
@@ -214,13 +218,20 @@ export default function Collection() {
         <CollectorList userId={userId} />
       </div>
       <div className={styles.collectionGallery}>
-        <CollectionGalleryHeading userId={userId} userName={userName} />
+        <CollectionGalleryHeading
+          userId={userId}
+          userName={userName}
+          filter={setAdditionalFilter}
+        />
         <CollectionGallery
           allData={allData}
           action={"redirect"}
           func={setOutput}
           output={output}
         />
+        {allData.length == 0 && (
+          <div className={styles.createNow}>Create Your First Collection</div>
+        )}
       </div>
     </div>
   );
