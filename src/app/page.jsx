@@ -43,7 +43,9 @@ export default function Home() {
             pop={setOutput}
             output={output}
           />
-          {allData.length == 0 && <div className={styles.noMatch}>No Matching Collection</div>}
+          {allData.length == 0 && (
+            <div className={styles.noMatch}>No Matching Collection</div>
+          )}
         </div>
       </div>
     </div>

@@ -25,13 +25,13 @@ body.active-modal {
 
 .modal__overlay {
   /* background-color: rgba(255, 255, 255, 0.71); */
-  background-color: rgba(0, 0, 0, 0.639);
+  background-color: rgba(0, 0, 0, 0.726);
 }
 
 .modal .modal__content {
   width: fit-content;
   color: black;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.904);
   /* position: absolute;
   top: 30%; */
   margin-top: 20px;
@@ -43,6 +43,7 @@ body.active-modal {
   justify-content: center;
   align-items: center;
   position: relative;
+  border-radius: 10px;
 }
 
 .modal__closeButton {
@@ -157,9 +158,11 @@ body.active-modal {
 
 .signInSignUp {
   width: 350px;
+  height: 200px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 
 /* FoodGallery Home Page Basic Styling */
@@ -325,7 +328,7 @@ body.active-modal {
   -webkit-appearance: none;
   height: 2px;
   width: 2px;
-  background-color: rgba(182, 181, 181, 0.395);
+  background-color: rgba(182, 181, 181, 0.66);
   outline: none;
   border-radius: 5px;
   display: flex;

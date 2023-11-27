@@ -2,9 +2,9 @@ import { firestore, colRef } from "./firebase";
 import {
   doc,
   setDoc,
+  getDoc,
   getDocs,
   addDoc,
-  getDoc,
   deleteDoc,
   onSnapshot,
   updateDoc,
@@ -12,6 +12,28 @@ import {
   where,
   orderBy,
 } from "firebase/firestore";
+import { getUserInfoFromToken } from "./verify";
+
+// My Collection
+const getUserProPic = (userId, set) => {
+  // console.log("firestore", userId, set);
+  // let userInfo = getUserInfoFromToken();
+  // if (userInfo != null) {
+  //   console.log("firestore", userInfo);
+  //   let userId = userInfo.userId;
+  //   // console.log(userId);
+  // }
+  if (userId != null) {
+    getDoc(doc(firestore, "users", userId))
+      .then((singleData) => {
+        // console.log(singleData.data().userPhotoURL);
+        set(singleData.data().userPhotoURL);
+      })
+      .catch((e) => {
+        console.log(e.message);
+      });
+  }
+};
 
 // Output (save to firestore)
 const outputFile = async (recordId, ouputUrl, userId) => {
@@ -252,4 +274,5 @@ export {
   getSingleOutputData,
   getOnlyOutputImage,
   gatekeepFilterSearch,
+  getUserProPic,
 };

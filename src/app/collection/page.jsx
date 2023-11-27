@@ -16,123 +16,55 @@ import { v4 } from "uuid";
 // import dynamic from "next/dynamic";
 // const GetName = dynamic(() => import("./getName"), { ssr: false });
 
-function CollectorList(userId) {
-  userId = userId.userId;
+function CollectorList(props) {
+  let userId = props.userId;
   // console.log("userId", userId);
   return (
     <div className={styles.collectionList}>
-      <div
-        className={styles.collectionList__myCollection}
-        id={userId}
-        key={userId}
-      >
-        <MyCollection />
-      </div>
+      {userId && (
+        <div
+          className={styles.collectionList__myCollection}
+          id={userId}
+          key={userId}
+          // onClick={() => {
+          //   props.loadUser(userId);
+          //   console.log("click self profile", userId);
+          // }}
+        >
+          <MyCollection userId={userId} />
+        </div>
+      )}
+
       <div className={styles.collectionList__all}>
+        {/* <MyCollection />
         <MyCollection />
-        <MyCollection />
-        <MyCollection />
+        <MyCollection /> */}
       </div>
     </div>
   );
 }
-
-// function AddNewModal() {
-//   const [modal, setModal] = useState(false);
-
-//   function toggleModal() {
-//     setModal(!modal);
-//   }
-
-//   function handleCreate() {
-//     window.location.href = "/meatInfo";
-//   }
-
-//   return (
-//     <>
-//       <div
-//         className={styles.collectionGallery__create}
-//         onClick={() => {
-//           window.location.href = "/meatInfo";
-//           // toggleModal();
-//         }}
-//       >
-//         Add New +
-//       </div>
-
-//       {/* {modal && (
-//         <div className={modalStyles.modal}>
-//           <div className={modalStyles.modal__overlay}>
-//             <div className={modalStyles.modal__content}>
-//               <div className={modalStyles.modal__title}>Let's get Started</div>
-//               <div
-//                 className={modalStyles.modal__closeButton}
-//                 onClick={toggleModal}
-//               >
-//                 X
-//               </div>
-//               <form className={modalStyles.modal__form}>
-//                 <input type="text" placeholder="Title" />
-//                 <input type="text" placeholder="Restaurant Name" />
-//                 <input type="text" placeholder="Price" />
-//                 <input type="text" placeholder="Parts of Beef" />
-//                 <div
-//                   className={modalStyles.modal__submitButton}
-//                   onClick={() => {
-//                     handleCreate();
-//                   }}
-//                 >
-//                   Create Design
-//                 </div>
-//               </form>
-//             </div>
-//           </div>
-//         </div>
-//       )} */}
-//     </>
-//   );
-// }
-
-// function getName(userId) {
-//   userId = userId.userId;
-//   console.log(userId);
-//   if (userId != null) {
-//     getDoc(doc(firestore, "users", userId.userId))
-//       .then((singleData) => {
-//         console.log(singleData.data());
-//       })
-//       .catch((e) => {
-//         console.log(e.message);
-//       });
-//     return userId.userId;
-//   }
-// }
 
 function CollectionGalleryHeading(props) {
   return (
     <div className={styles.collectionGallery__header}>
       <div className={styles.collectionGallery__titleAndCreate}>
         <div className={styles.collectionGallery__title}>
-          {/* <GetName userId={userId} /> */}
           <span>{props.userName}</span>
         </div>
       </div>
       <div className={styles.collectionGallery__typeSearch}>
-        {/* <TypeSearch filter={props.filter} /> */}
         <div className={styles.collectionGallery__map}>
           <LiaMapMarkedSolid />
         </div>
         <div
           className={styles.collectionGallery__create}
           onClick={() => {
-            // AddNewRecord(userInfo.userId);
             let recordId = v4();
             window.open("/record/" + recordId);
           }}
         >
           Create Collection +
         </div>
-        {/* <AddNewModal /> */}
       </div>
     </div>
   );
@@ -159,6 +91,8 @@ function CollectionGallery(props) {
 
 export default function Collection() {
   const [userId, setUserId] = useState("");
+  // console.log(userId);
+  const [watchListId, setWatchListId] = useState("");
   // console.log(userId);
   const [allData, setAllData] = useState([]);
   // console.log("allData", allData);
@@ -190,32 +124,25 @@ export default function Collection() {
     let filterInfo = {
       orderMethod: "timestamp",
       AscOrDesc: "desc",
-      userId: userId,
+      // userId: {watchListId ? watchListId : userId},
       additionalFilter: additionalFilter,
     };
+    if (watchListId != "") {
+      filterInfo.userId = watchListId;
+    } else {
+      filterInfo.userId = userId;
+    }
     // console.log(filterInfo);
 
     getRecordsData(filterInfo).then((allData) => {
       setAllData(allData);
     });
-  }, [additionalFilter]);
-
-  // useEffect(() => {
-  //   console.log("effect", userId);
-  //   let filterInfo = {
-  //     orderMethod: "timestamp",
-  //     AscOrDesc: "desc",
-  //     userId: userId,
-  //   };
-  //   getRecordsData({ filterInfo }).then((allData) => {
-  //     setAllData(allData);
-  //   });
-  // }, []);
+  }, [additionalFilter, watchListId]);
 
   return (
     <div className={styles.collectionPageContainer}>
       <div className={styles.collectorListContainer}>
-        <CollectorList userId={userId} />
+        <CollectorList userId={userId} loadUser={setWatchListId} />
       </div>
       <div className={styles.collectionGallery}>
         <CollectionGalleryHeading

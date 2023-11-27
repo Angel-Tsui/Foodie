@@ -488,7 +488,7 @@ export default function Modal(action) {
               {/* Nav Bar SignIn Modal Content */}
               {action.output == null && toDo == "signIn" && (
                 <div className={styles.signInSignUp}>
-                  <div className={styles.modal__title}>Sign In</div>
+                  <div className={styles.modal__title}>SIGN IN</div>
                   <form className={styles.modal__form} id="signInForm">
                     <input
                       type="text"
@@ -506,7 +506,7 @@ export default function Modal(action) {
                         handleSignIn(e);
                       }}
                     >
-                      Sign In
+                      SIGN IN
                     </div>
                   </form>
                 </div>
