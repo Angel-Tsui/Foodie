@@ -4,10 +4,17 @@ import Image from "next/image";
 import { getUserInfoFromToken } from "../../firebase/verify";
 import { firestore } from "../../firebase/firebase";
 import { doc, getDoc } from "firebase/firestore";
+import { getUserProPic } from "../../firebase/firestore";
 import { useState } from "react";
 
-export default function MyCollection() {
+export default function MyCollection(props) {
   const [userProPic, setUserProPic] = useState("/profile.jpg");
+  // console.log("myCollection userProPic", userProPic);
+  // console.log("myCollection", props.userId);
+
+  // let userProPic =
+  getUserProPic(props.userId, setUserProPic);
+  // console.log(userProPic);
 
   let userInfo = getUserInfoFromToken();
   if (userInfo != null) {

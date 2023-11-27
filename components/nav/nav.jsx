@@ -1,5 +1,6 @@
 "use client";
 import styles from "./nav.module.css";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import MyCollection from "../../components/myCollection/myCollection";
 import { RxHamburgerMenu } from "react-icons/rx";
@@ -8,6 +9,7 @@ import { CgProfile } from "react-icons/cg";
 import { userToken } from "../../firebase/verify";
 import Modal from "../modal/modal";
 import { v4 } from "uuid";
+import { getUserInfoFromToken } from "../../firebase/verify";
 
 function signOut() {
   window.localStorage.removeItem("token");
@@ -15,11 +17,27 @@ function signOut() {
 }
 
 function editProfile() {
-  console.log("edit profile");
+  // console.log("edit profile");
   window.location.href = "/profile";
 }
 
 export default function Nav() {
+  const userInfo = getUserInfoFromToken();
+  let userId;
+  if (userInfo) {
+    let userId = userInfo.userId;
+  }
+
+  // console.log("nav", userId);
+
+  // getUserInfoFromToken()
+  //   .then((userInfo) => {
+  //     console.log(userInfo);
+  //   })
+  //   .then((userId) => {
+  //     console.log(userId);
+  //   });
+
   return (
     <div className={styles.nav}>
       <div className={styles.nav__companyName}>
@@ -49,7 +67,7 @@ export default function Nav() {
                 >
                   Create Collection +
                 </div>
-                <MyCollection />
+                <MyCollection userId={userId} />
               </div>
             </div>
             <div className={styles.menu}>

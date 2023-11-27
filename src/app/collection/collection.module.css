@@ -30,6 +30,7 @@
   border: 3px solid rgb(114, 17, 17);
   border-radius: 5px;
   height: 94.6%;
+  width: 244px;
   display: flex;
   flex-direction: column;
   padding: 10px;
