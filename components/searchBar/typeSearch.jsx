@@ -39,7 +39,8 @@ export default function TypeSearch(props) {
   const [typeSearch, setTypeSearch] = useState("");
   // console.log(typeSearch);
   return (
-    <div className={styles.searchBarInner}>
+    // <div className={styles.searchBarInner}>
+    <>
       <div className={styles.searchBar__typeSearch}>
         <input
           type="text"
@@ -62,19 +63,22 @@ export default function TypeSearch(props) {
           />
         </div>
       </div>
-      <div className={styles.typeSearch__filterContainer}>
-        <Modal action="filter" additionalFilter={props.filter} />
-        <div
-          className={styles.filterIcon}
-          onClick={() => {
-            // console.log("clear filters");
-            props.filter({});
-          }}
-        >
-          <LuFilterX />{" "}
-          <div className={styles.filterIconText}>Clear Filters</div>
+      {props.action == "findResto" && (
+        <div className={styles.typeSearch__filterContainer}>
+          <Modal action="filter" additionalFilter={props.filter} />
+          <div
+            className={styles.filterIcon}
+            onClick={() => {
+              // console.log("clear filters");
+              props.filter({});
+            }}
+          >
+            <LuFilterX />{" "}
+            <div className={styles.filterIconText}>Clear Filters</div>
+          </div>
         </div>
-      </div>
-    </div>
+      )}
+    </>
+    // </div>
   );
 }

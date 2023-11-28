@@ -1,5 +1,5 @@
 .myCollectionContainer {
-  width: 220px;
+  min-width: 200px;
   height: 50px;
   border: 2px solid rgb(114, 17, 17);
   border-radius: 5px;
@@ -8,6 +8,7 @@
   align-items: center;
   cursor: pointer;
   overflow: hidden;
+  
 }
 
 .myCollectionContainer:hover {
@@ -39,4 +40,7 @@
 
 .myCollection {
   width: 70%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }

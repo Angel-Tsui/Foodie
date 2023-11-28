@@ -179,6 +179,7 @@ export default function Modal(action) {
         userEmail: userEmail,
         userDisplayName: userName,
         userPhotoURL: "",
+        watchList: [],
       }).catch((err) => {
         console.log(err.message);
       });
