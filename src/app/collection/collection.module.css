@@ -14,38 +14,40 @@
   background-repeat: no-repeat;
 }
 
-.collectorListContainer {
+/* .collectorListContainer {
   border-radius: 9px;
   padding: 4px;
   box-shadow: 0px 0px 10px rgb(114, 17, 17);
-  width: 20%;
-  height: 84vh;
   margin: 10px 0px;
   display: flex;
   justify-content: center;
   align-items: flex-start;
-}
+} */
 
 .collectionList {
   border: 3px solid rgb(114, 17, 17);
   border-radius: 5px;
-  height: 94.6%;
-  width: 244px;
+  width: 20%;
+  height: 85%;
+  margin: 10px 0px;
   display: flex;
   flex-direction: column;
   padding: 10px;
   color: white;
   background-color: rgba(0, 0, 0, 0.3);
+  position: relative;
+  box-sizing: border-box;
 }
 
 .collectionList__myCollection {
-  background-color: rgb(114, 17, 17);
   border-radius: 5px;
+  width: 90%;
 }
 
 .collectionList__all {
   overflow: hidden;
   overflow-y: scroll;
+  margin-top: 10px;
 }
 
 .collectionList__all::-webkit-scrollbar {
@@ -56,11 +58,134 @@
   margin: 10px 0px;
 }
 
+.findUserContainer input {
+  outline: none;
+  border: 0px solid white;
+  border-bottom: 1.5px solid rgba(255, 255, 255, 0.804);
+  /* border-radius: 5px; */
+  width: 90%;
+}
+
+.friendSearch input {
+  padding: 5px 15px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  background-color: transparent;
+  color: white;
+  gap: 5px;
+}
+
+.searchIcon {
+  background-color: rgb(114, 17, 17);
+  width: fit-content;
+  border-radius: 50px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.findUserContainer {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  gap: 5px;
+  width: 100%;
+}
+
+.friendSearch {
+  background-color: transparent;
+  color: white;
+  padding: 5px;
+  box-sizing: border-box;
+}
+
+.searchResults {
+  position: absolute;
+  color: rgb(114, 17, 17);
+  top: 37px;
+  width: 211px;
+  z-index: 10;
+  background-color: rgba(255, 255, 255, 0.966);
+  border-radius: 0px 0px 5px 5px;
+}
+
+.searchResults div {
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.searchResults div:hover {
+  background-color: rgb(114, 17, 17);
+  color: white;
+}
+
+.searchResults div div {
+  padding: 0px;
+  margin-right: 10px;
+}
+
+.eachSearchResultProPic {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.eachSearchResultProPic img {
+  width: 100%;
+}
+
+.eachSearchResultName {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.collectionList__eachWatch {
+  /* width: 244px; */
+  /* width: 100%; */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 54px;
+  background-color: rgb(114, 17, 17);
+  border-radius: 5px;
+}
+
+.collectionList__eachProfile {
+  width: 90%;
+  background-color: #181717;
+  border-radius: 0px 5px 5px 0px;
+}
+
+.collectionList__eachUnwatch {
+  color: white;
+  /* max-width: 10%; */
+  width: 10%;
+  height: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* border-left: 2px solid rgb(114, 17, 17); */
+  cursor: pointer;
+  /* padding-left: 3px; */
+  /* box-sizing: border-box; */
+}
+
 .collectionGallery {
   width: 75%;
   background-color: rgba(0, 0, 0, 0.3);
   border-radius: 5px;
-  height: 85vh;
+  height: 85%;
   margin: 10px 0px;
   display: flex;
   flex-direction: column;

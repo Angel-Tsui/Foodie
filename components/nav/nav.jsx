@@ -25,7 +25,7 @@ export default function Nav() {
   const userInfo = getUserInfoFromToken();
   let userId;
   if (userInfo) {
-    let userId = userInfo.userId;
+    userId = userInfo.userId;
   }
 
   // console.log("nav", userId);

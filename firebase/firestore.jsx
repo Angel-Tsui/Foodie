@@ -1,4 +1,4 @@
-import { firestore, colRef } from "./firebase";
+import { firestore, colRef, usersColRef } from "./firebase";
 import {
   doc,
   setDoc,
@@ -11,18 +11,74 @@ import {
   query,
   where,
   orderBy,
+  limit,
+  arrayUnion,
+  arrayRemove,
 } from "firebase/firestore";
 import { getUserInfoFromToken } from "./verify";
 
+// Users Collection
+const getUserInfo = (userId, setWatchList) => {
+  if (userId != null) {
+    getDoc(doc(firestore, "users", userId))
+      .then((singleData) => {
+        // console.log("fire", singleData.data().watchList);
+        setWatchList(singleData.data().watchList);
+      })
+      .catch((e) => {
+        console.log(e.message);
+      });
+  }
+};
+
+const updateUserToWatchList = async (userId, searchUserId) => {
+  if (searchUserId) {
+    const addWatchRef = doc(usersColRef, userId);
+    // console.log("update", searchUserId);
+    await updateDoc(addWatchRef, { watchList: arrayUnion(searchUserId) });
+  }
+};
+
+const removeUserFromWatchList = async (userId, deleteUserId) => {
+  if (deleteUserId) {
+    const addWatchRef = doc(usersColRef, userId);
+    // console.log("delete", deleteUserId);
+    await updateDoc(addWatchRef, { watchList: arrayRemove(deleteUserId) });
+  }
+};
+
+const UsersFilter = async (userDisplayName) => {
+  // console.log("searching for", userDisplayName);
+  let filterUserDb;
+  if (userDisplayName != null) {
+    filterUserDb = query(
+      usersColRef,
+      where("userDisplayName", ">=", userDisplayName),
+      where("userDisplayName", "<=", userDisplayName + "~"),
+      limit(10)
+    );
+  }
+
+  let recordsUser = await getDocs(filterUserDb);
+
+  try {
+    let matchingUsersInfoFromDb = [];
+    recordsUser.docs.forEach((doc) => {
+      matchingUsersInfoFromDb.push({
+        id: doc.id,
+        ...doc.data(),
+      });
+    });
+    // console.log("matchingUsersInfoFromDb", matchingUsersInfoFromDb);
+    return matchingUsersInfoFromDb;
+  } catch (e) {
+    console.log(e.message);
+  }
+};
+
 // My Collection
 const getUserProPic = (userId, set) => {
-  // console.log("firestore", userId, set);
-  // let userInfo = getUserInfoFromToken();
-  // if (userInfo != null) {
-  //   console.log("firestore", userInfo);
-  //   let userId = userInfo.userId;
-  //   // console.log(userId);
-  // }
+  // console.log(userId);
   if (userId != null) {
     getDoc(doc(firestore, "users", userId))
       .then((singleData) => {
@@ -275,4 +331,8 @@ export {
   getOnlyOutputImage,
   gatekeepFilterSearch,
   getUserProPic,
+  UsersFilter,
+  updateUserToWatchList,
+  removeUserFromWatchList,
+  getUserInfo,
 };

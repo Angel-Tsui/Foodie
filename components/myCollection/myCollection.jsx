@@ -9,6 +9,8 @@ import { useState } from "react";
 
 export default function MyCollection(props) {
   const [userProPic, setUserProPic] = useState("/profile.jpg");
+  const [userDisplayName, setUserDisplayName] = useState("");
+
   // console.log("myCollection userProPic", userProPic);
   // console.log("myCollection", props.userId);
 
@@ -16,14 +18,15 @@ export default function MyCollection(props) {
   getUserProPic(props.userId, setUserProPic);
   // console.log(userProPic);
 
-  let userInfo = getUserInfoFromToken();
-  if (userInfo != null) {
+  // let userInfo = getUserInfoFromToken();
+  if (props.userId != null) {
     // console.log(userInfo);
-    let userId = userInfo.userId;
+    // let userId = props.userId;
     // console.log(userId);
-    getDoc(doc(firestore, "users", userId))
+    getDoc(doc(firestore, "users", props.userId))
       .then((singleData) => {
         setUserProPic(singleData.data().userPhotoURL);
+        setUserDisplayName(singleData.data().userDisplayName);
       })
       .catch((e) => {
         console.log(e.message);
@@ -42,7 +45,7 @@ export default function MyCollection(props) {
           )}
         </div>
       </div>
-      <div className={styles.myCollection}>MY COLLECTION</div>
+      <div className={styles.myCollection}>{userDisplayName}</div>
     </div>
   );
 }

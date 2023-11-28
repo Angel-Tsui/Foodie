@@ -34,7 +34,7 @@ export default function Home() {
       <div className={styles.HomePageContainer__general}>
         <div className={styles.searchBarContainer}>
           {/* <SearchBar /> */}
-          <TypeSearch filter={setAdditionalFilter} />
+          <TypeSearch action="findResto" filter={setAdditionalFilter} />
         </div>
         <div className={styles.foodGalleryContainer}>
           <FoodGalleryModal
