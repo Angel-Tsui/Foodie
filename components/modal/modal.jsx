@@ -167,7 +167,7 @@ export default function Modal(action) {
     // console.log(userCred.user);
     let userEmail = userCred.user.email;
     let userName = userEmail.split("@")[0];
-    userName = userName.toUpperCase();
+    userUpperName = userName.toUpperCase();
     // console.log("userName", userName);
     let userInfo = {
       userEmail: userCred.user.email,
@@ -177,7 +177,7 @@ export default function Modal(action) {
     try {
       await setDoc(doc(firestore, "users", userId), {
         userEmail: userEmail,
-        userDisplayName: userName,
+        userDisplayName: userUpperName,
         userPhotoURL: "",
         watchList: [],
       }).catch((err) => {

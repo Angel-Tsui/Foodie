@@ -8,6 +8,7 @@ import {
   updateProfile,
   sendPasswordResetEmail,
 } from "firebase/auth";
+import { updateUserProfile } from "../../../firebase/firestore";
 import handleUploadImage from "../../../components/radarChart/imageUpload";
 
 export default function Profile() {
@@ -61,19 +62,13 @@ export default function Profile() {
   const setUserInfo = async () => {
     // console.log("userId", userId);
     await updateProfile(auth.currentUser, {
-      displayName: userName,
+      displayName: userName.toUpperCase(),
       photoURL: userProPic,
     }).catch((err) => {
       console.log(err.message);
     });
 
-    await setDoc(doc(firestore, "users", userId), {
-      userEmail: userEmail,
-      userDisplayName: userName,
-      userPhotoURL: userProPic,
-    }).catch((err) => {
-      console.log(err.message);
-    });
+    await updateUserProfile(userId, userName.toUpperCase(), userProPic);
 
     // console.log("update successful");
     setIsSaved(<div className={styles.loader}></div>);
