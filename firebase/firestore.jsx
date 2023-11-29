@@ -25,7 +25,7 @@ const getUserInfo = (userId, setWatchList, setUserName) => {
       .then((singleData) => {
         // console.log("fire", singleData.data().watchList);
         if (setWatchList != null) {
-          setWatchList(singleData.data().watchList);
+          setWatchList(singleData.data().watchList.reverse());
         }
         setUserName(singleData.data().userDisplayName);
       })

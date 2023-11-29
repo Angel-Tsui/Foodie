@@ -61,10 +61,11 @@ function CollectorList(props) {
                 id={each.id}
                 key={each.id}
                 className={styles.eachSearchResult}
-                onClick={(e) => {
+                onClick={() => {
                   // console.log(each.id);
                   updateUserToWatchList(props.userId, each.id);
                   props.setWatchListChanges(each.id);
+                  props.searching("");
                 }}
               >
                 <div className={styles.eachSearchResultProPic}>
@@ -266,7 +267,7 @@ export default function Collection() {
 
   useEffect(() => {
     UsersFilter(searchUser).then((match) => {
-      setSearchResult(match);
+      setSearchResult(match.filter((m) => m.id != userId));
     });
   }, [searchUser]);
 
