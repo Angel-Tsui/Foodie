@@ -8,6 +8,7 @@ import FoodGallery from "../../components/foodGallery/foodGallery";
 // import modalStyles from "../../components/modal/modal.module.css";
 // import { filter } from "../../components/modal/modal";
 import FoodGalleryModal from "../../components/modal/FoodGalleryModal";
+import { useLoadScript, GoogleMap } from "@react-google-maps/api";
 
 export default function Home() {
   const [output, setOutput] = useState("");
@@ -29,6 +30,11 @@ export default function Home() {
     });
   }, [additionalFilter]);
 
+  // const { isLoaded } = useLoadScript({
+  //   googleMapsApiKey: "AIzaSyA2Ii1pn2H2NYssLmPYy0OcUAPkInO1piA",
+  //   libraries,
+  // });
+
   return (
     <div className={styles.HomePageContainer}>
       <div className={styles.HomePageContainer__general}>
@@ -48,6 +54,7 @@ export default function Home() {
           )}
         </div>
       </div>
+      <div className={styles.HomePageContainer__maps}>MAP</div>
     </div>
   );
 }
