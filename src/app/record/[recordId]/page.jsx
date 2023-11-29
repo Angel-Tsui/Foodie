@@ -30,38 +30,9 @@ import { downloadOutput } from "../../../../util/export";
 export default function Record(recordId) {
   let SingleRecordid = recordId.params.recordId;
 
-  // Initialize Page and Data
-  useEffect(() => {
-    verify();
-
-    getSingleRecordData(SingleRecordid).then((recordData) => {
-      // console.log("recordData", recordData);
-      if (recordData) {
-        setImageUrl(recordData.imageUrl);
-        setName(recordData.name);
-        setResto(recordData.resto);
-        setCurrency(recordData.currency);
-        setPrice(recordData.price);
-        setParts(recordData.parts);
-        setCuisine(recordData.cusine);
-        setCooked(recordData.cooked);
-        setStarRating(recordData.starRating);
-        setFat(recordData.allRatings[0]);
-        setTender(recordData.allRatings[1]);
-        setJuicy(recordData.allRatings[2]);
-        setChewy(recordData.allRatings[3]);
-        setThick(recordData.allRatings[4]);
-        setRich(recordData.allRatings[5]);
-        setDescription(recordData.description);
-      }
-    });
-    // getOnlyOutputImage(SingleRecordid).then((outputImage) => {
-    //   // console.log("current", outputImage);
-    //   setOutput(outputImage);
-    // });
-  }, []);
-
   const [userId, setUserId] = useState("");
+  console.log("computer user", userId);
+  // const [docOwnerId, setDocOwnerId] = useState("")
   const [image, setImage] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [name, setName] = useState("");
@@ -93,9 +64,41 @@ export default function Record(recordId) {
       Save <AiOutlineSave />
     </div>
   );
-  // const [outputPrev, setOutputPrev] = useState("")
   const [output, setOutput] = useState("");
-  // console.log("output", output);
+
+  // Initialize Page and Data
+  useEffect(() => {
+    verify();
+
+    let userInfo = getUserInfoFromToken();
+    let user = userInfo.userId;
+    setUserId(user);
+
+    getSingleRecordData(SingleRecordid).then((recordData) => {
+      if (recordData) {
+        let docOwnerId = recordData.userId;
+        if (docOwnerId != user) {
+          window.location.href = "/";
+        }
+        setImageUrl(recordData.imageUrl);
+        setName(recordData.name);
+        setResto(recordData.resto);
+        setCurrency(recordData.currency);
+        setPrice(recordData.price);
+        setParts(recordData.parts);
+        setCuisine(recordData.cusine);
+        setCooked(recordData.cooked);
+        setStarRating(recordData.starRating);
+        setFat(recordData.allRatings[0]);
+        setTender(recordData.allRatings[1]);
+        setJuicy(recordData.allRatings[2]);
+        setChewy(recordData.allRatings[3]);
+        setThick(recordData.allRatings[4]);
+        setRich(recordData.allRatings[5]);
+        setDescription(recordData.description);
+      }
+    });
+  }, []);
 
   useEffect(() => {
     setAllRatings([fat, tender, juicy, chewy, thick, rich]);
@@ -148,11 +151,11 @@ export default function Record(recordId) {
     description,
   ]);
 
-  useEffect(() => {
-    let userInfo = getUserInfoFromToken();
-    let user = userInfo.userId;
-    setUserId(user);
-  });
+  // useEffect(() => {
+  //   let userInfo = getUserInfoFromToken();
+  //   let user = userInfo.userId;
+  //   setUserId(user);
+  // });
 
   const handleSubmit = (e) => {
     e.preventDefault();

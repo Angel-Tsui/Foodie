@@ -14,20 +14,36 @@ import {
   limit,
   arrayUnion,
   arrayRemove,
+  update,
 } from "firebase/firestore";
 import { getUserInfoFromToken } from "./verify";
 
 // Users Collection
-const getUserInfo = (userId, setWatchList) => {
+const getUserInfo = (userId, setWatchList, setUserName) => {
   if (userId != null) {
     getDoc(doc(firestore, "users", userId))
       .then((singleData) => {
         // console.log("fire", singleData.data().watchList);
-        setWatchList(singleData.data().watchList);
+        if (setWatchList != null) {
+          setWatchList(singleData.data().watchList);
+        }
+        setUserName(singleData.data().userDisplayName);
       })
       .catch((e) => {
         console.log(e.message);
       });
+  }
+};
+
+const updateUserProfile = async (userId, userName, userProPic) => {
+  if (userId) {
+    const updateProfileRef = doc(usersColRef, userId);
+    // console.log("update", userId, userName, userProPic);
+    await updateDoc(updateProfileRef, {
+      userDisplayName: userName,
+      userPhotoURL: userProPic,
+    });
+    // await updateProfileRef.update({ userPhotoURL: userProPic });
   }
 };
 
@@ -335,4 +351,5 @@ export {
   updateUserToWatchList,
   removeUserFromWatchList,
   getUserInfo,
+  updateUserProfile,
 };

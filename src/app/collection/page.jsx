@@ -26,7 +26,7 @@ import { UsersFilter } from "../../../firebase/firestore";
 // const GetName = dynamic(() => import("./getName"), { ssr: false });
 
 function CollectorList(props) {
-  // console.log(props.setGetUserCollection);
+  // console.log(props.setUserName);
   let userId = props.userId;
   // console.log("userId", userId);
 
@@ -39,13 +39,13 @@ function CollectorList(props) {
           className={styles.friendSearch}
           placeholder="Add Users to Watch List"
           onChange={(e) => {
-            props.searching(e.target.value);
+            props.searching(e.target.value.toUpperCase());
           }}
         />
         <div className={styles.searchIcon}>
           <BiSearchAlt
             onClick={() => {
-              props.searching(props.searchUser);
+              props.searching(props.searchUser.toUpperCase());
             }}
           />
         </div>
@@ -212,6 +212,8 @@ export default function Collection() {
   const [allData, setAllData] = useState([]);
   // console.log("allData", allData);
   const [userName, setUserName] = useState("");
+  // console.log(userName);
+
   const [output, setOutput] = useState("");
   // console.log("at collection", output);
   const [additionalFilter, setAdditionalFilter] = useState({});
@@ -226,11 +228,12 @@ export default function Collection() {
     let userInfo = getUserInfoFromToken();
     let userId = userInfo.userId;
     setUserId(userId);
+
     if (getUserCollection == []) {
       setGetUserCollection(userId);
     }
 
-    getUserInfo(userId, setWatchListId);
+    getUserInfo(userId, setWatchListId, setUserName);
 
     if (userId != "" && getUserCollection == "") {
       let filterInfo = {
@@ -281,6 +284,9 @@ export default function Collection() {
     } else {
       setSameUser(false);
     }
+    if (getUserCollection) {
+      getUserInfo(getUserCollection, null, setUserName);
+    }
   }, [getUserCollection]);
 
   return (
@@ -295,6 +301,7 @@ export default function Collection() {
         setWatchListId={setWatchListId}
         currentWatchList={watchListId}
         setWatchListChanges={setWatchListChanges}
+        // setUserName={setUserName}
       />
       {/* </div> */}
       <div className={styles.collectionGallery}>
