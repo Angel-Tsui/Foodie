@@ -3,7 +3,7 @@
   height: 100vh;
   display: flex;
   justify-content: space-around;
-  background-image: linear-gradient(
+  /* background-image: linear-gradient(
       to right,
       rgba(39, 39, 39, 0.8),
       rgba(39, 39, 39, 0.8)
@@ -11,7 +11,7 @@
     url("../../../assets/images/HomeBackground.jpg");
   background-position: center;
   background-size: cover;
-  background-repeat: no-repeat;
+  background-repeat: no-repeat; */
 }
 
 /* .collectorListContainer {
