@@ -1,14 +1,15 @@
 "use client";
 import styles from "../../src/app/page.module.css";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { Loader } from "@googlemaps/js-api-loader";
 
 export default function Map(props) {
+  console.log(props);
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
-  const loader = new Loader({
-    apiKey: apiKey,
-    version: "weekly",
-  });
+  // const loader = new Loader({
+  //   apiKey: apiKey,
+  //   version: "weekly",
+  // });
 
   // const mapRef = useRef(null);
 
@@ -20,6 +21,7 @@ export default function Map(props) {
       });
       const { Map } = await loader.importLibrary("maps");
       const { Marker } = await loader.importLibrary("marker");
+      const { Autocomplete } = await loader.importLibrary("places");
 
       const mapOptions = {
         center: props.mapCenter,
@@ -109,13 +111,38 @@ export default function Map(props) {
         ],
       };
 
+      const autoOptions = {
+        // types: ["restaurant", "cafe", "bar", "bakery", "food"],
+        componentRestrictions: { country: ["hk", "jp", "tw"] },
+        types: ["restaurant", "cafe", "bar", "bakery", "food"],
+        // types: ["address", "geocode"],
+        fields: ["address_components"],
+      };
+      let autoComplete = new Autocomplete(
+        document.querySelector("#restoSearchInput"),
+        autoOptions
+      );
+
+      let autoCompleteRecordResto = new Autocomplete(
+        document.querySelector("#input__resto"),
+        autoOptions
+      );
+
       const map = new Map(document.querySelector("#map"), mapOptions);
 
       const maker = new Marker({ map: map, position: props.mapCenter });
+
+      // props.setAdditionalFilter({
+      //   restaurant: document.querySelector("#restoSearchInput").value,
+      // });
+
+      // const googleMapsSearch = document.querySelector("#restoSearchInput");
+      // console.log(googleMapsSearch);
     };
 
     initMap();
   }, []);
 
-  return <div className={styles.HomePageContainer__maps} id="map" key="map" />;
+  // autoCompleteRecordResto.addEventListener("autocomplete", onPlaceChanged)
+  // return <div className={styles.HomePageContainer__maps} id="map" key="map" />;
 }
