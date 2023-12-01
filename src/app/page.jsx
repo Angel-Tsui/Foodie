@@ -155,9 +155,7 @@ export default function Home() {
           )}
         </div>
       </div>
-      <div className={styles.HomePageContainer__maps} id="map" key="map">
-        <Map mapCenter={mapCenter} />
-      </div>
+      <Map mapCenter={mapCenter} />
     </div>
   );
 }

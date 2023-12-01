@@ -89,3 +89,10 @@
   border-radius: 5px;
   /* opacity: 80%; */
 }
+
+/* .mapOverlay {
+  z-index: 50;
+  background-color: black;
+  height: 100%;
+  width: 100%;
+} */
