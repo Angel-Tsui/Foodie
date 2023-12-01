@@ -26,6 +26,7 @@ import { TfiDownload } from "react-icons/tfi";
 import { AiOutlineSave } from "react-icons/ai";
 import { AiFillSave } from "react-icons/ai";
 import { downloadOutput } from "../../../../util/export";
+import Map from "../../../../components/map/map";
 
 export default function Record(recordId) {
   let SingleRecordid = recordId.params.recordId;
@@ -65,6 +66,7 @@ export default function Record(recordId) {
     </div>
   );
   const [output, setOutput] = useState("");
+  const [mapCenter, setMapCenter] = useState({ lat: 22.278, lng: 114.182 });
 
   // Initialize Page and Data
   useEffect(() => {
@@ -243,6 +245,7 @@ export default function Record(recordId) {
                 {image != "" ? (
                   <span
                     className={styles.uploads}
+                    id="uploadImage"
                     onClick={async (e) => {
                       // console.log("upload image", image);
                       const genurl = await handleUploadImage(e, image);
@@ -313,6 +316,8 @@ export default function Record(recordId) {
                       setResto(e.target.value);
                     }}
                   />
+                  {Map(mapCenter)}
+                  {/* <Map mapCenter={mapCenter} /> */}
                 </div>
                 <div className={styles.input__price}>
                   Price:

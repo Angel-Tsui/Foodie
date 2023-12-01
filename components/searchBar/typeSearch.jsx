@@ -36,7 +36,7 @@ const SelectFilterModal = () => {
 
 export default function TypeSearch(props) {
   // console.log("typeSearch props", props);
-  const [typeSearch, setTypeSearch] = useState("");
+  // const [typeSearch, setTypeSearch] = useState("");
   // console.log(typeSearch);
   return (
     // <div className={styles.searchBarInner}>
@@ -44,20 +44,24 @@ export default function TypeSearch(props) {
       <div className={styles.searchBar__typeSearch}>
         <input
           type="text"
+          id="restoSearchInput"
           placeholder="Restaurant"
           className={styles.typeSearch__inputBox}
           onChange={(e) => {
             props.filter({
               restaurant: e.target.value,
             });
-            setTypeSearch(e.target.value);
+            props.setTypeSearch(e.target.value);
           }}
         />
         <div className={styles.searchIcon}>
           <BiSearchAlt
             onClick={() => {
+              let completeAddress =
+                document.querySelector("#restoSearchInput").innerHTML;
+              console.log("search for", completeAddress);
               props.filter({
-                restaurant: typeSearch,
+                restaurant: props.typeSearch,
               });
             }}
           />
