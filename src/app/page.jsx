@@ -19,6 +19,7 @@ export default function Home() {
   const [additionalFilter, setAdditionalFilter] = useState({});
   console.log("additionalFilter", additionalFilter);
   const [typeSearch, setTypeSearch] = useState("");
+  console.log(typeSearch);
   // const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
   const [mapCenter, setMapCenter] = useState({ lat: 22.278, lng: 114.182 });
   // console.log(mapCenter);
@@ -165,6 +166,8 @@ export default function Home() {
       <div className={styles.HomePageContainer__maps} id="map" key="map">
         <Map
           mapCenter={mapCenter}
+          setTypeSearch={setTypeSearch}
+          filter={setAdditionalFilter}
           // setTypeSearch={setTypeSearch}
           // typeSearch={typeSearch}
         />

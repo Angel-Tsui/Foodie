@@ -38,6 +38,9 @@ export default function Record(recordId) {
   const [imageUrl, setImageUrl] = useState("");
   const [name, setName] = useState("");
   const [resto, setResto] = useState("");
+  console.log("after set", resto);
+  const [gotAddress, setGotAddress] = useState("");
+  console.log("address", gotAddress);
   const [currency, setCurrency] = useState("HKD");
   const [price, setPrice] = useState(0);
   const [parts, setParts] = useState("");
@@ -169,6 +172,8 @@ export default function Record(recordId) {
       setIsSaved("Please Set Name of Dish");
     } else if (resto == "") {
       setIsSaved("Please Set Restaurant Name");
+    } else if (gotAddress == "") {
+      setIsSaved("Please Confirm Restaurant Name");
     } else if (price == 0) {
       setIsSaved("Please Set Price");
     } else if (parts == "") {
@@ -316,8 +321,13 @@ export default function Record(recordId) {
                       setResto(e.target.value);
                     }}
                   />
-                  {Map(mapCenter)}
-                  {/* <Map mapCenter={mapCenter} /> */}
+                  <div id="map" key="map">
+                    <Map
+                      mapCenter={mapCenter}
+                      setGotAddress={setGotAddress}
+                      setResto={setResto}
+                    />
+                  </div>
                 </div>
                 <div className={styles.input__price}>
                   Price:

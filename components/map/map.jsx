@@ -1,17 +1,17 @@
 "use client";
 import styles from "../../src/app/page.module.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Loader } from "@googlemaps/js-api-loader";
 
 export default function Map(props) {
   console.log(props);
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
-  // const loader = new Loader({
-  //   apiKey: apiKey,
-  //   version: "weekly",
-  // });
+  // const [address, setAddress] = useState("");
 
-  // const mapRef = useRef(null);
+  // if (address != "") {
+  //   console.log(address);
+  //   props.officialName(address);
+  // }
 
   useEffect(() => {
     const initMap = async () => {
@@ -115,8 +115,13 @@ export default function Map(props) {
         // types: ["restaurant", "cafe", "bar", "bakery", "food"],
         componentRestrictions: { country: ["hk", "jp", "tw"] },
         types: ["restaurant", "cafe", "bar", "bakery", "food"],
-        // types: ["address", "geocode"],
-        fields: ["address_components"],
+        // types: ["address"],
+        fields: [
+          "formatted_address",
+          "geometry",
+          "name",
+          "formatted_phone_number",
+        ],
       };
       let autoComplete = new Autocomplete(
         document.querySelector("#restoSearchInput"),
@@ -128,9 +133,38 @@ export default function Map(props) {
         autoOptions
       );
 
+      // console.log(autoCompleteRecordResto);
+
       const map = new Map(document.querySelector("#map"), mapOptions);
 
       const maker = new Marker({ map: map, position: props.mapCenter });
+
+      if (autoComplete) {
+        autoComplete.addListener("place_changed", () => {
+          let place = autoComplete.getPlace();
+          console.log(place);
+          props.filter({
+            restaurant: place.name,
+          });
+          props.setTypeSearch(place.name);
+        });
+      }
+
+      if (autoCompleteRecordResto) {
+        autoCompleteRecordResto.addListener("place_changed", () => {
+          let place = autoCompleteRecordResto.getPlace();
+          console.log(place.name);
+          // return place.name;
+          // if (props.setGotAddress != undefined) {
+          // console.log("have", props.setGotAddress);
+          props.setGotAddress(place.name);
+          props.setResto(place.name);
+          // }
+
+          // setAddress(place.name);
+          // props.officialName(place.name);
+        });
+      }
 
       // props.setAdditionalFilter({
       //   restaurant: document.querySelector("#restoSearchInput").value,
