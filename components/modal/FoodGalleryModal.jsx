@@ -10,7 +10,7 @@ import { RxCross2 } from "react-icons/rx";
 import { downloadOutput } from "../../util/export";
 
 export default function FoodGalleryModal(action) {
-  console.log("action", action);
+  // console.log("action", action);
   // console.log("id", action.action.fullSetData);
   // console.log("fullsetData", action.fullSetData);
   const [modal, setModal] = useState(false);

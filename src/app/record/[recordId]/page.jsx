@@ -32,17 +32,17 @@ export default function Record(recordId) {
   let SingleRecordid = recordId.params.recordId;
 
   const [userId, setUserId] = useState("");
-  console.log("computer user", userId);
+  // console.log("computer user", userId);
   // const [docOwnerId, setDocOwnerId] = useState("")
   const [image, setImage] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [name, setName] = useState("");
   const [resto, setResto] = useState("");
-  console.log("after set", resto);
+  // console.log("after set", resto);
   const [gotAddress, setGotAddress] = useState("");
-  console.log("address", gotAddress);
+  // console.log("address", gotAddress);
   const [latlng, setLatlng] = useState({});
-  console.log(latlng);
+  // console.log(latlng);
   const [currency, setCurrency] = useState("HKD");
   const [price, setPrice] = useState(0);
   const [parts, setParts] = useState("");
