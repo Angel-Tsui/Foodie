@@ -51,7 +51,7 @@ function FoodGalleryCard(data) {
 }
 
 export default function FoodGallery(props) {
-  // console.log("foodGallery main", props);
+  console.log("foodGallery main", props);
   let allData = props.fullSetData;
   // console.log("fullSetData", allData);
   let nextStep = props.nextStep;
@@ -68,6 +68,11 @@ export default function FoodGallery(props) {
           id={data.id}
           key={data.id}
           onClick={() => {
+            if (props.setMarkerPosition) {
+              console.log(data.latlng);
+              props.setMarkerPosition(data.latlng);
+            }
+
             {
               getOnlyOutputImage(data.id).then((outputFile) => {
                 // console.log("img", outputFile);
