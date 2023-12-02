@@ -41,6 +41,8 @@ export default function Record(recordId) {
   console.log("after set", resto);
   const [gotAddress, setGotAddress] = useState("");
   console.log("address", gotAddress);
+  const [latlng, setLatlng] = useState({});
+  console.log(latlng);
   const [currency, setCurrency] = useState("HKD");
   const [price, setPrice] = useState(0);
   const [parts, setParts] = useState("");
@@ -114,6 +116,7 @@ export default function Record(recordId) {
     imageUrl: imageUrl,
     name: name,
     resto: resto,
+    latlng: latlng,
     currency: currency,
     price: price,
     parts: parts,
@@ -129,6 +132,7 @@ export default function Record(recordId) {
       imageUrl: imageUrl,
       name: name,
       resto: resto,
+      latlng: latlng,
       currency: currency,
       price: price,
       parts: parts,
@@ -186,6 +190,7 @@ export default function Record(recordId) {
         imageUrl,
         name,
         resto,
+        latlng,
         currency,
         price,
         parts,
@@ -326,6 +331,7 @@ export default function Record(recordId) {
                       mapCenter={mapCenter}
                       setGotAddress={setGotAddress}
                       setResto={setResto}
+                      setLatlng={setLatlng}
                     />
                   </div>
                 </div>

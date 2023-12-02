@@ -1,17 +1,12 @@
 "use client";
 import styles from "../../src/app/page.module.css";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Loader } from "@googlemaps/js-api-loader";
+import { doc } from "firebase/firestore";
 
 export default function Map(props) {
   console.log(props);
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
-  // const [address, setAddress] = useState("");
-
-  // if (address != "") {
-  //   console.log(address);
-  //   props.officialName(address);
-  // }
 
   useEffect(() => {
     const initMap = async () => {
@@ -112,7 +107,6 @@ export default function Map(props) {
       };
 
       const autoOptions = {
-        // types: ["restaurant", "cafe", "bar", "bakery", "food"],
         componentRestrictions: { country: ["hk", "jp", "tw"] },
         types: ["restaurant", "cafe", "bar", "bakery", "food"],
         // types: ["address"],
@@ -128,54 +122,75 @@ export default function Map(props) {
         autoOptions
       );
 
+      // let moveToCollection = new Autocomplete(
+      //   document.querySelectorAll(".foodGallery__card"),
+      //   autoOptions
+      // );
+
       let autoCompleteRecordResto = new Autocomplete(
         document.querySelector("#input__resto"),
         autoOptions
       );
 
-      // console.log(autoCompleteRecordResto);
-
       const map = new Map(document.querySelector("#map"), mapOptions);
 
-      const maker = new Marker({ map: map, position: props.mapCenter });
+      const marker = new Marker({ map: map });
 
       if (autoComplete) {
+        // Autocomplete
         autoComplete.addListener("place_changed", () => {
           let place = autoComplete.getPlace();
+          console.log(autoComplete);
           console.log(place);
+          console.log({
+            lat: place.geometry.location.lat(),
+            lng: place.geometry.location.lng(),
+          });
+          // filter search result
           props.filter({
             restaurant: place.name,
           });
           props.setTypeSearch(place.name);
+
+          // move location on map
+          if (place.geometry.viewport) {
+            map.fitBounds(place.geometry.viewport);
+          } else {
+            map.setCenter(place.geometry.location);
+            map.setZoom(17);
+          }
+          marker.setPosition(place.geometry.location);
+          // marker.setVisibile(true);
         });
+      }
+
+      if (props.markerPosition != "" || props.markerPosition != null) {
+        console.log(props.markerPosition);
+        map.setCenter(props.markerPosition);
+        map.setZoom(17);
+        marker.setPosition(props.markerPosition);
       }
 
       if (autoCompleteRecordResto) {
         autoCompleteRecordResto.addListener("place_changed", () => {
           let place = autoCompleteRecordResto.getPlace();
           console.log(place.name);
-          // return place.name;
-          // if (props.setGotAddress != undefined) {
-          // console.log("have", props.setGotAddress);
+          console.log({
+            lat: place.geometry.location.lat(),
+            lng: place.geometry.location.lng(),
+          });
           props.setGotAddress(place.name);
           props.setResto(place.name);
-          // }
-
-          // setAddress(place.name);
-          // props.officialName(place.name);
+          props.setLatlng({
+            lat: place.geometry.location.lat(),
+            lng: place.geometry.location.lng(),
+          });
         });
       }
-
-      // props.setAdditionalFilter({
-      //   restaurant: document.querySelector("#restoSearchInput").value,
-      // });
-
-      // const googleMapsSearch = document.querySelector("#restoSearchInput");
-      // console.log(googleMapsSearch);
     };
 
     initMap();
-  }, []);
+  }, [props.markerPosition]);
 
   // autoCompleteRecordResto.addEventListener("autocomplete", onPlaceChanged)
   // return <div className={styles.HomePageContainer__maps} id="map" key="map" />;

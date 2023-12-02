@@ -148,6 +148,7 @@ const setRecord = async (
   imageUrl,
   name,
   resto,
+  latlng,
   currency,
   price,
   parts,
@@ -165,6 +166,7 @@ const setRecord = async (
     imageUrl: imageUrl,
     name: name,
     resto: resto,
+    latlng: latlng,
     currency: currency,
     price: number,
     parts: parts,
@@ -243,11 +245,11 @@ const getRecordsData = async (filterInfo) => {
   const getfilters = () => {
     // console.log("getfilters", filterInfo.additionalFilter);
     if (filterInfo.additionalFilter.restaurant != undefined) {
-      return where("resto", ">=", filterInfo.additionalFilter.restaurant);
+      return where("resto", "==", filterInfo.additionalFilter.restaurant);
     }
-    if (filterInfo.additionalFilter.restaurant != undefined) {
-      return where("resto", "<=", filterInfo.additionalFilter.restaurant);
-    }
+    // if (filterInfo.additionalFilter.restaurant != undefined) {
+    //   return where("resto", "<=", filterInfo.additionalFilter.restaurant);
+    // }
     if (filterInfo.additionalFilter.cusines != undefined) {
       // console.log("c", filterInfo.additionalFilter.cusines);
       return where("cusine", "==", filterInfo.additionalFilter.cusines);
@@ -305,6 +307,7 @@ const addRecordsData = async (
   imageUrl,
   name,
   resto,
+  latlng,
   currency,
   price,
   parts,
@@ -318,6 +321,7 @@ const addRecordsData = async (
     imageUrl: imageUrl,
     name: name,
     resto: resto,
+    latlng: latlng,
     currency: currency,
     price: price,
     parts: parts,
