@@ -5,6 +5,7 @@
   margin-right: auto;
   display: flex;
   position: fixed;
+  /* justify-content: space-between; */
   /* background-image: linear-gradient(
       to right,
       rgba(39, 39, 39, 0.8),

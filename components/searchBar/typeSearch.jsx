@@ -47,19 +47,16 @@ export default function TypeSearch(props) {
           id="restoSearchInput"
           placeholder="Restaurant"
           className={styles.typeSearch__inputBox}
-          onChange={(e) => {
-            props.filter({
-              restaurant: e.target.value,
-            });
-            props.setTypeSearch(e.target.value);
-          }}
+          // onChange={(e) => {
+          //   props.filter({
+          //     restaurant: e.target.value,
+          //   });
+          //   props.setTypeSearch(e.target.value);
+          // }}
         />
         <div className={styles.searchIcon}>
           <BiSearchAlt
             onClick={() => {
-              let completeAddress =
-                document.querySelector("#restoSearchInput").innerHTML;
-              console.log("search for", completeAddress);
               props.filter({
                 restaurant: props.typeSearch,
               });
@@ -75,6 +72,7 @@ export default function TypeSearch(props) {
             onClick={() => {
               // console.log("clear filters");
               props.filter({});
+              // props.setTypeSearch("");
             }}
           >
             <LuFilterX />{" "}
