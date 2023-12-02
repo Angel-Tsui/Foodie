@@ -17,14 +17,14 @@ export default function Home() {
   const [allData, setAllData] = useState([]);
   // console.log("Main Page allData", allData);
   const [additionalFilter, setAdditionalFilter] = useState({});
-  console.log("additionalFilter", additionalFilter);
+  // console.log("additionalFilter", additionalFilter);
   const [typeSearch, setTypeSearch] = useState("");
-  console.log(typeSearch);
+  // console.log(typeSearch);
   // const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
   const [mapCenter, setMapCenter] = useState({ lat: 22.278, lng: 114.182 });
   // console.log(mapCenter);
   const [markerPosition, setMarkerPosition] = useState({});
-  console.log(markerPosition);
+  // console.log(markerPosition);
 
   // console.log("Home additionalFilter", additionalFilter);
   let filterInfo = {

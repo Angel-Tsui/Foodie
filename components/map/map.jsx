@@ -5,7 +5,7 @@ import { Loader } from "@googlemaps/js-api-loader";
 import { doc } from "firebase/firestore";
 
 export default function Map(props) {
-  console.log(props);
+  // console.log(props);
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
   useEffect(() => {
@@ -140,12 +140,12 @@ export default function Map(props) {
         // Autocomplete
         autoComplete.addListener("place_changed", () => {
           let place = autoComplete.getPlace();
-          console.log(autoComplete);
-          console.log(place);
-          console.log({
-            lat: place.geometry.location.lat(),
-            lng: place.geometry.location.lng(),
-          });
+          // console.log(autoComplete);
+          // console.log(place);
+          // console.log({
+          //   lat: place.geometry.location.lat(),
+          //   lng: place.geometry.location.lng(),
+          // });
           // filter search result
           props.filter({
             restaurant: place.name,
@@ -165,7 +165,7 @@ export default function Map(props) {
       }
 
       if (props.markerPosition != "" || props.markerPosition != null) {
-        console.log(props.markerPosition);
+        // console.log(props.markerPosition);
         map.setCenter(props.markerPosition);
         map.setZoom(17);
         marker.setPosition(props.markerPosition);
@@ -174,11 +174,11 @@ export default function Map(props) {
       if (autoCompleteRecordResto) {
         autoCompleteRecordResto.addListener("place_changed", () => {
           let place = autoCompleteRecordResto.getPlace();
-          console.log(place.name);
-          console.log({
-            lat: place.geometry.location.lat(),
-            lng: place.geometry.location.lng(),
-          });
+          // console.log(place.name);
+          // console.log({
+          //   lat: place.geometry.location.lat(),
+          //   lng: place.geometry.location.lng(),
+          // });
           props.setGotAddress(place.name);
           props.setResto(place.name);
           props.setLatlng({
