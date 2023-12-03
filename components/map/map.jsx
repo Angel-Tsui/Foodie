@@ -6,7 +6,7 @@ import { doc } from "firebase/firestore";
 import { InfoWindow } from "@react-google-maps/api";
 
 export default function Map(props) {
-  // console.log(props);
+  console.log(props.noDisplay);
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
   useEffect(() => {
@@ -182,7 +182,6 @@ export default function Map(props) {
             placeWebsite = "No Website Available";
             websiteLink = "/";
           }
-
           infoWindow.setContent(
             `<h2>${place.name}</h2><div>${place.formatted_address}</div><br/><div>${place.formatted_phone_number}</div><br/><div><a href=${websiteLink} target="_blank">${placeWebsite}</a></div>`
           );
@@ -195,9 +194,12 @@ export default function Map(props) {
         map.setCenter(props.markerPosition);
         map.setZoom(18);
         marker.setPosition(props.markerPosition);
-        infoWindow.setContent(
-          `<h2>${props.placeInfoRestoName}</h2><div>${props.placeInfo.address}</div><br/><div>${props.placeInfo.number}</div><br/><div><a href=${props.placeInfo.website} target="_blank">${props.placeInfo.website}</a></div>`
-        );
+
+        if (props.noDisplay != "noMapDisplay") {
+          infoWindow.setContent(
+            `<h2>${props.placeInfoRestoName}</h2><div>${props.placeInfo.address}</div><br/><div>${props.placeInfo.number}</div><br/><div><a href=${props.placeInfo.website} target="_blank">${props.placeInfo.website}</a></div>`
+          );
+        }
       }
 
       if (autoCompleteRecordResto) {

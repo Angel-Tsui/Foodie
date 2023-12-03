@@ -333,6 +333,7 @@ export default function Record(recordId) {
                       setResto={setResto}
                       setLatlng={setLatlng}
                       setMapInfo={setMapInfo}
+                      noDisplay="noMapDisplay"
                     />
                   </div>
                 </div>
