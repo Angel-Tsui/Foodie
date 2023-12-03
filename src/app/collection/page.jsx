@@ -1,13 +1,8 @@
 "use client";
 import styles from "./collection.module.css";
-import searchStyles from "../../../components/searchBar/searchBar.module.css";
 import MyCollection from "../../../components/myCollection/myCollection";
-import TypeSearch from "../../../components/searchBar/typeSearch";
-import { LiaMapMarkedSolid } from "react-icons/lia";
-import FoodGallery from "../../../components/foodGallery/foodGallery";
+// import { LiaMapMarkedSolid } from "react-icons/lia";
 import { useState, useEffect } from "react";
-import modalStyles from "../../../components/modal/modal.module.css";
-import AddNewRecord from "./addNewRecord";
 import { verify, getUserInfoFromToken } from "../../../firebase/verify";
 import {
   getRecordsData,
@@ -15,15 +10,12 @@ import {
   removeUserFromWatchList,
   getUserInfo,
 } from "../../../firebase/firestore";
-import { firestore } from "../../../firebase/firebase";
-import { doc, getDoc } from "firebase/firestore";
 import FoodGalleryModal from "../../../components/modal/FoodGalleryModal";
 import { BiSearchAlt } from "react-icons/bi";
 import { v4 } from "uuid";
 import { RxCross2 } from "react-icons/rx";
 import { UsersFilter } from "../../../firebase/firestore";
-// import dynamic from "next/dynamic";
-// const GetName = dynamic(() => import("./getName"), { ssr: false });
+import { useSearchParams } from "next/navigation";
 
 function CollectorList(props) {
   // console.log(props.setUserName);
@@ -116,6 +108,7 @@ function CollectorList(props) {
                 id={each}
                 onClick={() => {
                   props.setGetUserCollection(each);
+                  // window.location.href = `/collection?searchUser=${each}`;
                 }}
               >
                 <MyCollection userId={each} />
@@ -151,9 +144,9 @@ function CollectionGalleryHeading(props) {
         </div>
       </div>
       <div className={styles.collectionGallery__typeSearch}>
-        <div className={styles.collectionGallery__map}>
+        {/* <div className={styles.collectionGallery__map}>
           <LiaMapMarkedSolid />
-        </div>
+        </div> */}
         <div
           className={styles.collectionGallery__create}
           onClick={() => {
@@ -313,7 +306,6 @@ export default function Collection() {
         />
         <CollectionGallery
           allData={allData}
-          // action={"redirect"}
           func={setOutput}
           output={output}
           action={sameUser == true ? "collectionPreview" : "displayOutput"}

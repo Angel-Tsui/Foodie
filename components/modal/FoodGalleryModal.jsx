@@ -8,6 +8,7 @@ import { AiOutlineDelete } from "react-icons/ai";
 import { TfiDownload } from "react-icons/tfi";
 import { RxCross2 } from "react-icons/rx";
 import { downloadOutput } from "../../util/export";
+import DisplayData from "../../src/app/record/displayData";
 
 export default function FoodGalleryModal(action) {
   // console.log("action", action);
@@ -70,49 +71,55 @@ export default function FoodGalleryModal(action) {
               >
                 <RxCross2 />
               </div>
-              <div className={styles.modal__filter}>
-                {/* Home Page FoodGallery Output Display Modal Content */}
-                {action.output != "" && (
-                  <div className={styles.modal__outputImageContainer}>
-                    <img
-                      src={action.output}
-                      className={styles.modal__outputImage}
+              {/* <div className={styles.modal__filter}> */}
+              {/* Home Page FoodGallery Output Display Modal Content */}
+              {action.output != "" && (
+                <div className={styles.modal__outputImageContainer}>
+                  {/* <div className={styles.modal__outputContent}>
+                    <DisplayData
+                      allData={action.output}
+                      allRatings={action.output.allRatings}
                     />
-                    {/* Collection Page FoodGallery Output Display Modal Additional Content */}
-                    {action.nextStep != undefined && (
-                      <div className={styles.furtherAction}>
-                        <div
-                          className={styles.deleteBtn}
-                          onClick={() => {
-                            deleteDataById(cardId);
-                          }}
-                        >
-                          Delete
-                          <AiOutlineDelete />
-                        </div>
-                        <div
-                          className={styles.downloadBtn}
-                          onClick={() => {
-                            downloadOutput(action.output, cardName);
-                          }}
-                        >
-                          Export
-                          <TfiDownload />
-                        </div>
-                        <div
-                          className={styles.editBtn}
-                          onClick={() => {
-                            window.open("/record/" + cardId);
-                          }}
-                        >
-                          Edit
-                          <IoOpenOutline />
-                        </div>
+                  </div> */}
+                  <img
+                    src={action.output}
+                    className={styles.modal__outputImage}
+                  />
+                  {/* Collection Page FoodGallery Output Display Modal Additional Content */}
+                  {action.nextStep != undefined && (
+                    <div className={styles.furtherAction}>
+                      <div
+                        className={styles.deleteBtn}
+                        onClick={() => {
+                          deleteDataById(cardId);
+                        }}
+                      >
+                        Delete
+                        <AiOutlineDelete />
                       </div>
-                    )}
-                  </div>
-                )}
-              </div>
+                      <div
+                        className={styles.downloadBtn}
+                        onClick={() => {
+                          downloadOutput(action.output, cardName);
+                        }}
+                      >
+                        Export
+                        <TfiDownload />
+                      </div>
+                      <div
+                        className={styles.editBtn}
+                        onClick={() => {
+                          window.open("/record/" + cardId);
+                        }}
+                      >
+                        Edit
+                        <IoOpenOutline />
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+              {/* </div> */}
             </div>
           </div>
         </div>
