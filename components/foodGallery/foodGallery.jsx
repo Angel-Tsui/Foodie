@@ -71,6 +71,8 @@ export default function FoodGallery(props) {
             if (props.setMarkerPosition) {
               // console.log(data.latlng);
               props.setMarkerPosition(data.latlng);
+              props.setPlaceInfo(data.mapInfo);
+              props.setPlaceInfoRestoName(data.resto);
             }
 
             {
