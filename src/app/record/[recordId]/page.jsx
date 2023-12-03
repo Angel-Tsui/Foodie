@@ -33,16 +33,13 @@ export default function Record(recordId) {
 
   const [userId, setUserId] = useState("");
   // console.log("computer user", userId);
-  // const [docOwnerId, setDocOwnerId] = useState("")
   const [image, setImage] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [name, setName] = useState("");
   const [resto, setResto] = useState("");
-  // console.log("after set", resto);
   const [gotAddress, setGotAddress] = useState("");
-  // console.log("address", gotAddress);
   const [latlng, setLatlng] = useState({});
-  // console.log(latlng);
+  const [mapInfo, setMapInfo] = useState({});
   const [currency, setCurrency] = useState("HKD");
   const [price, setPrice] = useState(0);
   const [parts, setParts] = useState("");
@@ -117,6 +114,7 @@ export default function Record(recordId) {
     name: name,
     resto: resto,
     latlng: latlng,
+    mapInfo: mapInfo,
     currency: currency,
     price: price,
     parts: parts,
@@ -133,6 +131,7 @@ export default function Record(recordId) {
       name: name,
       resto: resto,
       latlng: latlng,
+      mapInfo: mapInfo,
       currency: currency,
       price: price,
       parts: parts,
@@ -191,6 +190,7 @@ export default function Record(recordId) {
         name,
         resto,
         latlng,
+        mapInfo,
         currency,
         price,
         parts,
@@ -332,6 +332,7 @@ export default function Record(recordId) {
                       setGotAddress={setGotAddress}
                       setResto={setResto}
                       setLatlng={setLatlng}
+                      setMapInfo={setMapInfo}
                     />
                   </div>
                 </div>

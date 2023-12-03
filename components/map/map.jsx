@@ -1,8 +1,9 @@
 "use client";
 import styles from "../../src/app/page.module.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Loader } from "@googlemaps/js-api-loader";
 import { doc } from "firebase/firestore";
+import { InfoWindow } from "@react-google-maps/api";
 
 export default function Map(props) {
   // console.log(props);
@@ -17,6 +18,7 @@ export default function Map(props) {
       const { Map } = await loader.importLibrary("maps");
       const { Marker } = await loader.importLibrary("marker");
       const { Autocomplete } = await loader.importLibrary("places");
+      const { InfoWindow } = await loader.importLibrary("streetView");
 
       const mapOptions = {
         center: props.mapCenter,
@@ -115,17 +117,14 @@ export default function Map(props) {
           "geometry",
           "name",
           "formatted_phone_number",
+          "website",
+          "place_id",
         ],
       };
       let autoComplete = new Autocomplete(
         document.querySelector("#restoSearchInput"),
         autoOptions
       );
-
-      // let moveToCollection = new Autocomplete(
-      //   document.querySelectorAll(".foodGallery__card"),
-      //   autoOptions
-      // );
 
       let autoCompleteRecordResto = new Autocomplete(
         document.querySelector("#input__resto"),
@@ -136,17 +135,29 @@ export default function Map(props) {
 
       const marker = new Marker({ map: map });
 
+      const infoWindowOptions = {
+        // content: "Hello",
+        // position: props.markerPosition,
+      };
+
+      const infoWindow = new InfoWindow(infoWindowOptions);
+
+      const infoWindowOpenOptions = { map: map, anchor: marker };
+
+      infoWindow.open(infoWindowOpenOptions);
+
+      marker.addListener("click", () => {
+        infoWindow.open(infoWindowOpenOptions);
+      });
+
       if (autoComplete) {
         // Autocomplete
         autoComplete.addListener("place_changed", () => {
           let place = autoComplete.getPlace();
-          // console.log(autoComplete);
           // console.log(place);
-          // console.log({
-          //   lat: place.geometry.location.lat(),
-          //   lng: place.geometry.location.lng(),
-          // });
-          // filter search result
+          // setPlaceName(place.name);
+          // setPlaceAddress(place.formatted_address);
+          // setPlacePhoneNumber(place.formatted_phone_number);
           props.filter({
             restaurant: place.name,
           });
@@ -157,33 +168,59 @@ export default function Map(props) {
             map.fitBounds(place.geometry.viewport);
           } else {
             map.setCenter(place.geometry.location);
-            map.setZoom(17);
+            map.setZoom(18);
           }
           marker.setPosition(place.geometry.location);
           // marker.setVisibile(true);
+
+          let placeWebsite;
+          let websiteLink;
+          if (place.website) {
+            placeWebsite = place.website;
+            websiteLink = place.website;
+          } else {
+            placeWebsite = "No Website Available";
+            websiteLink = "/";
+          }
+
+          infoWindow.setContent(
+            `<h2>${place.name}</h2><div>${place.formatted_address}</div><br/><div>${place.formatted_phone_number}</div><br/><div><a href=${websiteLink} target="_blank">${placeWebsite}</a></div>`
+          );
         });
       }
 
       if (props.markerPosition != "" || props.markerPosition != null) {
         // console.log(props.markerPosition);
+        // console.log(props.placeInfoRestoName, props.placeInfo);
         map.setCenter(props.markerPosition);
-        map.setZoom(17);
+        map.setZoom(18);
         marker.setPosition(props.markerPosition);
+        infoWindow.setContent(
+          `<h2>${props.placeInfoRestoName}</h2><div>${props.placeInfo.address}</div><br/><div>${props.placeInfo.number}</div><br/><div><a href=${props.placeInfo.website} target="_blank">${props.placeInfo.website}</a></div>`
+        );
       }
 
       if (autoCompleteRecordResto) {
         autoCompleteRecordResto.addListener("place_changed", () => {
           let place = autoCompleteRecordResto.getPlace();
-          // console.log(place.name);
-          // console.log({
-          //   lat: place.geometry.location.lat(),
-          //   lng: place.geometry.location.lng(),
-          // });
+          // console.log(place);
           props.setGotAddress(place.name);
           props.setResto(place.name);
           props.setLatlng({
             lat: place.geometry.location.lat(),
             lng: place.geometry.location.lng(),
+          });
+          let placeWebsite;
+          if (place.website) {
+            placeWebsite = place.website;
+          } else {
+            placeWebsite = "No Website";
+          }
+          props.setMapInfo({
+            address: place.formatted_address,
+            number: place.formatted_phone_number,
+            website: placeWebsite,
+            place_id: place.place_id,
           });
         });
       }
@@ -191,7 +228,4 @@ export default function Map(props) {
 
     initMap();
   }, [props.markerPosition]);
-
-  // autoCompleteRecordResto.addEventListener("autocomplete", onPlaceChanged)
-  // return <div className={styles.HomePageContainer__maps} id="map" key="map" />;
 }

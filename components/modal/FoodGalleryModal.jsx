@@ -39,6 +39,8 @@ export default function FoodGalleryModal(action) {
           pop={action.pop}
           triggerModal={foodGalleryOpenModal}
           setMarkerPosition={action.setMarkerPosition}
+          setPlaceInfo={action.setPlaceInfo}
+          setPlaceInfoRestoName={action.setPlaceInfoRestoName}
         />
       )}
 

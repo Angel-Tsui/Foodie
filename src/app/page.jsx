@@ -25,6 +25,9 @@ export default function Home() {
   // console.log(mapCenter);
   const [markerPosition, setMarkerPosition] = useState({});
   // console.log(markerPosition);
+  const [placeInfoRestoName, setPlaceInfoRestoName] = useState("");
+  const [placeInfo, setPlaceInfo] = useState({});
+  // console.log(placeInfo);
 
   // console.log("Home additionalFilter", additionalFilter);
   let filterInfo = {
@@ -60,18 +63,25 @@ export default function Home() {
             pop={setOutput}
             output={output}
             setMarkerPosition={setMarkerPosition}
+            setPlaceInfo={setPlaceInfo}
+            setPlaceInfoRestoName={setPlaceInfoRestoName}
           />
           {allData.length == 0 && (
             <div className={styles.noMatch}>No Matching Collection</div>
           )}
         </div>
       </div>
+      {/* <div className={styles.HomePageContainer__maps} z-index={100}>
+        Choose a collection on the left
+      </div> */}
       <div className={styles.HomePageContainer__maps} id="map" key="map">
         <Map
           mapCenter={mapCenter}
           setTypeSearch={setTypeSearch}
           filter={setAdditionalFilter}
           markerPosition={markerPosition}
+          placeInfo={placeInfo}
+          placeInfoRestoName={placeInfoRestoName}
           // setTypeSearch={setTypeSearch}
           // typeSearch={typeSearch}
         />
