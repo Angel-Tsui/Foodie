@@ -24,7 +24,7 @@ body.active-modal {
 
 .modal .modal__content {
   width: fit-content;
-  max-width: 37%;
+  max-width: 35%;
   /* max-width: 450px; */
   /* max-height: 50%; */
   color: black;
