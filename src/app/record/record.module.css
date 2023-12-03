@@ -3,6 +3,7 @@
   height: 100vh;
   width: 100vw;
   display: flex;
+  background-color: white;
 }
 
 .meatInfo__input {
@@ -15,7 +16,6 @@
   justify-content: flex-start;
   padding-bottom: 20px;
   box-sizing: border-box;
-  background-color: white;
 }
 
 .meatInfo__input::-webkit-scrollbar {
@@ -117,14 +117,6 @@
   margin-right: 2px;
 }
 
-.meatInfo__outputContainer {
-  background-color: rgb(219, 218, 218);
-  height: inherit;
-  width: 50%;
-  display: flex;
-  justify-content: center;
-}
-
 .saveButton {
   background-color: rgb(114, 17, 17);
   box-shadow: 0px 0px 5px grey;
@@ -178,7 +170,6 @@
   margin-right: auto;
   margin-top: 40px;
   cursor: pointer;
-  /* text-decoration: underline; */
   color: rgb(114, 17, 17);
   font-size: 14px;
   display: flex;
@@ -186,38 +177,84 @@
   gap: 5px;
 }
 
-.meatInfo__output {
-  background-color: white;
-  margin-top: 2px;
+.meatInfo__outputContainer {
+  background-color: rgb(219, 218, 218);
+  height: inherit;
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  /* align-items: center; */
+}
+
+.meatInfo__outputSetSize {
   height: 500px;
   width: 500px;
+  /*Start: Dynamic 1:1 aspect for w x h*/
+  /* width: 90%;
+  height: 90%; */
+  /*End: Dynamic 1:1 aspect for w x h*/
+}
+
+.meatInfo__output {
+  background-color: white;
+  /* margin-top: 2px; */
   box-sizing: border-box;
   position: relative;
+  /* height: 500px;
+  width: 500px; */
+  /*Start: Dynamic 1:1 aspect for w x h*/
+  width: 100%;
+  height: 0;
+  padding-bottom: 100%;
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  align-items: space-between;
+  /* margin-bottom: 9.5%; */
+  /*End: Dynamic 1:1 aspect for w x h*/
 }
 
 .output__mainInfoAndRadar {
   display: flex;
+  /*Start: Dynamic 1:1 aspect for w x h*/
+  width: 100%;
+  height: 0;
+  padding-bottom: 70%;
+  justify-content: space-around;
+  /*End: Dynamic 1:1 aspect for w x h*/
 }
 
 .output__mainInfo {
   background-color: rgb(114, 17, 17);
+  display: flex;
   flex-direction: column;
   align-items: center;
-  width: 200px;
+  /* width: 200px;
   height: 320px;
-  display: flex;
+  padding: 10px;
+  box-sizing: border-box; */
+
+  /*Start: Dynamic 1:1 aspect for w x h*/
+  /* width: 200px; */
+  min-height: 340px;
+  width: 32%;
   padding: 10px;
   box-sizing: border-box;
+  /*End: Dynamic 1:1 aspect for w x h*/
 }
 
 .output__image {
   /* height: 150px; */
-  width: 150px;
+  /* width: 150px; */
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
   position: relative;
+  /*Start: Dynamic 1:1 aspect for w x h*/
+  width: 95%;
+  height: 150px;
+  /*End: Dynamic 1:1 aspect for w x h*/
 }
 
 .output__image img {
@@ -225,9 +262,13 @@
 }
 
 .output__textInfo {
-  width: 150px;
+  /* width: 150px; */
   color: white;
   margin-top: 10px;
+  /*Start: Dynamic 1:1 aspect for w x h*/
+  width: 95%;
+  height: 80%;
+  /*End: Dynamic 1:1 aspect for w x h*/
 }
 
 .output__textInfo div {
@@ -274,18 +315,33 @@
 }
 
 .output__radarChart {
-  width: 300px;
-  padding: 10px;
+  /* width: 300px;
+  padding: 10px; */
+  /*Start: Dynamic 1:1 aspect for w x h*/
+  width: 68%;
+  height: 100%;
+  /* padding-bottom: 70%; */
+  /*End: Dynamic 1:1 aspect for w x h*/
 }
 
 .radar {
   position: relative;
+  /*Start: Dynamic 1:1 aspect for w x h*/
+  width: 100%;
+  height: 100%;
+  /*End: Dynamic 1:1 aspect for w x h*/
 }
 
 .output__description {
-  position: absolute;
-  bottom: 0px;
-  height: 180px;
+  /* position: absolute;
+  bottom: 5px; */
+  /* height: 180px;
   padding: 10px;
-  box-sizing: border-box;
+  box-sizing: border-box; */
+  /*Start: Dynamic 1:1 aspect for w x h*/
+  width: 97%;
+  height: 25%;
+  margin-left: auto;
+  margin-right: auto;
+  /*End: Dynamic 1:1 aspect for w x h*/
 }

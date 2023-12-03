@@ -593,7 +593,9 @@ export default function Record(recordId) {
         </div>
 
         <div className={styles.meatInfo__outputContainer}>
-          <DisplayData allData={allData} allRatings={allRatings} />
+          {/* <div className={styles.meatInfo__outputSetSize}> */}
+            <DisplayData allData={allData} allRatings={allRatings} />
+          {/* </div> */}
         </div>
       </div>
     </>

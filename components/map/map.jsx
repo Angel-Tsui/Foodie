@@ -6,7 +6,7 @@ import { doc } from "firebase/firestore";
 import { InfoWindow } from "@react-google-maps/api";
 
 export default function Map(props) {
-  console.log(props.noDisplay);
+  // console.log(props.noDisplay);
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
   useEffect(() => {
