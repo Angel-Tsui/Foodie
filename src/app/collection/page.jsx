@@ -27,7 +27,6 @@ function CollectorList(props) {
   return (
     <div className={styles.collectionList}>
       <div className={styles.findUserContainer}>
-        {/* <TypeSearch action="findUser" /> */}
         <input
           type="text"
           className={styles.friendSearch}
@@ -47,9 +46,6 @@ function CollectorList(props) {
       {props.searchUser != "" && (
         <div className={styles.searchResults}>
           {props.searchResult.map((each) => {
-            {
-              /* console.log(each); */
-            }
             return (
               <Link href={`/collection?prevUser=${each.id}`}>
                 <div
@@ -57,13 +53,7 @@ function CollectorList(props) {
                   key={each.id}
                   className={styles.eachSearchResult}
                   onClick={() => {
-                    // console.log(each.id);
-                    // updateUserToWatchList(props.userId, each.id);
-                    // props.setWatchListChanges(each.id);
-                    // props.searching("");
-                    // console.log("search for", each.id);
                     props.searching("");
-                    // props.setSearchUserParam({ searchUser: each.id });
                   }}
                 >
                   <div className={styles.eachSearchResultProPic}>
@@ -90,20 +80,12 @@ function CollectorList(props) {
           id={userId}
           key={userId}
           href={`/collection?prevUser=${userId}`}
-          onClick={() => {
-            // props.setGetUserCollection(userId);
-            // props.loadUser(userId);
-            // console.log("click self profile", userId);
-          }}
         >
           <MyCollection userId={userId} />
         </Link>
       )}
       <div className={styles.collectionList__all}>
         {props.currentWatchList.map((each, index) => {
-          {
-            /* console.log(each); */
-          }
           return (
             <div
               className={styles.collectionList__eachWatch}
@@ -116,19 +98,12 @@ function CollectorList(props) {
                     ? styles.collectionList__eachProfile__active
                     : styles.collectionList__eachProfile
                 }
-                // key={index}
-                // id={each}
                 href={`/collection?prevUser=${each}`}
-                // onClick={() => {
-                //   props.setGetUserCollection(each);
-                // }}
               >
                 <MyCollection userId={each} />
               </Link>
               <Link
                 className={styles.collectionList__eachUnwatch}
-                // id={each}
-                // key={each}
                 onClick={() => {
                   removeUserFromWatchList(props.userId, each);
                   props.setWatchListChanges(each);
@@ -144,9 +119,6 @@ function CollectorList(props) {
             </div>
           );
         })}
-
-        {/* <MyCollection />
-        <MyCollection /> */}
       </div>
     </div>
   );
@@ -174,6 +146,18 @@ function CollectionGalleryHeading(props) {
             }}
           >
             Create Collection +
+          </div>
+        ) : props.watchListId.includes(props.previewUser) ? (
+          <div
+            className={styles.collectionGallery__create}
+            onClick={() => {
+              // console.log(each.id);
+              removeUserFromWatchList(props.userId, props.previewUser);
+              props.setWatchListChanges(props.previewUser);
+              // props.searching("");
+            }}
+          >
+            Unfollow Collector
           </div>
         ) : (
           <div
@@ -333,6 +317,7 @@ export default function Collection() {
           previewUser={previewUser}
           searching={setSearchUser}
           sameUser={sameUser}
+          watchListId={watchListId}
           // action={sameUser == true ? "createCollection" : "AddToWatchList"}
         />
         <CollectionGallery
