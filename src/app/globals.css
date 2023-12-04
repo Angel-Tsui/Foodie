@@ -21,3 +21,8 @@ body {
   margin-top: 60px;
   position: fixed;
 }
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
