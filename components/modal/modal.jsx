@@ -140,7 +140,7 @@ export default function Modal(action) {
       window.localStorage.setItem("token", JSON.stringify(userToken));
       let confirmUser = signInOrSignOut();
       if (confirmUser) {
-        window.location.href = "/collection";
+        window.location.href = `/collection?prevUser=${signInStatus["user"].uid}`;
       }
     }
   }

@@ -83,14 +83,6 @@ export default function FoodGalleryModal(action) {
                     />
                   </div> */}
                   <div className={styles.modal__outputImage}>
-                    {/* <Image
-                      layout="fill"
-                      objectfit="contain"
-                      src={action.output}
-                      width={750}
-                      height={750}
-                      alt="Output Image"
-                    /> */}
                     <img
                       src={action.output}
                       className={styles.modal__outputImage}
