@@ -9,6 +9,7 @@ import { TfiDownload } from "react-icons/tfi";
 import { RxCross2 } from "react-icons/rx";
 import { downloadOutput } from "../../util/export";
 import DisplayData from "../../src/app/record/displayData";
+import Image from "next/image";
 
 export default function FoodGalleryModal(action) {
   // console.log("action", action);
@@ -81,10 +82,21 @@ export default function FoodGalleryModal(action) {
                       allRatings={action.output.allRatings}
                     />
                   </div> */}
-                  <img
-                    src={action.output}
-                    className={styles.modal__outputImage}
-                  />
+                  <div className={styles.modal__outputImage}>
+                    {/* <Image
+                      layout="fill"
+                      objectfit="contain"
+                      src={action.output}
+                      width={750}
+                      height={750}
+                      alt="Output Image"
+                    /> */}
+                    <img
+                      src={action.output}
+                      className={styles.modal__outputImage}
+                    />
+                  </div>
+
                   {/* Collection Page FoodGallery Output Display Modal Additional Content */}
                   {action.nextStep != undefined && (
                     <div className={styles.furtherAction}>
