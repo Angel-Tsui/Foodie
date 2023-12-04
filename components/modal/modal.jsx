@@ -167,7 +167,7 @@ export default function Modal(action) {
     // console.log(userCred.user);
     let userEmail = userCred.user.email;
     let userName = userEmail.split("@")[0];
-    userUpperName = userName.toUpperCase();
+    let userUpperName = userName.toUpperCase();
     // console.log("userName", userName);
     let userInfo = {
       userEmail: userCred.user.email,
@@ -205,7 +205,7 @@ export default function Modal(action) {
     }
 
     const authResult = await fireSignUp(signUpUserEmail, signUpUserPw);
-    // console.log("authResult", authResult);
+    console.log("authResult", authResult);
     if (Object.keys(authResult).includes("success")) {
       setUserStatus({
         success: true,
