@@ -53,9 +53,9 @@ export default function Nav() {
         {userToken != null && (
           <>
             <div
-              onClick={() => {
-                window.location.href = "/collection";
-              }}
+            // onClick={() => {
+            //   window.location.href = "/collection";
+            // }}
             >
               <div className={styles.userAction}>
                 <div
@@ -67,7 +67,9 @@ export default function Nav() {
                 >
                   Create Collection +
                 </div>
-                <MyCollection userId={userId} />
+                <Link href={`/collection?prevUser=${userId}`}>
+                  <MyCollection userId={userId} />
+                </Link>
               </div>
             </div>
             <div className={styles.menu}>

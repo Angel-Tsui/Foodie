@@ -167,6 +167,12 @@
   border-radius: 0px 5px 5px 0px;
 }
 
+.collectionList__eachProfile__active {
+  width: 90%;
+  background-color: transparent;
+  border-radius: 0px 5px 5px 0px;
+}
+
 .collectionList__eachUnwatch {
   color: white;
   /* max-width: 10%; */
