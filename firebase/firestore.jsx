@@ -1,4 +1,4 @@
-import { firestore, colRef, usersColRef } from "./firebase";
+import { firestore, colRef, usersColRef, mapColRef } from "./firebase";
 import {
   doc,
   setDoc,
@@ -140,6 +140,59 @@ const getOnlyOutputImage = async (outputId) => {
   let outputImageUrl = await outputInfo.ouputUrl;
   // console.log("img", outputImageUrl);
   return outputImageUrl;
+};
+
+// Save Map Basic LatLang to DB
+const updateAvailableLocation = async (latLng) => {
+  if (latLng) {
+    const mapListRef = doc(firestore, "allMapInfo", "allAvailableLocation");
+    // console.log("update", latLng);
+    await updateDoc(mapListRef, { location: arrayUnion(latLng) }).catch((e) => {
+      console.log(e.message);
+    });
+  }
+};
+
+// Save Map Details to DB
+const saveMapDetails = async (resto, latlng, mapInfo) => {
+  // console.log(resto, latlng, mapInfo);
+  let website;
+  if (mapInfo.website == null || mapInfo.website == "") {
+    website = "No website Available";
+  } else {
+    website = mapInfo.website;
+  }
+  const addMapDetailsRef = doc(firestore, "allMapInfo", resto);
+  await setDoc(addMapDetailsRef, {
+    resto: resto,
+    latlng: latlng,
+    address: mapInfo.address,
+    number: mapInfo.number,
+    place_id: mapInfo.place_id,
+    website: website,
+  }).catch((err) => {
+    console.log(err.message);
+  });
+};
+
+// Get Maps Info From DB to Display on Scren
+const getAvailableLocation = async () => {
+  // console.log("getting all map location");
+  const singleData = await getDoc(doc(mapColRef, "allAvailableLocation"));
+  return singleData.data();
+};
+
+// Get Single Map Detail From DB
+const getSingleAvailableLocationDetail = async (latLng) => {
+  // console.log("fire", latLng);
+  const displayOnMap = query(mapColRef, where("latlng", "==", latLng));
+  let LocationDetail = await getDocs(displayOnMap);
+  let detail;
+  LocationDetail.forEach((doc) => {
+    detail = (doc.id, doc.data());
+    // console.log(detail);
+  });
+  return detail;
 };
 
 // Records
@@ -360,4 +413,8 @@ export {
   removeUserFromWatchList,
   getUserInfo,
   updateUserProfile,
+  saveMapDetails,
+  updateAvailableLocation,
+  getAvailableLocation,
+  getSingleAvailableLocationDetail,
 };

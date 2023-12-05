@@ -12,6 +12,8 @@ import {
   deleteDataById,
   outputFile,
   getOnlyOutputImage,
+  saveMapDetails,
+  updateAvailableLocation,
 } from "../../../../firebase/firestore";
 import {
   verify,
@@ -200,7 +202,9 @@ export default function Record(recordId) {
         allRatings,
         description,
         userId
-      )
+      );
+      updateAvailableLocation(latlng);
+      saveMapDetails(resto, latlng, mapInfo)
         .then(() => {
           htmlToImage
             .toPng(document.querySelector("#output__toPNG"))
@@ -594,7 +598,7 @@ export default function Record(recordId) {
 
         <div className={styles.meatInfo__outputContainer}>
           {/* <div className={styles.meatInfo__outputSetSize}> */}
-            <DisplayData allData={allData} allRatings={allRatings} />
+          <DisplayData allData={allData} allRatings={allRatings} />
           {/* </div> */}
         </div>
       </div>

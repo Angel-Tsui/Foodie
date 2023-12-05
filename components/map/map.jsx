@@ -4,6 +4,11 @@ import { useEffect, useState } from "react";
 import { Loader } from "@googlemaps/js-api-loader";
 import { doc } from "firebase/firestore";
 import { InfoWindow } from "@react-google-maps/api";
+import CoordinatesSaved from "../../assets/inputOptions/Options.json";
+import {
+  getAvailableLocation,
+  getSingleAvailableLocationDetail,
+} from "../../firebase/firestore";
 
 export default function Map(props) {
   // console.log(props.noDisplay);
@@ -16,6 +21,7 @@ export default function Map(props) {
         version: "weekly",
       });
       const { Map } = await loader.importLibrary("maps");
+      const { Size } = await loader.importLibrary("core");
       const { Marker } = await loader.importLibrary("marker");
       const { Autocomplete } = await loader.importLibrary("places");
       const { InfoWindow } = await loader.importLibrary("streetView");
@@ -133,7 +139,12 @@ export default function Map(props) {
 
       const map = new Map(document.querySelector("#map"), mapOptions);
 
-      const marker = new Marker({ map: map });
+      const icon = {
+        url: "/cow.png",
+        scaledSize: new Size(40, 40),
+      };
+
+      const marker = new Marker({ map: map, icon: icon });
 
       const infoWindowOptions = {
         // content: "Hello",
@@ -146,18 +157,51 @@ export default function Map(props) {
 
       infoWindow.open(infoWindowOpenOptions);
 
-      marker.addListener("click", () => {
-        infoWindow.open(infoWindowOpenOptions);
+      // marker.addListener("click", () => {
+      //   infoWindow.open(infoWindowOpenOptions);
+      // });
+
+      const addMarker = (spot) => {
+        let otherMarkers = new Marker({
+          position: spot,
+          map: map,
+          icon: icon,
+        });
+        otherMarkers.addListener("click", async () => {
+          let detail = await getSingleAvailableLocationDetail(spot);
+          // console.log("out", detail);
+
+          map.setCenter(spot);
+          map.setZoom(20);
+          marker.setPosition(spot);
+
+          infoWindow.setContent(
+            `<h2>${detail.resto}</h2><div>${detail.address}</div><br/><div>${detail.number}</div><br/><div><a href=${detail.website} target="_blank">${detail.website}</a></div>`
+          );
+
+          infoWindow.open(infoWindowOpenOptions);
+
+          // const detailWindow = new InfoWindow();
+
+          // const detailWindowOpenOptions = { map: map, anchor: marker };
+
+          // detailWindow.open(detailWindowOpenOptions);
+        });
+      };
+      // Display all available location on map
+      getAvailableLocation().then((displayLocationOnMap) => {
+        // console.log(displayLocationOnMap.location);
+        let availableSpots = displayLocationOnMap.location;
+        availableSpots.forEach((spot) => {
+          // console.log(spot);
+          addMarker(spot);
+        });
       });
 
       if (autoComplete) {
         // Autocomplete
         autoComplete.addListener("place_changed", () => {
           let place = autoComplete.getPlace();
-          // console.log(place);
-          // setPlaceName(place.name);
-          // setPlaceAddress(place.formatted_address);
-          // setPlacePhoneNumber(place.formatted_phone_number);
           props.filter({
             restaurant: place.name,
           });
@@ -168,7 +212,7 @@ export default function Map(props) {
             map.fitBounds(place.geometry.viewport);
           } else {
             map.setCenter(place.geometry.location);
-            map.setZoom(18);
+            map.setZoom(20);
           }
           marker.setPosition(place.geometry.location);
           // marker.setVisibile(true);
@@ -192,7 +236,7 @@ export default function Map(props) {
         // console.log(props.markerPosition);
         // console.log(props.placeInfoRestoName, props.placeInfo);
         map.setCenter(props.markerPosition);
-        map.setZoom(18);
+        map.setZoom(20);
         marker.setPosition(props.markerPosition);
 
         if (props.noDisplay != "noMapDisplay") {

@@ -23,6 +23,9 @@ export const colRef = collection(firestore, "records");
 // Collection reference to "users"
 export const usersColRef = collection(firestore, "users");
 
+// Collection reference to "allMapInfo"
+export const mapColRef = collection(firestore, "allMapInfo");
+
 // Initialize Firebase Authentication
 export const auth = getAuth(app);
 
