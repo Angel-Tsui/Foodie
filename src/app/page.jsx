@@ -21,7 +21,10 @@ export default function Home() {
   const [typeSearch, setTypeSearch] = useState("");
   // console.log(typeSearch);
   // const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
-  const [mapCenter, setMapCenter] = useState({ lat: 22.278, lng: 114.182 });
+  const [mapCenter, setMapCenter] = useState({
+    lat: 22.2802845,
+    lng: 114.1830516,
+  });
   // console.log(mapCenter);
   const [markerPosition, setMarkerPosition] = useState({});
   // console.log(markerPosition);

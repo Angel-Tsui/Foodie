@@ -172,7 +172,7 @@ export default function Map(props) {
           // console.log("out", detail);
 
           map.setCenter(spot);
-          map.setZoom(20);
+          map.setZoom(18);
           marker.setPosition(spot);
 
           infoWindow.setContent(
@@ -212,7 +212,7 @@ export default function Map(props) {
             map.fitBounds(place.geometry.viewport);
           } else {
             map.setCenter(place.geometry.location);
-            map.setZoom(20);
+            map.setZoom(18);
           }
           marker.setPosition(place.geometry.location);
           // marker.setVisibile(true);
@@ -236,7 +236,7 @@ export default function Map(props) {
         // console.log(props.markerPosition);
         // console.log(props.placeInfoRestoName, props.placeInfo);
         map.setCenter(props.markerPosition);
-        map.setZoom(20);
+        map.setZoom(18);
         marker.setPosition(props.markerPosition);
 
         if (props.noDisplay != "noMapDisplay") {
