@@ -181,11 +181,10 @@ export default function Map(props) {
 
           infoWindow.open(infoWindowOpenOptions);
 
-          // const detailWindow = new InfoWindow();
-
-          // const detailWindowOpenOptions = { map: map, anchor: marker };
-
-          // detailWindow.open(detailWindowOpenOptions);
+          props.filter({
+            restaurant: detail.resto,
+          });
+          props.setTypeSearch(detail.resto);
         });
       };
       // Display all available location on map

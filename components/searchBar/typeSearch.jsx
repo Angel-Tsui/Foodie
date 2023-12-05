@@ -7,32 +7,32 @@ import { IoFilterOutline } from "react-icons/io5";
 import { LuFilterX } from "react-icons/lu";
 import { useState } from "react";
 
-const SelectFilterModal = () => {
-  const [filter, setFilter] = useState(false);
+// const SelectFilterModal = () => {
+//   const [filter, setFilter] = useState(false);
 
-  const openFilterSelector = () => {
-    // console.log("filter");
-    setFilter(!filter);
-  };
+//   const openFilterSelector = () => {
+//     // console.log("filter");
+//     setFilter(!filter);
+//   };
 
-  return (
-    <>
-      <div className={styles.filterIcon} onClick={openFilterSelector}>
-        <IoFilterOutline />
-      </div>
+//   return (
+//     <>
+//       <div className={styles.filterIcon} onClick={openFilterSelector}>
+//         <IoFilterOutline />
+//       </div>
 
-      <div className={moduleStyles.modal}>
-        <div className={moduleStyles.modal__overlay}>
-          <div className={moduleStyles.modal__content}>
-            <div className={moduleStyles.modal__filter}>
-              {filter && <div>Filter</div>}
-            </div>
-          </div>
-        </div>
-      </div>
-    </>
-  );
-};
+//       <div className={moduleStyles.modal}>
+//         <div className={moduleStyles.modal__overlay}>
+//           <div className={moduleStyles.modal__content}>
+//             <div className={moduleStyles.modal__filter}>
+//               {filter && <div>Filter</div>}
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+//     </>
+//   );
+// };
 
 export default function TypeSearch(props) {
   // console.log("typeSearch props", props);

@@ -10,6 +10,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href="/cow.png" />
+      </head>
       <body>
         <Nav />
         <div className="main">{children}</div>
