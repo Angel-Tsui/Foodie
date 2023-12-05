@@ -21,6 +21,14 @@
 .nav__companyName {
   font-weight: 1000;
   margin-left: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav__companyName img {
+  height: inherit;
+  width: 50px;
 }
 
 .nav__companyName a {

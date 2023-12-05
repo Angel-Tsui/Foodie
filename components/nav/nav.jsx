@@ -40,9 +40,13 @@ export default function Nav() {
 
   return (
     <div className={styles.nav}>
-      <div className={styles.nav__companyName}>
-        <Link href="/">UNIVERSAL MEAT EXPO</Link>
-      </div>
+      <Link href="/">
+        <div className={styles.nav__companyName}>
+          <img src="/cow.png" />
+          UNIVERSAL MEAT EXPO
+        </div>
+      </Link>
+
       <div className={styles.nav__user}>
         {userToken == null && (
           <>
