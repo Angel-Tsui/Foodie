@@ -161,6 +161,8 @@ export default function Map(props) {
         // console.log("close infowindow");
         // props.filter({});
         window.history.pushState(null, "", `/`);
+        props.setFilterChanges(true);
+        props.setFilterResName("");
         // props.setTypeSearch("");
       });
 
@@ -211,11 +213,9 @@ export default function Map(props) {
         // Autocomplete
         autoComplete.addListener("place_changed", () => {
           let place = autoComplete.getPlace();
-          console.log(place.name);
+          // console.log(place.name);
           window.history.pushState(null, "", `/?resto=${place.name}`);
-
           props.setFilterChanges(true);
-
           props.setFilterResName(place.name);
           props.setAutoReply(place.name);
           // props.filter({

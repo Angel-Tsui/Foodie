@@ -299,7 +299,7 @@ const getFilterQuery = (cusines, doneness, parts, priceRange) => {
 // };
 
 const getRecordsData = async (filterInfo) => {
-  console.log("getRecordsData props", filterInfo);
+  // console.log("getRecordsData props", filterInfo);
   // let filters = filterInfo.filterInfo;
   // console.log("orderMethod", filters.orderMethod);
   // console.log("AscOrDesc", filters.AscOrDesc);

@@ -25,7 +25,7 @@ export default function Home() {
   const resto = searchParams.get("resto");
   const lower = searchParams.get("lower");
   const upper = searchParams.get("upper");
-  console.log("searchParam", resto, lower, upper, cusines, doneness, parts);
+  // console.log("searchParam", resto, lower, upper, cusines, doneness, parts);
 
   // const [typeSearch, setTypeSearch] = useState("");
   // console.log("typeSearch", typeSearch);
@@ -41,13 +41,13 @@ export default function Home() {
   const [placeInfo, setPlaceInfo] = useState({});
   // console.log(placeInfo);
   const [filterResName, setFilterResName] = useState("");
-  console.log("filterResName", filterResName);
+  // console.log("filterResName", filterResName);
 
   const [autoReply, setAutoReply] = useState("");
-  console.log(autoReply);
+  // console.log(autoReply);
 
   const [filterChanges, setFilterChanges] = useState(true);
-  console.log(filterChanges);
+  // console.log(filterChanges);
 
   // const [additionalFilter, setAdditionalFilter] = useState({});
   // console.log("additionalFilter", additionalFilter);
@@ -71,11 +71,11 @@ export default function Home() {
       filter.upper = parseInt(upper);
     }
     if (resto != null) {
-      console.log("qsResto", resto);
+      // console.log("qsResto", resto);
       filter = { restaurant: resto };
     }
     if (filterResName != "") {
-      console.log("filterResName", filterResName);
+      // console.log("filterResName", filterResName);
       // filter.restaurant = filterResName;
       filter = { restaurant: filterResName };
     }
@@ -87,7 +87,7 @@ export default function Home() {
       additionalFilter: filter,
     };
 
-    console.log(filterInfo);
+    // console.log(filterInfo);
 
     if (filterChanges == true) {
       getRecordsData(filterInfo)
@@ -95,7 +95,7 @@ export default function Home() {
           setAllData(allData);
         })
         .then(() => {
-          console.log("data is updated, turn filterchanges to false");
+          // console.log("data is updated, turn filterchanges to false");
           setFilterChanges(false);
         });
     }
