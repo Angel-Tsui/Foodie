@@ -6,42 +6,16 @@ import { BiSearchAlt } from "react-icons/bi";
 import { IoFilterOutline } from "react-icons/io5";
 import { LuFilterX } from "react-icons/lu";
 import { useState } from "react";
-
-// const SelectFilterModal = () => {
-//   const [filter, setFilter] = useState(false);
-
-//   const openFilterSelector = () => {
-//     // console.log("filter");
-//     setFilter(!filter);
-//   };
-
-//   return (
-//     <>
-//       <div className={styles.filterIcon} onClick={openFilterSelector}>
-//         <IoFilterOutline />
-//       </div>
-
-//       <div className={moduleStyles.modal}>
-//         <div className={moduleStyles.modal__overlay}>
-//           <div className={moduleStyles.modal__content}>
-//             <div className={moduleStyles.modal__filter}>
-//               {filter && <div>Filter</div>}
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     </>
-//   );
-// };
+import Link from "next/link";
 
 export default function TypeSearch(props) {
   // console.log("typeSearch props", props);
   // const [typeSearch, setTypeSearch] = useState("");
   // console.log(typeSearch);
   return (
-    // <div className={styles.searchBarInner}>
     <>
       <div className={styles.searchBar__typeSearch}>
+        {/* <Link href={`/?${props.typeSearch}`}> */}
         <input
           type="text"
           id="restoSearchInput"
@@ -52,35 +26,58 @@ export default function TypeSearch(props) {
           //     restaurant: e.target.value,
           //   });
           //   props.setTypeSearch(e.target.value);
+          //   window.history.pushState(null, "", `/?${props.typeSearch}`);
           // }}
         />
-        <div className={styles.searchIcon}>
-          <BiSearchAlt
-            onClick={() => {
-              props.filter({
-                restaurant: props.typeSearch,
-              });
-            }}
-          />
-        </div>
+        {/* </Link> */}
+        <Link href={`/?resto=${props.autoReply}`}>
+          <div className={styles.searchIcon}>
+            <BiSearchAlt
+              onClick={() => {
+                props.setFilterResName(props.autoReply);
+                props.setFilterChanges(true);
+
+                //   props.filter({
+                //     restaurant: props.typeSearch,
+                //   });
+                //   props.setTypeSearch(e.target.value);
+              }}
+            />
+          </div>
+        </Link>
       </div>
       {props.action == "findResto" && (
         <div className={styles.typeSearch__filterContainer}>
-          <Modal action="filter" additionalFilter={props.filter} />
+          <Modal
+            action="filter"
+            additionalFilter={props.filter}
+            setFilterChanges={props.setFilterChanges}
+            filterChanges={props.filterChanges}
+            setFilterResName={props.setFilterResName}
+          />
           <div
             className={styles.filterIcon}
-            onClick={() => {
-              // console.log("clear filters");
-              props.filter({});
-              // props.setTypeSearch("");
-            }}
+            // onClick={() => {
+            //   // console.log("clear filters");
+            //   props.filter({});
+            //   props.setTypeSearch("");
+            // }}
           >
             <LuFilterX />{" "}
-            <div className={styles.filterIconText}>Clear Filters</div>
+            <Link href={"/"}>
+              <div
+                className={styles.filterIconText}
+                onClick={() => {
+                  props.setFilterResName("");
+                  props.setFilterChanges(true);
+                }}
+              >
+                Clear Filters
+              </div>
+            </Link>
           </div>
         </div>
       )}
     </>
-    // </div>
   );
 }

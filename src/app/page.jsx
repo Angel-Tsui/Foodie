@@ -9,6 +9,7 @@ import FoodGallery from "../../components/foodGallery/foodGallery";
 // import { filter } from "../../components/modal/modal";
 import FoodGalleryModal from "../../components/modal/FoodGalleryModal";
 import Map from "../../components/map/map";
+import { useSearchParams } from "next/navigation";
 // import { Loader } from "@googlemaps/js-api-loader";
 
 export default function Home() {
@@ -16,10 +17,18 @@ export default function Home() {
   // console.log("at home", output);
   const [allData, setAllData] = useState([]);
   // console.log("Main Page allData", allData);
-  const [additionalFilter, setAdditionalFilter] = useState({});
-  // console.log("additionalFilter", additionalFilter);
-  const [typeSearch, setTypeSearch] = useState("");
-  // console.log(typeSearch);
+
+  const searchParams = useSearchParams();
+  const cusines = searchParams.get("cuisines");
+  const doneness = searchParams.getAll("doneness");
+  const parts = searchParams.getAll("parts");
+  const resto = searchParams.get("resto");
+  const lower = searchParams.get("lower");
+  const upper = searchParams.get("upper");
+  console.log("searchParam", resto, lower, upper, cusines, doneness, parts);
+
+  // const [typeSearch, setTypeSearch] = useState("");
+  // console.log("typeSearch", typeSearch);
   // const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
   const [mapCenter, setMapCenter] = useState({
     lat: 22.2802845,
@@ -31,21 +40,66 @@ export default function Home() {
   const [placeInfoRestoName, setPlaceInfoRestoName] = useState("");
   const [placeInfo, setPlaceInfo] = useState({});
   // console.log(placeInfo);
+  const [filterResName, setFilterResName] = useState("");
+  console.log("filterResName", filterResName);
 
-  // console.log("Home additionalFilter", additionalFilter);
-  let filterInfo = {
-    orderMethod: "starRating",
-    AscOrDesc: "desc",
-    additionalFilter: additionalFilter,
-  };
-  // console.log("Home filterInfo", filterInfo);
+  const [autoReply, setAutoReply] = useState("");
+  console.log(autoReply);
 
+  const [filterChanges, setFilterChanges] = useState(true);
+  console.log(filterChanges);
+
+  // const [additionalFilter, setAdditionalFilter] = useState({});
+  // console.log("additionalFilter", additionalFilter);
+
+  let filterInfo = {};
   useEffect(() => {
-    getRecordsData(filterInfo).then((allData) => {
-      setAllData(allData);
-    });
-    // console.log(apiKey);
-  }, [additionalFilter]);
+    let filter = {};
+    if (cusines != null) {
+      filter.cusines = cusines;
+    }
+    if (doneness.length != 0) {
+      filter.doneness = doneness;
+    }
+    if (parts.length != 0) {
+      filter.parts = parts;
+    }
+    if (lower != null) {
+      filter.lower = parseInt(lower);
+    }
+    if (upper != null) {
+      filter.upper = parseInt(upper);
+    }
+    if (resto != null) {
+      console.log("qsResto", resto);
+      filter = { restaurant: resto };
+    }
+    if (filterResName != "") {
+      console.log("filterResName", filterResName);
+      // filter.restaurant = filterResName;
+      filter = { restaurant: filterResName };
+    }
+    // console.log(filter);
+
+    filterInfo = {
+      orderMethod: "starRating",
+      AscOrDesc: "desc",
+      additionalFilter: filter,
+    };
+
+    console.log(filterInfo);
+
+    if (filterChanges == true) {
+      getRecordsData(filterInfo)
+        .then((allData) => {
+          setAllData(allData);
+        })
+        .then(() => {
+          console.log("data is updated, turn filterchanges to false");
+          setFilterChanges(false);
+        });
+    }
+  }, [cusines, doneness, parts, resto, filterResName]);
 
   return (
     <div className={styles.HomePageContainer}>
@@ -54,9 +108,16 @@ export default function Home() {
           {/* <SearchBar /> */}
           <TypeSearch
             action="findResto"
-            filter={setAdditionalFilter}
-            typeSearch={typeSearch}
-            setTypeSearch={setTypeSearch}
+            // filter={setAdditionalFilter}
+            // additionalFilter={additionalFilter}
+            // typeSearch={typeSearch}
+            // setTypeSearch={setTypeSearch}
+            filterResName={filterResName}
+            setFilterChanges={setFilterChanges}
+            filterChanges={filterChanges}
+            resto={resto}
+            setFilterResName={setFilterResName}
+            autoReply={autoReply}
           />
         </div>
         <div className={styles.foodGalleryContainer}>
@@ -80,11 +141,15 @@ export default function Home() {
       <div className={styles.HomePageContainer__maps} id="map" key="map">
         <Map
           mapCenter={mapCenter}
-          setTypeSearch={setTypeSearch}
-          filter={setAdditionalFilter}
+          // setTypeSearch={setTypeSearch}
+          // filter={setAdditionalFilter}
           markerPosition={markerPosition}
           placeInfo={placeInfo}
           placeInfoRestoName={placeInfoRestoName}
+          setFilterResName={setFilterResName}
+          setFilterChanges={setFilterChanges}
+          setAutoReply={setAutoReply}
+
           // setTypeSearch={setTypeSearch}
           // typeSearch={typeSearch}
         />

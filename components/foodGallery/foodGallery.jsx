@@ -1,6 +1,6 @@
 "use client";
 import styles from "./foodGallery.module.css";
-import Image from "next/image";
+import Link from "next/link";
 import { FaStar } from "react-icons/fa";
 import modalStyles from "../modal/modal.module.css";
 import { useState, useContext } from "react";

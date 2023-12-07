@@ -250,31 +250,56 @@ const getSingleRecordData = async (recordId) => {
   return singleData.data();
 };
 
-const gatekeepFilterSearch = (cusines, doneness, parts, priceRange) => {
+const getFilterQuery = (cusines, doneness, parts, priceRange) => {
   // console.log("in handleFilterSearch");
   // console.log("c", cusines, "d", doneness, "p", parts, "pr", priceRange);
-  let filterInfo = {};
+
+  let query = [];
   if (cusines != "") {
-    filterInfo.cusines = cusines;
+    query.push(`cuisines=${cusines}`);
   }
   if (doneness.length != 0) {
-    filterInfo.doneness = doneness;
+    doneness.forEach((d) => {
+      query.push(`doneness=${d}`);
+    });
   }
   if (parts.length != 0) {
-    filterInfo.parts = parts;
+    parts.forEach((p) => {
+      query.push(`parts=${p}`);
+    });
   }
   if (priceRange[0] != 0 || priceRange[1] != 2000) {
-    filterInfo.lower = priceRange[0];
-    filterInfo.upper = priceRange[1];
+    query.push(`lower=${priceRange[0]}`);
+    query.push(`upper=${priceRange[1]}`);
   }
   // console.log("filterInfo", filterInfo);
-  // console.log(window.location.href);
-  return filterInfo;
-  // getRecordsData(filterInfo);
+  return query;
 };
 
+// const gatekeepFilterSearch = (cusines, doneness, parts, priceRange) => {
+//   // console.log("in handleFilterSearch");
+//   // console.log("c", cusines, "d", doneness, "p", parts, "pr", priceRange);
+//   let filterInfo = {};
+
+//   if (cusines != "") {
+//     filterInfo.cusines = cusines;
+//   }
+//   if (doneness.length != 0) {
+//     filterInfo.doneness = doneness;
+//   }
+//   if (parts.length != 0) {
+//     filterInfo.parts = parts;
+//   }
+//   if (priceRange[0] != 0 || priceRange[1] != 2000) {
+//     filterInfo.lower = priceRange[0];
+//     filterInfo.upper = priceRange[1];
+//   }
+//   // console.log("filterInfo", filterInfo);
+//   return filterInfo;
+// };
+
 const getRecordsData = async (filterInfo) => {
-  // console.log("getRecordsData props", filterInfo);
+  console.log("getRecordsData props", filterInfo);
   // let filters = filterInfo.filterInfo;
   // console.log("orderMethod", filters.orderMethod);
   // console.log("AscOrDesc", filters.AscOrDesc);
@@ -323,11 +348,17 @@ const getRecordsData = async (filterInfo) => {
       //   return where("parts", "==", part);
       // });
     }
-    if (filterInfo.additionalFilter.lower != undefined) {
+    if (
+      filterInfo.additionalFilter.lower != 0 &&
+      filterInfo.additionalFilter.lower != undefined
+    ) {
       // console.log("fill lower", filterInfo.additionalFilter.lower);
       return where("price", ">=", filterInfo.additionalFilter.lower);
     }
-    if (filterInfo.additionalFilter.upper != undefined) {
+    if (
+      filterInfo.additionalFilter.upper != 2000 &&
+      filterInfo.additionalFilter.upper != undefined
+    ) {
       // console.log("fill upper", filterInfo.additionalFilter.upper);
       return where("price", "<=", filterInfo.additionalFilter.upper);
     }
@@ -406,7 +437,7 @@ export {
   outputFile,
   getSingleOutputData,
   getOnlyOutputImage,
-  gatekeepFilterSearch,
+  // gatekeepFilterSearch,
   getUserProPic,
   UsersFilter,
   updateUserToWatchList,
@@ -417,4 +448,5 @@ export {
   updateAvailableLocation,
   getAvailableLocation,
   getSingleAvailableLocationDetail,
+  getFilterQuery,
 };
