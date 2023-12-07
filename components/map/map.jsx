@@ -157,6 +157,13 @@ export default function Map(props) {
 
       infoWindow.open(infoWindowOpenOptions);
 
+      infoWindow.addListener("closeclick", () => {
+        // console.log("close infowindow");
+        // props.filter({});
+        window.history.pushState(null, "", `/`);
+        // props.setTypeSearch("");
+      });
+
       // marker.addListener("click", () => {
       //   infoWindow.open(infoWindowOpenOptions);
       // });
@@ -181,10 +188,13 @@ export default function Map(props) {
 
           infoWindow.open(infoWindowOpenOptions);
 
-          props.filter({
-            restaurant: detail.resto,
-          });
-          props.setTypeSearch(detail.resto);
+          window.history.pushState(null, "", `/?resto=${detail.resto}`);
+          props.setFilterChanges(true);
+          props.setFilterResName(detail.resto);
+          // props.filter({
+          //   restaurant: detail.resto,
+          // });
+          // props.setTypeSearch(detail.resto);
         });
       };
       // Display all available location on map
@@ -201,10 +211,17 @@ export default function Map(props) {
         // Autocomplete
         autoComplete.addListener("place_changed", () => {
           let place = autoComplete.getPlace();
-          props.filter({
-            restaurant: place.name,
-          });
-          props.setTypeSearch(place.name);
+          console.log(place.name);
+          window.history.pushState(null, "", `/?resto=${place.name}`);
+
+          props.setFilterChanges(true);
+
+          props.setFilterResName(place.name);
+          props.setAutoReply(place.name);
+          // props.filter({
+          //   restaurant: place.name,
+          // });
+          // props.setTypeSearch(place.name);
 
           // move location on map
           if (place.geometry.viewport) {

@@ -8,8 +8,7 @@ import { AiOutlineDelete } from "react-icons/ai";
 import { TfiDownload } from "react-icons/tfi";
 import { RxCross2 } from "react-icons/rx";
 import { downloadOutput } from "../../util/export";
-import DisplayData from "../../src/app/record/displayData";
-import Image from "next/image";
+import { FiEdit3 } from "react-icons/fi";
 
 export default function FoodGalleryModal(action) {
   // console.log("action", action);
@@ -19,9 +18,6 @@ export default function FoodGalleryModal(action) {
   // console.log("modal", modal);
 
   let toDo = action.action;
-  // console.log("toDo", toDo);
-
-  // Search Bar Filter Functions
 
   // Home Page FoodGallery Functions
   const foodGalleryOpenModal = () => {
@@ -55,6 +51,7 @@ export default function FoodGalleryModal(action) {
           getCardId={setCardId}
           getCardName={setCardName}
           nextStep={action.nextStep}
+          previewUser={action.previewUser}
         />
       )}
 
@@ -72,16 +69,9 @@ export default function FoodGalleryModal(action) {
               >
                 <RxCross2 />
               </div>
-              {/* <div className={styles.modal__filter}> */}
               {/* Home Page FoodGallery Output Display Modal Content */}
               {action.output != "" && (
                 <div className={styles.modal__outputImageContainer}>
-                  {/* <div className={styles.modal__outputContent}>
-                    <DisplayData
-                      allData={action.output}
-                      allRatings={action.output.allRatings}
-                    />
-                  </div> */}
                   <div className={styles.modal__outputImage}>
                     <img
                       src={action.output}
@@ -113,17 +103,25 @@ export default function FoodGalleryModal(action) {
                       <div
                         className={styles.editBtn}
                         onClick={() => {
+                          window.open("/output/" + cardId);
+                        }}
+                      >
+                        To New Tab
+                        <IoOpenOutline />
+                      </div>
+                      <div
+                        className={styles.editBtn}
+                        onClick={() => {
                           window.open("/record/" + cardId);
                         }}
                       >
                         Edit
-                        <IoOpenOutline />
+                        <FiEdit3 />
                       </div>
                     </div>
                   )}
                 </div>
               )}
-              {/* </div> */}
             </div>
           </div>
         </div>

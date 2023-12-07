@@ -1,6 +1,6 @@
 "use client";
 import styles from "./modal.module.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { auth } from "../../firebase/firebase";
 import {
   createUserWithEmailAndPassword,
@@ -16,7 +16,8 @@ import { FiFilter } from "react-icons/fi";
 import ReactSlider from "react-slider";
 import filterOptions from "../../assets/inputOptions/Options.json";
 import { gatekeepFilterSearch } from "../../firebase/firestore";
-import { getRecordsData } from "../../firebase/firestore";
+import { getRecordsData, getFilterQuery } from "../../firebase/firestore";
+import Link from "next/link";
 
 export default function Modal(action) {
   // console.log("action", action);
@@ -42,6 +43,7 @@ export default function Modal(action) {
   const [MAX, setMAX] = useState(2000);
   const [priceRange, setPriceRange] = useState([MIN, MAX]);
   // const [filterInfo, setFilter] = useState({});
+
   const handleRadio = (e) => {
     if (cusines) {
       let orgSelected = document.querySelector(`#${cusines}`);
@@ -87,7 +89,9 @@ export default function Modal(action) {
     setPriceRange([0, 2000]);
     if (cusines) {
       let orgSelected = document.querySelector(`#${cusines}`);
-      orgSelected.classList.remove(styles.active);
+      if (orgSelected) {
+        orgSelected.classList.remove(styles.active);
+      }
     }
     let allSelectedCheckbox = document.querySelectorAll(
       "input[type = checkbox]"
@@ -240,7 +244,7 @@ export default function Modal(action) {
           onClick={() => {
             // console.log("open filter modal");
             setModal(true);
-            action.additionalFilter({});
+            // action.additionalFilter({});
             handleReset();
             // setFilter(true);
           }}
@@ -419,38 +423,50 @@ export default function Modal(action) {
                           </div> */}
                         </div>
                         <div className={styles.modal__buttons}>
-                          <div
-                            className={styles.modal__submitButton}
-                            onClick={(e) => {
-                              if (
-                                doneness.length == 0 &&
-                                parts.length == 0 &&
-                                cusines == "" &&
-                                priceRange[0] == MIN &&
-                                priceRange[1] == MAX
-                              ) {
-                                setUserStatus({
-                                  error: true,
-                                  message:
-                                    "Please Filter With At Least 1 Criteria",
-                                });
-                              } else {
-                                // console.log("action", action.additionalFilter);
-                                action.additionalFilter(
-                                  gatekeepFilterSearch(
-                                    cusines,
-                                    doneness,
-                                    parts,
-                                    priceRange
-                                  )
-                                );
-                                setModal(!modal);
-                                // handleSearch();
-                              }
-                            }}
+                          <Link
+                            href={`/?${getFilterQuery(
+                              cusines,
+                              doneness,
+                              parts,
+                              priceRange
+                            ).join("&")}`}
                           >
-                            Search
-                          </div>
+                            <div
+                              className={styles.modal__submitButton}
+                              onClick={(e) => {
+                                if (
+                                  doneness.length == 0 &&
+                                  parts.length == 0 &&
+                                  cusines == "" &&
+                                  priceRange[0] == MIN &&
+                                  priceRange[1] == MAX
+                                ) {
+                                  setUserStatus({
+                                    error: true,
+                                    message:
+                                      "Please Filter With At Least 1 Criteria",
+                                  });
+                                } else {
+                                  action.setFilterResName("");
+                                  action.setFilterChanges(true);
+                                  // REAL
+                                  // action.additionalFilter(
+                                  //   // gatekeep
+                                  //   gatekeepFilterSearch(
+                                  //     cusines,
+                                  //     doneness,
+                                  //     parts,
+                                  //     priceRange
+                                  //   )
+                                  // );
+                                  setModal(!modal);
+                                  handleReset();
+                                }
+                              }}
+                            >
+                              Search
+                            </div>
+                          </Link>
                           <div
                             className={styles.modal__clearButton}
                             onClick={() => {

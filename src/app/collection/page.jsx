@@ -325,6 +325,7 @@ export default function Collection() {
           func={setOutput}
           output={output}
           action={sameUser == true ? "collectionPreview" : "displayOutput"}
+          // previewUser={previewUser}
         />
         {allData.length == 0 && (
           <div className={styles.createNow}>No Collection At The Moment</div>
