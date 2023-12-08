@@ -25,7 +25,8 @@ export default function DisplayData(fullSetData) {
   return (
     <div className={styles.meatInfo__outputSetSize}>
       <div className={styles.meatInfo__output} id="output__toPNG">
-        <div className={styles.output__mainInfoAndRadar}>
+        {/* <div className={styles.output__mainInfoAndRadar}> */}
+        <div className={styles.output__mainInfoContainer}>
           <div className={styles.output__mainInfo}>
             <div className={styles.output__image}>
               <img src={recordData.imageUrl} key={recordData.imageUrl} />
@@ -80,10 +81,12 @@ export default function DisplayData(fullSetData) {
               </div>
             </div>
           </div>
-          <div className={styles.output__radarChart}>
-            <RadarChart allRatings={ratingData} key={ratingData} />
-          </div>
         </div>
+
+        <div className={styles.output__radarChart}>
+          <RadarChart allRatings={ratingData} key={ratingData} />
+        </div>
+        {/* </div> */}
 
         <div
           className={styles.output__description}
