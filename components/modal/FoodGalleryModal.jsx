@@ -9,6 +9,7 @@ import { TfiDownload } from "react-icons/tfi";
 import { RxCross2 } from "react-icons/rx";
 import { downloadOutput } from "../../util/export";
 import { FiEdit3 } from "react-icons/fi";
+import { CgProfile } from "react-icons/cg";
 
 export default function FoodGalleryModal(action) {
   // console.log("action", action);
@@ -35,6 +36,8 @@ export default function FoodGalleryModal(action) {
         <FoodGallery
           fullSetData={action.fullSetData}
           pop={action.pop}
+          setGetCollector={action.setGetCollector}
+          nextStep={action.nextStep}
           triggerModal={foodGalleryOpenModal}
           setMarkerPosition={action.setMarkerPosition}
           setPlaceInfo={action.setPlaceInfo}
@@ -47,6 +50,7 @@ export default function FoodGalleryModal(action) {
         <FoodGallery
           fullSetData={action.fullSetData}
           pop={action.pop}
+          setGetCollector={action.setGetCollector}
           triggerModal={foodGalleryOpenModal}
           getCardId={setCardId}
           getCardName={setCardName}
@@ -60,14 +64,13 @@ export default function FoodGalleryModal(action) {
         <div className={styles.modal}>
           <div className={styles.modal__overlay}>
             <div className={styles.modal__content}>
-              <div
-                className={styles.modal__closeButton}
-                onClick={() => {
-                  setModal(!modal);
-                  action = "";
-                }}
-              >
-                <RxCross2 />
+              <div className={styles.modal__closeButton}>
+                <RxCross2
+                  onClick={() => {
+                    setModal(!modal);
+                    action = "";
+                  }}
+                />
               </div>
               {/* Home Page FoodGallery Output Display Modal Content */}
               {action.output != "" && (
@@ -78,29 +81,45 @@ export default function FoodGalleryModal(action) {
                       className={styles.modal__outputImage}
                     />
                   </div>
-
-                  {/* Collection Page FoodGallery Output Display Modal Additional Content */}
-                  {action.nextStep != undefined && (
+                  {/* Home Page Redirect to collector */}
+                  {action.nextStep == "viewCollector" && (
                     <div className={styles.furtherAction}>
                       <div
-                        className={styles.deleteBtn}
+                        className={styles.viewCollectorBtn}
                         onClick={() => {
-                          deleteDataById(cardId);
+                          window.open(
+                            `/collection?prevUser=${action.getCollector}`
+                          );
                         }}
                       >
-                        Delete
-                        <AiOutlineDelete />
+                        View Collector
+                        <CgProfile />
                       </div>
-                      <div
-                        className={styles.downloadBtn}
-                        onClick={() => {
-                          downloadOutput(action.output, cardName);
-                        }}
-                      >
-                        Export
-                        <TfiDownload />
-                      </div>
-                      <div
+                    </div>
+                  )}
+                  {/* Collection Page FoodGallery Output Display Modal Additional Content */}
+                  {action.nextStep == "collectionPreview" ||
+                    (action.nextStep == "allowFurtherAction" && (
+                      <div className={styles.furtherAction}>
+                        <div
+                          className={styles.deleteBtn}
+                          onClick={() => {
+                            deleteDataById(cardId);
+                          }}
+                        >
+                          Delete
+                          <AiOutlineDelete />
+                        </div>
+                        <div
+                          className={styles.downloadBtn}
+                          onClick={() => {
+                            downloadOutput(action.output, cardName);
+                          }}
+                        >
+                          Export
+                          <TfiDownload />
+                        </div>
+                        {/* <div
                         className={styles.editBtn}
                         onClick={() => {
                           window.open("/output/" + cardId);
@@ -108,18 +127,18 @@ export default function FoodGalleryModal(action) {
                       >
                         To New Tab
                         <IoOpenOutline />
+                      </div> */}
+                        <div
+                          className={styles.editBtn}
+                          onClick={() => {
+                            window.open("/record/" + cardId);
+                          }}
+                        >
+                          Edit
+                          <FiEdit3 />
+                        </div>
                       </div>
-                      <div
-                        className={styles.editBtn}
-                        onClick={() => {
-                          window.open("/record/" + cardId);
-                        }}
-                      >
-                        Edit
-                        <FiEdit3 />
-                      </div>
-                    </div>
-                  )}
+                    ))}
                 </div>
               )}
             </div>

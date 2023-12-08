@@ -15,6 +15,8 @@ import { useSearchParams } from "next/navigation";
 export default function Home() {
   const [output, setOutput] = useState("");
   // console.log("at home", output);
+  const [getCollector, setGetCollector] = useState("");
+  // console.log(getCollector);
   const [allData, setAllData] = useState([]);
   // console.log("Main Page allData", allData);
 
@@ -126,6 +128,9 @@ export default function Home() {
             fullSetData={allData}
             pop={setOutput}
             output={output}
+            setGetCollector={setGetCollector}
+            getCollector={getCollector}
+            nextStep="viewCollector"
             setMarkerPosition={setMarkerPosition}
             setPlaceInfo={setPlaceInfo}
             setPlaceInfoRestoName={setPlaceInfoRestoName}

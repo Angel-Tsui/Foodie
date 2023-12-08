@@ -42,9 +42,12 @@ body.active-modal {
   position: absolute;
   top: 8px;
   right: 8px;
-  cursor: pointer;
   text-align: right;
   z-index: 100;
+}
+
+.modal__closeButton svg {
+  cursor: pointer;
 }
 
 .modal__outputImage,

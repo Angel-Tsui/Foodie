@@ -11,7 +11,7 @@ import {
 } from "../../firebase/firestore";
 
 export default function Map(props) {
-  // console.log(props.noDisplay);
+  // console.log(props);
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
   useEffect(() => {

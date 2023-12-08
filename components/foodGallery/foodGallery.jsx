@@ -81,28 +81,18 @@ export default function FoodGallery(props) {
               getOnlyOutputImage(data.id).then((outputFile) => {
                 // console.log("img", outputFile);
                 props.pop(outputFile);
+                // props.setGetCollector(data.userId);
+                if (props.nextStep == "viewCollector") {
+                  props.setGetCollector(data.userId);
+                }
                 props.triggerModal();
-                {
-                  nextStep != null && props.getCardId(data.id);
-                }
-                {
-                  nextStep != null && props.getCardName(data.name);
-                }
+                // {
+                //   nextStep != null && props.getCardId(data.id);
+                // }
+                // {
+                //   nextStep != null && props.getCardName(data.name);
+                // }
               });
-              // Fetch and Display Data on Home FoodCollectionModal
-              // getSingleRecordData(data.id).then((recordData) => {
-              //   if (recordData) {
-              //     console.log("got", recordData);
-              //     props.pop(recordData);
-              //     props.triggerModal();
-              //     {
-              //       nextStep != null && props.getCardId(data.id);
-              //     }
-              //     {
-              //       nextStep != null && props.getCardName(data.name);
-              //     }
-              //   }
-              // });
             }
           }}
         >
