@@ -10,6 +10,16 @@ import { RxCross2 } from "react-icons/rx";
 import { downloadOutput } from "../../util/export";
 import { FiEdit3 } from "react-icons/fi";
 import { CgProfile } from "react-icons/cg";
+import { signInOrSignOut } from "../../firebase/verify";
+
+const handleViewCollector = (collectorId) => {
+  // console.log(signInOrSignOut());
+  if (signInOrSignOut()) {
+    window.open(`/collection?prevUser=${collectorId}`);
+  } else {
+    alert("Please sign in");
+  }
+};
 
 export default function FoodGalleryModal(action) {
   // console.log("action", action);
@@ -87,9 +97,10 @@ export default function FoodGalleryModal(action) {
                       <div
                         className={styles.viewCollectorBtn}
                         onClick={() => {
-                          window.open(
-                            `/collection?prevUser=${action.getCollector}`
-                          );
+                          handleViewCollector(action.getCollector);
+                          // window.open(
+                          //   `/collection?prevUser=${action.getCollector}`
+                          // );
                         }}
                       >
                         View Collector
