@@ -26,7 +26,7 @@ export default function Modal(action) {
   // console.log("modal", modal);
 
   let toDo = action.action;
-  console.log("toDo", toDo);
+  // console.log("toDo", toDo);
 
   const [userStatus, setUserStatus] = useState({});
   // console.log("userStatus", userStatus);
