@@ -26,7 +26,7 @@ export default function Modal(action) {
   // console.log("modal", modal);
 
   let toDo = action.action;
-  // console.log("toDo", toDo);
+  console.log("toDo", toDo);
 
   const [userStatus, setUserStatus] = useState({});
   // console.log("userStatus", userStatus);
@@ -38,7 +38,6 @@ export default function Modal(action) {
   const [doneness, setDoneness] = useState([]);
   const [checked, setChecked] = useState(false);
   const [parts, setParts] = useState([]);
-  const [status, setStatus] = useState(styles.inactive);
   const [MIN, setMIN] = useState(0);
   const [MAX, setMAX] = useState(2000);
   const [priceRange, setPriceRange] = useState([MIN, MAX]);
@@ -257,7 +256,7 @@ export default function Modal(action) {
       {/* Nav Bar SignIn Button */}
       {toDo == "signIn" && (
         <div
-          className={styles.nav__signUp}
+          className={styles.nav__signIn}
           onClick={() => {
             // console.log("open sign in modal");
             setModal(true);
