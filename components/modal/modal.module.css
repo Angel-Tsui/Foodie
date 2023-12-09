@@ -132,12 +132,14 @@ body.active-modal {
 }
 
 /* Nav Bar SignIn & SignUp Styling */
-.nav__signUp {
+.nav__signUp,
+.nav__signIn {
   position: relative;
   cursor: pointer;
 }
 
-.nav__signUp::before {
+.nav__signUp::before,
+.nav__signIn::before {
   content: "";
   position: absolute;
   left: 50%;
@@ -150,11 +152,13 @@ body.active-modal {
   transition: transform 0.3s ease-in-out;
 }
 
-.nav__signUp:hover::before {
+.nav__signUp:hover::before,
+.nav__signIn:hover::before {
   transform: translate(-50%, 0) scaleX(1);
 }
 
-.nav__signUp:hover {
+.nav__signUp:hover,
+.nav__signIn:hover {
   cursor: pointer;
 }
 
@@ -201,7 +205,19 @@ body.active-modal {
   border-radius: 5px;
 }
 
-.furtherAction div:hover {
+.viewCollectorBtn__inactive {
+  background-color: rgb(58, 58, 58);
+  pointer-events: none;
+}
+
+.viewCollectorBtn__inactive:hover {
+  background-color: rgb(58, 58, 58);
+}
+
+.viewCollectorBtn:hover,
+.deleteBtn:hover,
+.exportBtn:hover,
+.editBtn:hover {
   background-color: rgb(91, 14, 14);
 }
 

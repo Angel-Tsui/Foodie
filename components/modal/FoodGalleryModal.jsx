@@ -12,15 +12,6 @@ import { FiEdit3 } from "react-icons/fi";
 import { CgProfile } from "react-icons/cg";
 import { signInOrSignOut } from "../../firebase/verify";
 
-const handleViewCollector = (collectorId) => {
-  // console.log(signInOrSignOut());
-  if (signInOrSignOut()) {
-    window.open(`/collection?prevUser=${collectorId}`);
-  } else {
-    alert("Please sign in");
-  }
-};
-
 export default function FoodGalleryModal(action) {
   // console.log("action", action);
   // console.log("id", action.action.fullSetData);
@@ -94,18 +85,25 @@ export default function FoodGalleryModal(action) {
                   {/* Home Page Redirect to collector */}
                   {action.nextStep == "viewCollector" && (
                     <div className={styles.furtherAction}>
-                      <div
-                        className={styles.viewCollectorBtn}
-                        onClick={() => {
-                          handleViewCollector(action.getCollector.collectorId);
-                          // window.open(
-                          //   `/collection?prevUser=${action.getCollector}`
-                          // );
-                        }}
-                      >
-                        <CgProfile />
-                        By {action.getCollector.collectorName}
-                      </div>
+                      {signInOrSignOut() ? (
+                        <div
+                          className={styles.viewCollectorBtn}
+                          onClick={() => {
+                            window.open(
+                              `/collection?prevUser=${action.getCollector.collectorId}`
+                            );
+                          }}
+                        >
+                          <CgProfile />
+                          BY {action.getCollector.collectorName}{" "}
+                        </div>
+                      ) : (
+                        <div className={styles.viewCollectorBtn__inactive}>
+                          <CgProfile />
+                          BY {action.getCollector.collectorName}. SIGN IN TO
+                          VIEW ALL COLLECTIONS
+                        </div>
+                      )}
                     </div>
                   )}
                   {/* Collection Page FoodGallery Output Display Modal Additional Content */}
@@ -122,7 +120,7 @@ export default function FoodGalleryModal(action) {
                           <AiOutlineDelete />
                         </div>
                         <div
-                          className={styles.downloadBtn}
+                          className={styles.exportBtn}
                           onClick={() => {
                             downloadOutput(action.output, cardName);
                           }}
