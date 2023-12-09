@@ -8,6 +8,7 @@ import {
   getSingleOutputData,
   getOnlyOutputImage,
   getSingleRecordData,
+  getUserName,
 } from "../../firebase/firestore";
 import { Context } from "../modal/modal";
 
@@ -81,17 +82,11 @@ export default function FoodGallery(props) {
               getOnlyOutputImage(data.id).then((outputFile) => {
                 // console.log("img", outputFile);
                 props.pop(outputFile);
-                // props.setGetCollector(data.userId);
                 if (props.nextStep == "viewCollector") {
-                  props.setGetCollector(data.userId);
+                  getUserName(data.userId, props.setGetCollector);
+                  // props.setGetCollector(data.userId);
                 }
                 props.triggerModal();
-                // {
-                //   nextStep != null && props.getCardId(data.id);
-                // }
-                // {
-                //   nextStep != null && props.getCardName(data.name);
-                // }
               });
             }
           }}

@@ -6,7 +6,6 @@ import {
   getDocs,
   addDoc,
   deleteDoc,
-  onSnapshot,
   updateDoc,
   query,
   where,
@@ -14,16 +13,27 @@ import {
   limit,
   arrayUnion,
   arrayRemove,
-  update,
 } from "firebase/firestore";
-import { getUserInfoFromToken } from "./verify";
+
+// Get CollectorName for Home Page
+const getUserName = (userId, setGetCollector) => {
+  getDoc(doc(firestore, "users", userId))
+    .then((singleData) => {
+      setGetCollector({
+        collectorId: userId,
+        collectorName: singleData.data().userDisplayName,
+      });
+    })
+    .catch((e) => {
+      console.log(e.message);
+    });
+};
 
 // Users Collection
 const getUserInfo = (userId, setWatchList, setUserName) => {
   if (userId != null) {
     getDoc(doc(firestore, "users", userId))
       .then((singleData) => {
-        // console.log("fire", singleData.data().watchList);
         if (setWatchList != null) {
           setWatchList(singleData.data().watchList.reverse());
         }
@@ -38,19 +48,16 @@ const getUserInfo = (userId, setWatchList, setUserName) => {
 const updateUserProfile = async (userId, userName, userProPic) => {
   if (userId) {
     const updateProfileRef = doc(usersColRef, userId);
-    // console.log("update", userId, userName, userProPic);
     await updateDoc(updateProfileRef, {
       userDisplayName: userName,
       userPhotoURL: userProPic,
     });
-    // await updateProfileRef.update({ userPhotoURL: userProPic });
   }
 };
 
 const updateUserToWatchList = async (userId, searchUserId) => {
   if (searchUserId) {
     const addWatchRef = doc(usersColRef, userId);
-    // console.log("update", searchUserId);
     await updateDoc(addWatchRef, { watchList: arrayUnion(searchUserId) });
   }
 };
@@ -58,13 +65,11 @@ const updateUserToWatchList = async (userId, searchUserId) => {
 const removeUserFromWatchList = async (userId, deleteUserId) => {
   if (deleteUserId) {
     const addWatchRef = doc(usersColRef, userId);
-    // console.log("delete", deleteUserId);
     await updateDoc(addWatchRef, { watchList: arrayRemove(deleteUserId) });
   }
 };
 
 const UsersFilter = async (userDisplayName) => {
-  // console.log("searching for", userDisplayName);
   let filterUserDb;
   if (userDisplayName != null) {
     filterUserDb = query(
@@ -85,7 +90,6 @@ const UsersFilter = async (userDisplayName) => {
         ...doc.data(),
       });
     });
-    // console.log("matchingUsersInfoFromDb", matchingUsersInfoFromDb);
     return matchingUsersInfoFromDb;
   } catch (e) {
     console.log(e.message);
@@ -94,11 +98,9 @@ const UsersFilter = async (userDisplayName) => {
 
 // My Collection
 const getUserProPic = (userId, set) => {
-  // console.log(userId);
   if (userId != null) {
     getDoc(doc(firestore, "users", userId))
       .then((singleData) => {
-        // console.log(singleData.data().userPhotoURL);
         set(singleData.data().userPhotoURL);
       })
       .catch((e) => {
@@ -109,8 +111,6 @@ const getUserProPic = (userId, set) => {
 
 // Output (save to firestore)
 const outputFile = async (recordId, ouputUrl, userId) => {
-  // console.log(userId);
-  // console.log("outputFile", ouputUrl);
   await setDoc(doc(firestore, "outputs", recordId), {
     ouputUrl: ouputUrl,
     userId: userId,
@@ -121,24 +121,17 @@ const outputFile = async (recordId, ouputUrl, userId) => {
 
 // Output (get image from firestore)
 const getSingleOutputData = async (outputId) => {
-  // console.log("id", outputId);
   const singleData = await getDoc(doc(firestore, "outputs", outputId)).catch(
     (err) => {
       console.log(err.message);
     }
   );
-  // console.log(singleData.data());
   return singleData.data();
 };
 
 const getOnlyOutputImage = async (outputId) => {
-  // console.log("in getOnlyOutputImage", outputId);
-  let outputInfo = await getSingleOutputData(outputId).catch((err) => {
-    // console.log("error", err.message);
-  });
-  // console.log(outputInfo);
+  let outputInfo = await getSingleOutputData(outputId).catch((err) => {});
   let outputImageUrl = await outputInfo.ouputUrl;
-  // console.log("img", outputImageUrl);
   return outputImageUrl;
 };
 
@@ -146,7 +139,6 @@ const getOnlyOutputImage = async (outputId) => {
 const updateAvailableLocation = async (latLng) => {
   if (latLng) {
     const mapListRef = doc(firestore, "allMapInfo", "allAvailableLocation");
-    // console.log("update", latLng);
     await updateDoc(mapListRef, { location: arrayUnion(latLng) }).catch((e) => {
       console.log(e.message);
     });
@@ -155,7 +147,6 @@ const updateAvailableLocation = async (latLng) => {
 
 // Save Map Details to DB
 const saveMapDetails = async (resto, latlng, mapInfo) => {
-  // console.log(resto, latlng, mapInfo);
   let website;
   if (mapInfo.website == null || mapInfo.website == "") {
     website = "No website Available";
@@ -177,20 +168,17 @@ const saveMapDetails = async (resto, latlng, mapInfo) => {
 
 // Get Maps Info From DB to Display on Scren
 const getAvailableLocation = async () => {
-  // console.log("getting all map location");
   const singleData = await getDoc(doc(mapColRef, "allAvailableLocation"));
   return singleData.data();
 };
 
 // Get Single Map Detail From DB
 const getSingleAvailableLocationDetail = async (latLng) => {
-  // console.log("fire", latLng);
   const displayOnMap = query(mapColRef, where("latlng", "==", latLng));
   let LocationDetail = await getDocs(displayOnMap);
   let detail;
   LocationDetail.forEach((doc) => {
     detail = (doc.id, doc.data());
-    // console.log(detail);
   });
   return detail;
 };
@@ -213,7 +201,6 @@ const setRecord = async (
   description,
   userId
 ) => {
-  // console.log(userId);
   let number = parseInt(price);
   let timestamp = Date.now();
   await setDoc(doc(firestore, "records", recordId), {
@@ -238,9 +225,6 @@ const setRecord = async (
 };
 
 const getSingleRecordData = async (recordId) => {
-  // console.log("recordId", recordId);
-  // let id = recordId.recordId;
-  // console.log(id);
   let id = recordId;
   const singleData = await getDoc(doc(firestore, "records", id)).catch(
     (err) => {
@@ -251,9 +235,6 @@ const getSingleRecordData = async (recordId) => {
 };
 
 const getFilterQuery = (cusines, doneness, parts, priceRange) => {
-  // console.log("in handleFilterSearch");
-  // console.log("c", cusines, "d", doneness, "p", parts, "pr", priceRange);
-
   let query = [];
   if (cusines != "") {
     query.push(`cuisines=${cusines}`);
@@ -272,37 +253,10 @@ const getFilterQuery = (cusines, doneness, parts, priceRange) => {
     query.push(`lower=${priceRange[0]}`);
     query.push(`upper=${priceRange[1]}`);
   }
-  // console.log("filterInfo", filterInfo);
   return query;
 };
 
-// const gatekeepFilterSearch = (cusines, doneness, parts, priceRange) => {
-//   // console.log("in handleFilterSearch");
-//   // console.log("c", cusines, "d", doneness, "p", parts, "pr", priceRange);
-//   let filterInfo = {};
-
-//   if (cusines != "") {
-//     filterInfo.cusines = cusines;
-//   }
-//   if (doneness.length != 0) {
-//     filterInfo.doneness = doneness;
-//   }
-//   if (parts.length != 0) {
-//     filterInfo.parts = parts;
-//   }
-//   if (priceRange[0] != 0 || priceRange[1] != 2000) {
-//     filterInfo.lower = priceRange[0];
-//     filterInfo.upper = priceRange[1];
-//   }
-//   // console.log("filterInfo", filterInfo);
-//   return filterInfo;
-// };
-
 const getRecordsData = async (filterInfo) => {
-  // console.log("getRecordsData props", filterInfo);
-  // let filters = filterInfo.filterInfo;
-  // console.log("orderMethod", filters.orderMethod);
-  // console.log("AscOrDesc", filters.AscOrDesc);
   let orderedData;
 
   const getOrder = () => {
@@ -323,57 +277,37 @@ const getRecordsData = async (filterInfo) => {
   };
 
   const getfilters = () => {
-    // console.log("getfilters", filterInfo.additionalFilter);
     if (filterInfo.additionalFilter.restaurant != undefined) {
       return where("resto", "==", filterInfo.additionalFilter.restaurant);
     }
-    // if (filterInfo.additionalFilter.restaurant != undefined) {
-    //   return where("resto", "<=", filterInfo.additionalFilter.restaurant);
-    // }
     if (filterInfo.additionalFilter.cusines != undefined) {
-      // console.log("c", filterInfo.additionalFilter.cusines);
       return where("cusine", "==", filterInfo.additionalFilter.cusines);
     }
     if (filterInfo.additionalFilter.doneness != undefined) {
-      // console.log("ddd", filterInfo.additionalFilter.doneness);
       return where("cooked", "in", filterInfo.additionalFilter.doneness);
-      // filterInfo.doneness.forEach((done) => {
-      //   return where("doneness", "==", done);
-      // });
     }
     if (filterInfo.additionalFilter.parts != undefined) {
-      // console.log("p", filterInfo.additionalFilter.parts);
       return where("parts", "in", filterInfo.additionalFilter.parts);
-      // filterInfo.parts.forEach((part) => {
-      //   return where("parts", "==", part);
-      // });
     }
     if (
       filterInfo.additionalFilter.lower != 0 &&
       filterInfo.additionalFilter.lower != undefined
     ) {
-      // console.log("fill lower", filterInfo.additionalFilter.lower);
       return where("price", ">=", filterInfo.additionalFilter.lower);
     }
     if (
       filterInfo.additionalFilter.upper != 2000 &&
       filterInfo.additionalFilter.upper != undefined
     ) {
-      // console.log("fill upper", filterInfo.additionalFilter.upper);
       return where("price", "<=", filterInfo.additionalFilter.upper);
     }
     if (filterInfo.userId != undefined) {
-      // console.log("user", filterInfo.userId);
-      // console.log("searching for ", filterInfo.userId);
-      // orderedData = query(colRef, where("userId", "==", filterInfo.userId));
       return where("userId", "==", filterInfo.userId);
     } else {
       return null;
     }
   };
 
-  // console.log("all filters", getfilters());
-  // console.log("order", getOrder());
   orderedData = query(colRef, getfilters(), getOrder());
 
   let recordsCollection = await getDocs(orderedData);
@@ -382,7 +316,6 @@ const getRecordsData = async (filterInfo) => {
     recordsCollection.docs.forEach((doc) => {
       recordsData.push({ id: doc.id, ...doc.data() });
     });
-    // console.log("recordsData", recordsData);
     return recordsData;
   } catch (e) {
     console.log(e.message);
@@ -437,11 +370,11 @@ export {
   outputFile,
   getSingleOutputData,
   getOnlyOutputImage,
-  // gatekeepFilterSearch,
   getUserProPic,
   UsersFilter,
   updateUserToWatchList,
   removeUserFromWatchList,
+  getUserName,
   getUserInfo,
   updateUserProfile,
   saveMapDetails,
