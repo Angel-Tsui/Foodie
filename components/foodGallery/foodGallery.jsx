@@ -85,6 +85,13 @@ export default function FoodGallery(props) {
                 if (props.nextStep == "viewCollector") {
                   getUserName(data.userId, props.setGetCollector);
                   // props.setGetCollector(data.userId);
+                } else {
+                  {
+                    nextStep != null && props.getCardId(data.id);
+                  }
+                  {
+                    nextStep != null && props.getCardName(data.name);
+                  }
                 }
                 props.triggerModal();
               });

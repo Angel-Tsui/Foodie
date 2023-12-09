@@ -97,16 +97,16 @@ export default function Profile() {
     window.location.href = "/profile";
   };
 
-  const changePassword = () => {
-    // console.log("update email", userEmail);
-    sendPasswordResetEmail(auth, userEmail)
-      .then(() => {
-        alert("Password Reset Email Sent");
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
-  };
+  // const changePassword = () => {
+  //   // console.log("update email", userEmail);
+  //   sendPasswordResetEmail(auth, userEmail)
+  //     .then(() => {
+  //       alert("Password Reset Email Sent");
+  //     })
+  //     .catch((err) => {
+  //       console.log(err.message);
+  //     });
+  // };
   return (
     <div className={styles.profilePageContainer}>
       <div className={styles.editProfile}>
@@ -147,7 +147,7 @@ export default function Profile() {
               </div>
             </div>
           </form>
-          <div
+          {/* <div
             className={styles.editProfile__changePw}
             type="submit"
             onClick={(e) => {
@@ -156,7 +156,7 @@ export default function Profile() {
             }}
           >
             Change Password
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
