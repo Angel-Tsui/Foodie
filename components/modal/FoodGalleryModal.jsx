@@ -97,14 +97,14 @@ export default function FoodGalleryModal(action) {
                       <div
                         className={styles.viewCollectorBtn}
                         onClick={() => {
-                          handleViewCollector(action.getCollector);
+                          handleViewCollector(action.getCollector.collectorId);
                           // window.open(
                           //   `/collection?prevUser=${action.getCollector}`
                           // );
                         }}
                       >
-                        View Collector
                         <CgProfile />
+                        By {action.getCollector.collectorName}
                       </div>
                     </div>
                   )}
