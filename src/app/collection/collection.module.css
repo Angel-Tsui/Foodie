@@ -173,6 +173,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 10px;
+  box-sizing: border-box;
 }
 
 .collectionGallery__header {
@@ -180,7 +182,7 @@
   align-items: center;
   justify-content: space-between;
   color: white;
-  padding: 10px 0px;
+  margin-bottom: 10px;
   width: 95%;
 }
 
