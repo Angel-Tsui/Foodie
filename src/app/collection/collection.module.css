@@ -273,6 +273,10 @@
 @media screen and (max-width: 640px) {
   .collectionList {
     border: 1px solid rgb(114, 17, 17);
+    height: 70%;
+  }
+  .collectionGallery {
+    height: 70%;
   }
   .collectionGallery__foodGallery {
     gap: 15px;
