@@ -392,7 +392,7 @@ export default function Record(recordId) {
               </div>
               <div className={styles.input__radarChartItems} key="Fat">
                 <div className={styles.input__fat}>
-                  Fat Ratio:
+                  Fat Rate:
                   <br />
                   <select
                     key="fat"
@@ -560,29 +560,30 @@ export default function Record(recordId) {
                 })}
               </div>
             </div>
+          </form>
+          <div
+            className={styles.saveButton}
+            type="submit"
+            onClick={(e) => {
+              handleSubmit(e);
+            }}
+          >
+            {isSaved}
+          </div>
+          {output != "" && (
             <div
               className={styles.saveButton}
               type="submit"
-              onClick={(e) => {
-                handleSubmit(e);
+              onClick={async (e) => {
+                e.preventDefault();
+                downloadOutput(output, name);
               }}
             >
-              {isSaved}
+              Export to PNG
+              <TfiDownload />
             </div>
-            {output != "" && (
-              <div
-                className={styles.saveButton}
-                type="submit"
-                onClick={async (e) => {
-                  e.preventDefault();
-                  downloadOutput(output, name);
-                }}
-              >
-                Export to PNG
-                <TfiDownload />
-              </div>
-            )}
-          </form>
+          )}
+          {/* </form> */}
 
           <div
             className={styles.delete}

@@ -43,7 +43,10 @@ export default function Nav() {
       <Link href="/">
         <div className={styles.nav__companyName}>
           <img src="/cow.png" />
-          UNIVERSAL MEAT EXPO
+          <div>
+            UNIVERSAL <br />
+            MEAT EXPO
+          </div>
         </div>
       </Link>
 
@@ -69,8 +72,9 @@ export default function Nav() {
                     window.open("/record/" + recordId);
                   }}
                 >
-                  Create Collection +
+                  Create <span>Collection</span> +
                 </div>
+                
                 <Link href={`/collection?prevUser=${userId}`}>
                   <MyCollection userId={userId} />
                 </Link>
