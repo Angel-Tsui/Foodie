@@ -207,7 +207,7 @@ export default function Record(recordId) {
       saveMapDetails(resto, latlng, mapInfo)
         .then(() => {
           htmlToImage
-            .toPng(document.querySelector("#output__toPNG"))
+            .toJpeg(document.querySelector("#output__toPNG"))
             .then(async (dataUrl) => {
               // console.log("output image", dataUrl);
               // let cleanOutputImageUrl = dataUrl.substring(22);
