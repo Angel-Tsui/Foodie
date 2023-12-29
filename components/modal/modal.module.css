@@ -219,25 +219,21 @@ body.active-modal {
 
 /* Search Bar Filter Styling */
 .filterIcon {
-  /* background-color: rgba(255, 255, 255, 0.5); */
   background-color: rgba(255, 255, 255, 0.196);
   border: 1px solid rgb(212, 208, 208);
   color: rgba(255, 255, 255, 0.635);
   display: flex;
   justify-content: center;
   align-items: center;
-  /* border: 1px solid rgb(114, 17, 17); */
   border-radius: 50px;
   height: 40px;
   width: fit-content;
-  /* color: black; */
   cursor: pointer;
   gap: 5px;
   padding: 0px 8px;
 }
 
 .filterIcon svg {
-  width: 50%;
   height: 50%;
 }
 
@@ -249,10 +245,6 @@ body.active-modal {
 .filterIcon:hover {
   color: white;
 }
-
-/* .modal__filter {
-  padding: 15px;
-} */
 
 .modal__filterContainer form {
   display: flex;
@@ -289,7 +281,6 @@ body.active-modal {
 
 .modal__filterFields {
   font-weight: 700;
-  /* margin-top: 30px; */
 }
 
 .modal__filterOptions {
@@ -310,7 +301,6 @@ body.active-modal {
 
 .modal__doneness label {
   width: 100%;
-  /* margin-bottom: 5px; */
   display: flex;
   align-items: center;
   gap: 5px;
@@ -318,7 +308,6 @@ body.active-modal {
 
 .modal__part label {
   width: 50%;
-  /* margin-bottom: 5px; */
   display: flex;
   align-items: center;
   gap: 5px;
@@ -350,18 +339,6 @@ body.active-modal {
   align-items: center;
 }
 
-/* .modal__filterInner input[type="checkbox"]:after {
-  background-color: rgb(189, 187, 187);
-  font-size: 15px;
-  font-weight: 300;
-  color: white;
-  display: none;
-} */
-
-/* .modal__filterInner input[type="checkbox"] content {
-  background-color: transparent;
-} */
-
 .modal__filterInner input[type="checkbox"]:hover {
   background-color: rgb(146, 145, 145);
 }
@@ -369,11 +346,6 @@ body.active-modal {
 .modal__filterInner input[type="checkbox"]:checked {
   background-color: rgb(91, 14, 14);
 }
-
-/* .modal__filterInner input[type="checkbox"]:checked:after {
-  display: block;
-  background-color: rgb(177, 172, 172);
-} */
 
 .modal__filterInner input[type="radio"] {
   display: none;
@@ -394,21 +366,12 @@ body.active-modal {
   font-weight: 700;
 }
 
-/* .modal__priceRange div {
-  flex: none;
-  width: 35%;
-} */
-
 .slider {
-  /* margin-top: 20px; */
   width: 95%;
   max-width: 95%;
   height: 13px;
   margin-bottom: 20px;
-  /* background: grey; */
   border-radius: 20px;
-  /* display: flex;
-  align-items: center; */
 }
 
 .slider .track {
@@ -416,7 +379,6 @@ body.active-modal {
 
   border-radius: 20px;
   height: 10px;
-  /* border: 2px solid rgb(91, 14, 14); */
   background: rgb(91, 14, 14);
 }
 
@@ -425,7 +387,6 @@ body.active-modal {
   width: 20px;
   height: 20px;
   background: white;
-  /* border: 2px solid rgb(91, 14, 14); */
   box-shadow: 0px 0px 3px grey;
   border-radius: 50%;
   cursor: grab;
@@ -450,4 +411,33 @@ body.active-modal {
 
 #collector {
   margin-top: 20px;
+}
+
+@media screen and (max-width: 1000px) {
+  .filterIcon {
+    height: 35px;
+  }
+  .filterIconText {
+    display: none;
+  }
+  .modal__filterInner {
+    width: 280px;
+    height: 350px;
+    flex-direction: column;
+    overflow-y: scroll;
+  }
+  .modal__filterLeft,
+  .modal__filterRight {
+    width: 100%;
+  }
+  .modal__filterInner::-webkit-scrollbar {
+    width: 0px;
+  }
+  .modal__cusine {
+    font-size: 12px;
+  }
+  .modal__cusine label {
+    padding: 5px 8px;
+    margin-right: 5px;
+  }
 }

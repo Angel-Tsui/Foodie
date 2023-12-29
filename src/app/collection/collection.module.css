@@ -3,26 +3,7 @@
   height: 100vh;
   display: flex;
   justify-content: space-around;
-  /* background-image: linear-gradient(
-      to right,
-      rgba(39, 39, 39, 0.8),
-      rgba(39, 39, 39, 0.8)
-    ),
-    url("../../../assets/images/HomeBackground.jpg");
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat; */
 }
-
-/* .collectorListContainer {
-  border-radius: 9px;
-  padding: 4px;
-  box-shadow: 0px 0px 10px rgb(114, 17, 17);
-  margin: 10px 0px;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-} */
 
 .collectionList {
   border: 3px solid rgb(114, 17, 17);
@@ -62,7 +43,6 @@
   outline: none;
   border: 0px solid white;
   border-bottom: 1.5px solid rgba(255, 255, 255, 0.804);
-  /* border-radius: 5px; */
   width: 90%;
 }
 
@@ -107,7 +87,7 @@
   position: absolute;
   color: rgb(114, 17, 17);
   top: 37px;
-  width: 211px;
+  width: 200px;
   z-index: 10;
   background-color: rgba(255, 255, 255, 0.966);
   border-radius: 0px 0px 5px 5px;
@@ -151,40 +131,37 @@
 }
 
 .collectionList__eachWatch {
-  /* width: 244px; */
-  /* width: 100%; */
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  height: 54px;
+  border: 2px solid rgb(114, 17, 17);
   background-color: rgb(114, 17, 17);
   border-radius: 5px;
 }
 
+.myCollectionContainer {
+  border: 2px solid rgb(114, 17, 17);
+  border-radius: 5px;
+}
+
 .collectionList__eachProfile {
-  width: 90%;
+  width: 100%;
   background-color: #181717;
-  border-radius: 0px 5px 5px 0px;
+  border-radius: 3px 5px 5px 3px;
 }
 
 .collectionList__eachProfile__active {
-  width: 90%;
+  width: 100%;
   background-color: transparent;
-  border-radius: 0px 5px 5px 0px;
+  border-radius: 3px 5px 5px 3px;
 }
 
 .collectionList__eachUnwatch {
   color: white;
-  /* max-width: 10%; */
   width: 10%;
-  height: 90%;
   display: flex;
   align-items: center;
   justify-content: center;
-  /* border-left: 2px solid rgb(114, 17, 17); */
   cursor: pointer;
-  /* padding-left: 3px; */
-  /* box-sizing: border-box; */
 }
 
 .collectionGallery {
@@ -204,7 +181,6 @@
   justify-content: space-between;
   color: white;
   padding: 10px 0px;
-  height: 50px;
   width: 95%;
 }
 
@@ -217,6 +193,9 @@
 .collectionGallery__title {
   font-weight: 1000;
   font-size: 24px;
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .collectionGallery__create {
@@ -232,40 +211,14 @@
 }
 
 .collectionGallery__create:hover {
-  /* box-shadow: 0px 0px 3px white; */
   border: 2px solid white;
   background-color: rgb(114, 17, 17);
   color: white;
 }
 
-.collectionGallery__typeSearch {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  height: 40px;
-}
-
-.collectionGallery__map {
-  background-color: rgba(255, 255, 255, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid rgb(114, 17, 17);
-  border-radius: 50%;
-  height: 40px;
-  width: 40px;
-  color: black;
-}
-
-.collectionGallery__map svg {
-  width: 50%;
-  height: 50%;
-}
-
 .collectionGallery__foodGallery {
   width: 95%;
   display: flex;
-  /* justify-content: space-between; */
   gap: 40px;
   overflow: hidden;
   overflow-y: scroll;
@@ -288,4 +241,68 @@
 .createNow {
   margin-top: 200px;
   color: white;
+}
+
+@media screen and (max-width: 1200px) {
+  .collectionList {
+    border: 2px solid rgb(114, 17, 17);
+  }
+  .collectionGallery__foodGallery div {
+    width: 45%;
+  }
+  .collectionList__eachUnwatchCross svg {
+    width: 15px;
+    height: 15px;
+  }
+  .collectionList__myCollection {
+    display: none;
+  }
+  .myCollection {
+    height: 50px;
+  }
+  .collectionList__all {
+    margin-top: 0px;
+  }
+  .searchResults {
+    width: 170px;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .collectionList {
+    border: 1px solid rgb(114, 17, 17);
+  }
+  .collectionGallery__foodGallery {
+    gap: 15px;
+  }
+  .collectionGallery__foodGallery div {
+    width: 100%;
+  }
+  .myCollectionContainer {
+    border: 0px;
+  }
+  .collectionList__eachWatch {
+    border: 0px solid rgb(114, 17, 17);
+    background-color: transparent;
+  }
+  .collectionList__eachProfile {
+    background-color: transparent;
+  }
+  .collectionList__eachUnwatch {
+    display: none;
+    background-color: transparent;
+  }
+  .findUserContainer input {
+    width: 100%;
+  }
+  .searchIcon {
+    display: none;
+  }
+  .collectionGallery__title {
+    font-size: 22px;
+  }
+  .createNow {
+    font-size: 14px;
+    margin-top: 40%;
+  }
 }

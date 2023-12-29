@@ -5,17 +5,6 @@
   margin-right: auto;
   display: flex;
   position: fixed;
-  /* justify-content: space-between; */
-  /* background-image: linear-gradient(
-      to right,
-      rgba(39, 39, 39, 0.8),
-      rgba(39, 39, 39, 0.8)
-    ),
-    url("../../assets/images/HomeBackground.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center; */
-  /* background-attachment: fixed; */
   overflow-y: hidden;
 }
 
@@ -26,35 +15,22 @@
   flex-direction: column;
   align-items: center;
   white-space: nowrap;
-  /* position: fixed;
-  top: 60;
-  left: 0; */
 }
 
 .searchBarContainer {
-  /* width: 89.1%; */
-  /* width: 600px; */
-  /* margin-top: 10px; */
-  /* padding-left: 20px; */
-  /* width: fit-content; */
-  height: 10%;
+  height: fit-content;
+  margin-bottom: 5px;
   display: flex;
-  /* align-items: center; */
   justify-content: center;
   gap: 10px;
 }
 
 .foodGalleryContainer {
-  /* margin-top: 80px; */
-  /* width: 95%; */
-  /* height: 75%; */
-  height: 90%;
+  height: 95%;
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
   justify-content: center;
-  /* justify-content: space-evenly; */
-  /* position: absolute; */
   overflow: hidden;
   overflow-y: scroll;
 }
@@ -75,25 +51,53 @@
 .noMatch {
   color: white;
   min-width: fit-content;
-  /* text-align: center; */
 }
 
 .HomePageContainer__maps {
   width: 40%;
   height: 88%;
-  /* position: fixed;
-  right: 0;
-  top: 50; */
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 5px;
-  /* opacity: 80%; */
 }
 
-/* .mapOverlay {
-  z-index: 50;
-  background-color: black;
-  height: 100%;
-  width: 100%;
-} */
+@media screen and (max-width: 1200px) {
+  .foodGalleryContainer {
+    gap: 10px;
+  }
+  .foodGalleryContainer div {
+    width: 45%;
+  }
+  .searchBarContainer {
+    height: fit-content;
+    margin-bottom: 5px;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .HomePageContainer__general {
+    width: 100%;
+  }
+  .foodGalleryContainer div {
+    width: 30%;
+  }
+  .HomePageContainer__maps {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .foodGalleryContainer div {
+    width: 45%;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .foodGalleryContainer div {
+    width: 90%;
+  }
+  .searchBarContainer {
+    gap: 5px;
+  }
+}

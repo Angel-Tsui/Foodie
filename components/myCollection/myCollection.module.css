@@ -1,14 +1,11 @@
 .myCollectionContainer {
-  min-width: 200px;
+  width: inherit;
   height: 50px;
-  border: 2px solid rgb(114, 17, 17);
-  border-radius: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
   overflow: hidden;
-  
 }
 
 .myCollectionContainer:hover {
@@ -25,6 +22,8 @@
 .myIcon {
   width: 40px;
   height: 40px;
+  min-width: 40px;
+  min-height: 40px;
   border: 2px solid grey;
   border-radius: 50%;
   overflow: hidden;
@@ -40,7 +39,34 @@
 
 .myCollection {
   width: 70%;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
+  margin-left: 3px;
+}
+
+@media screen and (max-width: 1000px) {
+  .myCollectionContainer {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    width: 100%;
+    height: inherit;
+  }
+  .myCollectionContainer:hover {
+    background-color: inherit;
+  }
+  .myIconContainer {
+    height: 30px;
+  }
+  .myIcon {
+    width: 30px;
+    height: 30px;
+    max-width: 30px;
+    max-height: 30px;
+  }
+  .myCollection {
+    align-items: flex-start;
+    text-align: center;
+    margin-left: 0px;
+    width: 100%;
+  }
 }

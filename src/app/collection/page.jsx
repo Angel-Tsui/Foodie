@@ -81,7 +81,9 @@ function CollectorList(props) {
           key={userId}
           href={`/collection?prevUser=${userId}`}
         >
-          <MyCollection userId={userId} />
+          <div className={styles.myCollectionContainer}>
+            <MyCollection userId={userId} />
+          </div>
         </Link>
       )}
       <div className={styles.collectionList__all}>
@@ -102,6 +104,7 @@ function CollectorList(props) {
               >
                 <MyCollection userId={each} />
               </Link>
+
               <Link
                 className={styles.collectionList__eachUnwatch}
                 onClick={() => {
@@ -114,7 +117,9 @@ function CollectorList(props) {
                     : `/collection?prevUser=${props.previewUser}`
                 }
               >
-                <RxCross2 />
+                <div className={styles.collectionList__eachUnwatchCross}>
+                  <RxCross2 />
+                </div>
               </Link>
             </div>
           );

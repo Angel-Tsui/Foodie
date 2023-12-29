@@ -1,14 +1,6 @@
 .nav {
   height: 60px;
   width: 100%;
-  /* background-image: radial-gradient(
-      rgba(39, 39, 39, 0.6),
-      rgba(39, 39, 39, 0.8)
-    ),
-    url("../../assets/images/HomeBackground.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: top; */
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -78,6 +70,12 @@
   align-items: center;
 }
 
+.userAction a {
+  width: 200px;
+  border: 2px solid rgb(114, 17, 17);
+  border-radius: 5px;
+}
+
 .collectionGallery__create {
   border: 2px solid rgb(114, 17, 17);
   background-color: rgb(255, 255, 255);
@@ -91,8 +89,11 @@
   height: 50px;
 }
 
+.collectionGallery__create span {
+  margin-left: 5px;
+}
+
 .collectionGallery__create:hover {
-  /* box-shadow: 0px 0px 3px white; */
   border: 2px solid white;
   background-color: rgb(114, 17, 17);
   color: white;
@@ -144,4 +145,40 @@
 .menu__dropDown div:hover {
   background-color: white;
   color: rgb(114, 17, 17);
+}
+
+@media screen and (max-width: 1000px) {
+  .nav__user {
+    gap: 5px;
+  }
+  .userAction {
+    height: 60px;
+  }
+  .collectionGallery__create {
+    font-size: 14px;
+    height: 50px;
+    box-sizing: border-box;
+  }
+  .userAction a {
+    width: 60px;
+    border: 0px;
+    display: flex;
+    justify-content: center;
+    height: 60px;
+    margin-top: 10px;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .nav__companyName div {
+    display: none;
+  }
+  .collectionGallery__create {
+    font-size: 14px;
+    height: 50px;
+    box-sizing: border-box;
+  }
+  .collectionGallery__create span {
+    display: none;
+  }
 }

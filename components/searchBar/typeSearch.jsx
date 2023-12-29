@@ -55,27 +55,18 @@ export default function TypeSearch(props) {
             filterChanges={props.filterChanges}
             setFilterResName={props.setFilterResName}
           />
-          <div
-            className={styles.filterIcon}
-            // onClick={() => {
-            //   // console.log("clear filters");
-            //   props.filter({});
-            //   props.setTypeSearch("");
-            // }}
-          >
-            <LuFilterX />{" "}
-            <Link href={"/"}>
-              <div
-                className={styles.filterIconText}
-                onClick={() => {
-                  props.setFilterResName("");
-                  props.setFilterChanges(true);
-                }}
-              >
-                Clear Filters
-              </div>
-            </Link>
-          </div>
+          <Link href={"/"}>
+            <div
+              className={styles.filterIcon}
+              onClick={() => {
+                props.setFilterResName("");
+                props.setFilterChanges(true);
+              }}
+            >
+              <LuFilterX />{" "}
+              <div className={styles.filterIconText}>Clear Filters</div>
+            </div>
+          </Link>
         </div>
       )}
     </>
