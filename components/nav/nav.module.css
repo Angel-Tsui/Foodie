@@ -149,7 +149,7 @@
 
 @media screen and (max-width: 1000px) {
   .nav__user {
-    gap: 5px;
+    gap: 3px;
   }
   .userAction {
     height: 60px;
@@ -172,7 +172,7 @@
 @media screen and (max-width: 640px) {
   .nav__user {
     font-size: 15px;
-    gap: 13px;
+    /* gap: 13px; */
   }
   .nav__companyName div {
     display: none;
