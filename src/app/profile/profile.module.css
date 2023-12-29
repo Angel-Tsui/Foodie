@@ -5,16 +5,6 @@
   margin-right: auto;
   display: flex;
   position: fixed;
-  /* background-image: linear-gradient(
-      to right,
-      rgba(39, 39, 39, 0.8),
-      rgba(39, 39, 39, 0.8)
-    ),
-    url("../../../assets/images/HomeBackground.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-attachment: fixed; */
   overflow-y: hidden;
   display: flex;
   justify-content: center;
@@ -48,7 +38,6 @@
   justify-content: center;
   align-items: center;
   width: 90%;
-  /* padding: 10px; */
 }
 
 .editProfile__profilePic {
@@ -161,4 +150,10 @@
   bottom: 10px;
   left: 30%;
   cursor: pointer;
+}
+
+@media screen and (max-width: 640px) {
+  .editProfile {
+    margin-bottom: 100px;
+  }
 }

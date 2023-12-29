@@ -93,11 +93,7 @@
 }
 
 .input__radarChartItems div {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
   width: 20%;
-  align-items: space-between;
 }
 
 .input__basicInfo div input:not(:first-child),
@@ -185,6 +181,8 @@
   width: 50%;
   display: flex;
   justify-content: center;
+  padding-top: 1px;
+  padding-bottom: 1px;
 }
 
 /* Try Grid */
@@ -198,8 +196,6 @@
   min-width: 500px;
   width: 80%;
   height: 75%;
-  margin-top: 1px;
-  margin-bottom: 1px;
   display: grid;
   grid-template-rows: minmax(350px, 6.3fr) minmax(130px, 3.3fr);
   row-gap: 5px;
@@ -373,9 +369,6 @@
   .input__descriptionContainer,
   .input__starRatingContainer {
     width: 90%;
-  }
-  .input__radarChartItems div {
-    display: block;
   }
   .saveButton {
     width: 85%;
