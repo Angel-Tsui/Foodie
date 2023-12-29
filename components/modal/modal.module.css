@@ -414,6 +414,9 @@ body.active-modal {
 }
 
 @media screen and (max-width: 1000px) {
+  .nav__signIn {
+    margin-left: 10px;
+  }
   .filterIcon {
     height: 35px;
   }
