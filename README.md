@@ -33,6 +33,7 @@ Screen Compatibility: 360px - 1900px
    <img src="public\README\CreateCollection.gif">
 
 2. Export your collection details in JPEG for social media sharing
+   <img src="public\README\ExportInRecord.gif">
    <img src="public\README\ExportInCollection.gif">
 
 3. Add friends or other collectors to watchlist for easy access
