@@ -3,7 +3,6 @@ import styles from "./modal.module.css";
 import { useState } from "react";
 import FoodGallery from "../foodGallery/foodGallery";
 import { deleteDataById } from "../../firebase/firestore";
-import { IoOpenOutline } from "react-icons/io5";
 import { AiOutlineDelete } from "react-icons/ai";
 import { TfiDownload } from "react-icons/tfi";
 import { RxCross2 } from "react-icons/rx";
@@ -13,11 +12,7 @@ import { CgProfile } from "react-icons/cg";
 import { signInOrSignOut } from "../../firebase/verify";
 
 export default function FoodGalleryModal(action) {
-  // console.log("action", action);
-  // console.log("id", action.action.fullSetData);
-  // console.log("fullsetData", action.fullSetData);
   const [modal, setModal] = useState(false);
-  // console.log("modal", modal);
 
   let toDo = action.action;
 
@@ -128,15 +123,6 @@ export default function FoodGalleryModal(action) {
                           Export
                           <TfiDownload />
                         </div>
-                        {/* <div
-                        className={styles.editBtn}
-                        onClick={() => {
-                          window.open("/output/" + cardId);
-                        }}
-                      >
-                        To New Tab
-                        <IoOpenOutline />
-                      </div> */}
                         <div
                           className={styles.editBtn}
                           onClick={() => {

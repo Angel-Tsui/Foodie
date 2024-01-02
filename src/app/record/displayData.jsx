@@ -7,25 +7,13 @@ import { LuBeef } from "react-icons/lu";
 import { PiFireBold } from "react-icons/pi";
 import { BiDish } from "react-icons/bi";
 import { FaRegStar } from "react-icons/fa";
-import {
-  getSingleRecordData,
-  getRecordsData,
-  getId,
-} from "../../../firebase/firestore";
-import { firestore } from "../../../firebase/firestore";
-import { doc, getDoc } from "firebase/firestore";
 
 export default function DisplayData(fullSetData) {
-  // console.log(fullSetData);
-  // console.log(fullSetData.allData);
-  // console.log(fullSetData.allRatings);
   let recordData = fullSetData.allData;
   let ratingData = fullSetData.allRatings;
-  // console.log(recordData.imageUrl);
   return (
     <div className={styles.meatInfo__outputSetSize}>
       <div className={styles.meatInfo__output} id="output__toPNG">
-        {/* <div className={styles.output__mainInfoAndRadar}> */}
         <div className={styles.output__mainInfoContainer}>
           <div className={styles.output__mainInfo}>
             <div className={styles.output__image}>
@@ -86,7 +74,6 @@ export default function DisplayData(fullSetData) {
         <div className={styles.output__radarChart}>
           <RadarChart allRatings={ratingData} key={ratingData} />
         </div>
-        {/* </div> */}
 
         <div
           className={styles.output__description}

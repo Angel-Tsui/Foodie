@@ -6,7 +6,6 @@
   border-radius: 5px;
   box-shadow: 0px 0px 2px #5d0404;
   padding: 10px;
-  /* margin-bottom: 15px; */
   color: white;
   font-weight: 500;
   backdrop-filter: blur(0.2rem);
@@ -28,7 +27,6 @@
 }
 
 .foodGallery__image img {
-  /* height: 200px; */
   width: 100%;
 }
 

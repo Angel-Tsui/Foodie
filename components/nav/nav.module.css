@@ -172,7 +172,6 @@
 @media screen and (max-width: 640px) {
   .nav__user {
     font-size: 15px;
-    /* gap: 13px; */
   }
   .nav__companyName div {
     display: none;

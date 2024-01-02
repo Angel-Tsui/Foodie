@@ -1,6 +1,5 @@
 "use client";
 import styles from "./nav.module.css";
-import { useState, useEffect } from "react";
 import Link from "next/link";
 import MyCollection from "../../components/myCollection/myCollection";
 import { RxHamburgerMenu } from "react-icons/rx";
@@ -17,7 +16,6 @@ function signOut() {
 }
 
 function editProfile() {
-  // console.log("edit profile");
   window.location.href = "/profile";
 }
 
@@ -27,16 +25,6 @@ export default function Nav() {
   if (userInfo) {
     userId = userInfo.userId;
   }
-
-  // console.log("nav", userId);
-
-  // getUserInfoFromToken()
-  //   .then((userInfo) => {
-  //     console.log(userInfo);
-  //   })
-  //   .then((userId) => {
-  //     console.log(userId);
-  //   });
 
   return (
     <div className={styles.nav}>
@@ -59,11 +47,7 @@ export default function Nav() {
         )}
         {userToken != null && (
           <>
-            <div
-            // onClick={() => {
-            //   window.location.href = "/collection";
-            // }}
-            >
+            <div>
               <div className={styles.userAction}>
                 <div
                   className={styles.collectionGallery__create}
@@ -74,7 +58,7 @@ export default function Nav() {
                 >
                   Create <span>Collection</span> +
                 </div>
-                
+
                 <Link href={`/collection?prevUser=${userId}`}>
                   <MyCollection userId={userId} />
                 </Link>

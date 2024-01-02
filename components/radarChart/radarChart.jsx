@@ -1,10 +1,9 @@
 "use client";
 import styles from "../../src/app/record/record.module.css";
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect } from "react";
 import { Chart } from "chart.js/auto";
 
 export default function RadarChart(allRatings) {
-  // console.log("radar allRatings", allRatings.allRatings);
   let ratingData = allRatings.allRatings;
 
   const chartRef = useRef(null);

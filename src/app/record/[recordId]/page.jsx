@@ -11,18 +11,11 @@ import {
   setRecord,
   deleteDataById,
   outputFile,
-  getOnlyOutputImage,
   saveMapDetails,
   updateAvailableLocation,
 } from "../../../../firebase/firestore";
-import {
-  verify,
-  getUserInfoFromToken,
-  confirmUser,
-} from "../../../../firebase/verify";
-// import { DocumentReference, doc } from "firebase/firestore";
+import { verify, getUserInfoFromToken } from "../../../../firebase/verify";
 import * as htmlToImage from "html-to-image";
-// import { saveAs } from "file-saver";
 import { AiOutlineDelete } from "react-icons/ai";
 import { TfiDownload } from "react-icons/tfi";
 import { AiOutlineSave } from "react-icons/ai";
@@ -34,7 +27,6 @@ export default function Record(recordId) {
   let SingleRecordid = recordId.params.recordId;
 
   const [userId, setUserId] = useState("");
-  // console.log("computer user", userId);
   const [image, setImage] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [name, setName] = useState("");
@@ -161,16 +153,9 @@ export default function Record(recordId) {
     description,
   ]);
 
-  // useEffect(() => {
-  //   let userInfo = getUserInfoFromToken();
-  //   let user = userInfo.userId;
-  //   setUserId(user);
-  // });
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // console.log(userId);
     if (imageUrl == "") {
       setIsSaved("Please Upload Image");
     } else if (name == "") {
@@ -209,11 +194,7 @@ export default function Record(recordId) {
           htmlToImage
             .toJpeg(document.querySelector("#output__toPNG"))
             .then(async (dataUrl) => {
-              // console.log("output image", dataUrl);
-              // let cleanOutputImageUrl = dataUrl.substring(22);
-              // console.log("clean", cleanOutputImageUrl);
               const firebaseOutput = await uploadOutputImage(dataUrl);
-              // console.log("firebaseOutput", firebaseOutput);
               setOutput(firebaseOutput);
               outputFile(SingleRecordid, firebaseOutput, userId);
             })
@@ -222,7 +203,6 @@ export default function Record(recordId) {
             });
         })
         .then(() => {
-          // console.log("success");
           setIsSaved(<div className={styles.loader}></div>);
           setTimeout(() => {
             setIsSaved(
@@ -252,7 +232,6 @@ export default function Record(recordId) {
                   type="file"
                   id="input__image"
                   onChange={(e) => {
-                    // console.log("image", e.target.files[0]);
                     setImage(e.target.files[0]);
                   }}
                 />
@@ -261,7 +240,6 @@ export default function Record(recordId) {
                     className={styles.uploads}
                     id="uploadImage"
                     onClick={async (e) => {
-                      // console.log("upload image", image);
                       const genurl = await handleUploadImage(e, image);
                       setImageUrl(genurl);
                       setImage("");
@@ -579,11 +557,10 @@ export default function Record(recordId) {
                 downloadOutput(output, name);
               }}
             >
-              Export to PNG
+              Export to JPEG
               <TfiDownload />
             </div>
           )}
-          {/* </form> */}
 
           <div
             className={styles.delete}
@@ -598,9 +575,7 @@ export default function Record(recordId) {
         </div>
 
         <div className={styles.meatInfo__outputContainer}>
-          {/* <div className={styles.meatInfo__outputSetSize}> */}
           <DisplayData allData={allData} allRatings={allRatings} />
-          {/* </div> */}
         </div>
       </div>
     </>
