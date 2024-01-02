@@ -53,7 +53,16 @@ Screen Compatibility: 360px - 1900px
 - Vercel
 - Prettier
 
-## Screen Compatibility
+## Screen Compatibility - Mobile View
+
+- Home Page
+  <img src="public\README\HomeFilterMobile.gif">
+
+- Collection Page
+  <img src="public\README\CollectionPage.gif">
+
+- Record Page
+  <img src="public\README\RecordPageMobile.gif">
 
 ## Contact Me 📩:
 
