@@ -1,6 +1,6 @@
 "use client";
 import styles from "./modal.module.css";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { auth } from "../../firebase/firebase";
 import {
   createUserWithEmailAndPassword,
@@ -10,29 +10,18 @@ import { firestore } from "../../firebase/firebase";
 import { doc, setDoc } from "firebase/firestore";
 import { signInOrSignOut } from "../../firebase/verify";
 import { RxCross2 } from "react-icons/rx";
-import { VscFilter } from "react-icons/vsc";
 import { FiFilter } from "react-icons/fi";
-// import { LuFilterX } from "react-icons/lu";
 import ReactSlider from "react-slider";
 import filterOptions from "../../assets/inputOptions/Options.json";
-import { gatekeepFilterSearch } from "../../firebase/firestore";
-import { getRecordsData, getFilterQuery } from "../../firebase/firestore";
+import { getFilterQuery } from "../../firebase/firestore";
 import Link from "next/link";
 
 export default function Modal(action) {
-  // console.log("action", action);
-  // console.log("fullsetData", action.fullSetData);
   const [modal, setModal] = useState(false);
-  // console.log("modal", modal);
 
   let toDo = action.action;
-  // console.log("toDo", toDo);
 
   const [userStatus, setUserStatus] = useState({});
-  // console.log("userStatus", userStatus);
-
-  // Search Bar Filter Functions
-  // console.log(filterOptions);
   const [radio, setRadio] = useState(false);
   const [cusines, setCusines] = useState("");
   const [doneness, setDoneness] = useState([]);
@@ -41,7 +30,6 @@ export default function Modal(action) {
   const [MIN, setMIN] = useState(0);
   const [MAX, setMAX] = useState(2000);
   const [priceRange, setPriceRange] = useState([MIN, MAX]);
-  // const [filterInfo, setFilter] = useState({});
 
   const handleRadio = (e) => {
     if (cusines) {
@@ -159,7 +147,6 @@ export default function Modal(action) {
         signUpUserPw
       );
     } catch (err) {
-      // console.log("create error", err.message);
       return {
         error: true,
         message: err.message,
@@ -167,11 +154,9 @@ export default function Modal(action) {
     }
 
     let userId = userCred.user.uid;
-    // console.log(userCred.user);
     let userEmail = userCred.user.email;
     let userName = userEmail.split("@")[0];
     let userUpperName = userName.toUpperCase();
-    // console.log("userName", userName);
     let userInfo = {
       userEmail: userCred.user.email,
       userId: userCred.user.uid,
@@ -208,7 +193,6 @@ export default function Modal(action) {
     }
 
     const authResult = await fireSignUp(signUpUserEmail, signUpUserPw);
-    console.log("authResult", authResult);
     if (Object.keys(authResult).includes("success")) {
       setUserStatus({
         success: true,
@@ -241,11 +225,8 @@ export default function Modal(action) {
         <div
           className={styles.filterIcon}
           onClick={() => {
-            // console.log("open filter modal");
             setModal(true);
-            // action.additionalFilter({});
             handleReset();
-            // setFilter(true);
           }}
         >
           <FiFilter />
@@ -258,7 +239,6 @@ export default function Modal(action) {
         <div
           className={styles.nav__signIn}
           onClick={() => {
-            // console.log("open sign in modal");
             setModal(true);
             setUserStatus("");
           }}
@@ -379,7 +359,6 @@ export default function Modal(action) {
                           </div>
                           <div className={styles.modal__filterOptions}>
                             <div className={styles.modal__priceRange}>
-                              {/* <div> */}
                               {priceRange[0] == 0 && priceRange[1] == 2000
                                 ? "Any"
                                 : priceRange[0] == 0 && priceRange[1] != 2000
@@ -387,11 +366,9 @@ export default function Modal(action) {
                                 : priceRange[0] != 0 && priceRange[1] != 2000
                                 ? `$ ${priceRange[0]} - $ ${priceRange[1]}`
                                 : `Above $ ${priceRange[0]}`}
-                              {/* </div> */}
                             </div>
                             <div className={styles.slider}>
                               <ReactSlider
-                                // className={}
                                 onChange={setPriceRange}
                                 value={priceRange}
                                 min={MIN}
@@ -411,15 +388,6 @@ export default function Modal(action) {
                               />
                             </div>
                           </div>
-                          {/* <div
-                            className={styles.modal__filterFields}
-                            id="collector"
-                          >
-                            Collector Name
-                          </div>
-                          <div className={styles.modal__filterOptions}>
-                            <input type="text" />
-                          </div> */}
                         </div>
                         <div className={styles.modal__buttons}>
                           <Link
@@ -448,16 +416,6 @@ export default function Modal(action) {
                                 } else {
                                   action.setFilterResName("");
                                   action.setFilterChanges(true);
-                                  // REAL
-                                  // action.additionalFilter(
-                                  //   // gatekeep
-                                  //   gatekeepFilterSearch(
-                                  //     cusines,
-                                  //     doneness,
-                                  //     parts,
-                                  //     priceRange
-                                  //   )
-                                  // );
                                   setModal(!modal);
                                   handleReset();
                                 }
@@ -470,26 +428,6 @@ export default function Modal(action) {
                             className={styles.modal__clearButton}
                             onClick={() => {
                               handleReset();
-                              // setRadio(false);
-                              // setChecked(false);
-                              // setCusines("");
-                              // setDoneness("");
-                              // setParts([]);
-                              // setUserStatus("");
-                              // setPriceRange([0, 2000]);
-                              // if (cusines) {
-                              //   let orgSelected = document.querySelector(
-                              //     `#${cusines}`
-                              //   );
-                              //   orgSelected.classList.remove(styles.active);
-                              // }
-                              // let allSelectedCheckbox =
-                              //   document.querySelectorAll(
-                              //     "input[type = checkbox]"
-                              //   );
-                              // allSelectedCheckbox.forEach(
-                              //   (each) => (each.checked = false)
-                              // );
                             }}
                           >
                             Clear All Search

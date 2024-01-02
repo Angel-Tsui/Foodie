@@ -357,7 +357,7 @@ const addRecordsData = async (
 const deleteDataById = async (SingleRecordid) => {
   const docRef = doc(firestore, "records", SingleRecordid);
   deleteDoc(docRef).then(() => {
-    window.location.href = "/collection";
+    location.reload();
   });
 };
 

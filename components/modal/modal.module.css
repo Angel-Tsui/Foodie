@@ -392,15 +392,6 @@ body.active-modal {
   cursor: grab;
 }
 
-/* .track .track-1 {
-  background: rgb(91, 14, 14);
-}
-
-.track .track-0,
-.track .track-2 {
-  background: #ececed;
-} */
-
 .mark {
   margin-top: 23px;
   width: 5px;

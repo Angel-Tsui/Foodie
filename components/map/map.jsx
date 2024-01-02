@@ -1,17 +1,12 @@
 "use client";
-import styles from "../../src/app/page.module.css";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Loader } from "@googlemaps/js-api-loader";
-import { doc } from "firebase/firestore";
-import { InfoWindow } from "@react-google-maps/api";
-import CoordinatesSaved from "../../assets/inputOptions/Options.json";
 import {
   getAvailableLocation,
   getSingleAvailableLocationDetail,
 } from "../../firebase/firestore";
 
 export default function Map(props) {
-  // console.log(props);
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
   useEffect(() => {
@@ -117,7 +112,6 @@ export default function Map(props) {
       const autoOptions = {
         componentRestrictions: { country: ["hk", "jp", "tw"] },
         types: ["restaurant", "cafe", "bar", "bakery", "food"],
-        // types: ["address"],
         fields: [
           "formatted_address",
           "geometry",
@@ -146,29 +140,17 @@ export default function Map(props) {
 
       const marker = new Marker({ map: map, icon: icon });
 
-      const infoWindowOptions = {
-        // content: "Hello",
-        // position: props.markerPosition,
-      };
-
-      const infoWindow = new InfoWindow(infoWindowOptions);
+      const infoWindow = new InfoWindow();
 
       const infoWindowOpenOptions = { map: map, anchor: marker };
 
       infoWindow.open(infoWindowOpenOptions);
 
       infoWindow.addListener("closeclick", () => {
-        // console.log("close infowindow");
-        // props.filter({});
         window.history.pushState(null, "", `/`);
         props.setFilterChanges(true);
         props.setFilterResName("");
-        // props.setTypeSearch("");
       });
-
-      // marker.addListener("click", () => {
-      //   infoWindow.open(infoWindowOpenOptions);
-      // });
 
       const addMarker = (spot) => {
         let otherMarkers = new Marker({
@@ -178,7 +160,6 @@ export default function Map(props) {
         });
         otherMarkers.addListener("click", async () => {
           let detail = await getSingleAvailableLocationDetail(spot);
-          // console.log("out", detail);
 
           map.setCenter(spot);
           map.setZoom(18);
@@ -193,18 +174,12 @@ export default function Map(props) {
           window.history.pushState(null, "", `/?resto=${detail.resto}`);
           props.setFilterChanges(true);
           props.setFilterResName(detail.resto);
-          // props.filter({
-          //   restaurant: detail.resto,
-          // });
-          // props.setTypeSearch(detail.resto);
         });
       };
       // Display all available location on map
       getAvailableLocation().then((displayLocationOnMap) => {
-        // console.log(displayLocationOnMap.location);
         let availableSpots = displayLocationOnMap.location;
         availableSpots.forEach((spot) => {
-          // console.log(spot);
           addMarker(spot);
         });
       });
@@ -213,15 +188,10 @@ export default function Map(props) {
         // Autocomplete
         autoComplete.addListener("place_changed", () => {
           let place = autoComplete.getPlace();
-          // console.log(place.name);
           window.history.pushState(null, "", `/?resto=${place.name}`);
           props.setFilterChanges(true);
           props.setFilterResName(place.name);
           props.setAutoReply(place.name);
-          // props.filter({
-          //   restaurant: place.name,
-          // });
-          // props.setTypeSearch(place.name);
 
           // move location on map
           if (place.geometry.viewport) {
@@ -231,7 +201,6 @@ export default function Map(props) {
             map.setZoom(18);
           }
           marker.setPosition(place.geometry.location);
-          // marker.setVisibile(true);
 
           let placeWebsite;
           let websiteLink;
@@ -249,8 +218,6 @@ export default function Map(props) {
       }
 
       if (props.markerPosition != "" || props.markerPosition != null) {
-        // console.log(props.markerPosition);
-        // console.log(props.placeInfoRestoName, props.placeInfo);
         map.setCenter(props.markerPosition);
         map.setZoom(18);
         marker.setPosition(props.markerPosition);
@@ -265,7 +232,6 @@ export default function Map(props) {
       if (autoCompleteRecordResto) {
         autoCompleteRecordResto.addListener("place_changed", () => {
           let place = autoCompleteRecordResto.getPlace();
-          // console.log(place);
           props.setGotAddress(place.name);
           props.setResto(place.name);
           props.setLatlng({

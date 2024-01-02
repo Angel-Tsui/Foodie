@@ -1,7 +1,6 @@
 "use client";
 import styles from "./collection.module.css";
 import MyCollection from "../../../components/myCollection/myCollection";
-// import { LiaMapMarkedSolid } from "react-icons/lia";
 import { useState, useEffect } from "react";
 import { verify, getUserInfoFromToken } from "../../../firebase/verify";
 import {
@@ -17,12 +16,9 @@ import { RxCross2 } from "react-icons/rx";
 import { UsersFilter } from "../../../firebase/firestore";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-// import { useParams, URLSearchParams } from "next/navigation";
 
 function CollectorList(props) {
-  // console.log(props);
   let userId = props.userId;
-  // console.log("userId", userId);
 
   return (
     <div className={styles.collectionList}>
@@ -130,7 +126,6 @@ function CollectorList(props) {
 }
 
 function CollectionGalleryHeading(props) {
-  // console.log("head", props.sameUser);
   return (
     <div className={styles.collectionGallery__header}>
       <div className={styles.collectionGallery__titleAndCreate}>
@@ -139,9 +134,6 @@ function CollectionGalleryHeading(props) {
         </div>
       </div>
       <div className={styles.collectionGallery__typeSearch}>
-        {/* <div className={styles.collectionGallery__map}>
-          <LiaMapMarkedSolid />
-        </div> */}
         {props.sameUser ? (
           <div
             className={styles.collectionGallery__create}
@@ -156,10 +148,8 @@ function CollectionGalleryHeading(props) {
           <div
             className={styles.collectionGallery__create}
             onClick={() => {
-              // console.log(each.id);
               removeUserFromWatchList(props.userId, props.previewUser);
               props.setWatchListChanges(props.previewUser);
-              // props.searching("");
             }}
           >
             Unfollow Collector
@@ -168,10 +158,8 @@ function CollectionGalleryHeading(props) {
           <div
             className={styles.collectionGallery__create}
             onClick={() => {
-              // console.log(each.id);
               updateUserToWatchList(props.userId, props.previewUser);
               props.setWatchListChanges(props.previewUser);
-              // props.searching("");
             }}
           >
             Follow Collector
@@ -183,14 +171,10 @@ function CollectionGalleryHeading(props) {
 }
 
 function CollectionGallery(props) {
-  // console.log("in CollectionGallery", props.action);
-  // console.log(props.action);
   let fullSetData = props.allData;
-  // console.log("in", fullSetData);
   return (
     <div className={styles.collectionGallery__foodGallery}>
       <FoodGalleryModal
-        // action="collectionPreview"
         action={props.action}
         fullSetData={fullSetData}
         pop={props.func}
@@ -199,47 +183,31 @@ function CollectionGallery(props) {
           props.action == "collectionPreview" ? "allowFurtherAction" : null
         }
       />
-      {/* <FoodGallery fullSetData={fullSetData} action={props.action} /> */}
     </div>
   );
 }
 
 export default function Collection() {
   const [userId, setUserId] = useState("");
-  // console.log(userId);
-
-  // const [getUserCollection, setGetUserCollection] = useState("");
-  // console.log("getUserCollection", getUserCollection);
 
   const [searchUser, setSearchUser] = useState("");
-  // console.log("searchUser", searchUser);
 
   const [searchResult, setSearchResult] = useState([]);
-  // console.log("searchResult", searchResult);
 
   const searchParams = useSearchParams();
   const previewUser = searchParams.get("prevUser");
-  // console.log("previewUser", previewUser);
 
   const [watchListId, setWatchListId] = useState([]);
-  // console.log("watchListId", watchListId);
 
   const [watchListChanges, setWatchListChanges] = useState("");
-  // console.log("update / delete", watchListChanges);
 
-  // console.log(userId);
   const [allData, setAllData] = useState([]);
-  // console.log("allData", allData);
   const [userName, setUserName] = useState("");
-  // console.log(userName);
 
   const [output, setOutput] = useState("");
-  // console.log("at collection", output);
   const [additionalFilter, setAdditionalFilter] = useState({});
-  // console.log("collection page additionalFilter", additionalFilter);
 
   const [sameUser, setSameUser] = useState(true);
-  // console.log("same?", sameUser, userId, previewUser);
 
   useEffect(() => {
     verify();
@@ -249,22 +217,12 @@ export default function Collection() {
     setUserId(userId);
 
     if (userId != previewUser) {
-      // console.log("false effect", userId, previewUser);
       setSameUser(false);
     } else {
-      // console.log("true effect", userId, previewUser);
       setSameUser(true);
     }
 
     getUserInfo(userId, setWatchListId, setUserName);
-
-    // if (userId != "") {
-    // let filterInfo = {
-    //   orderMethod: "timestamp",
-    //   AscOrDesc: "desc",
-    //   userId: userId,
-    //   additionalFilter: additionalFilter,
-    // };
     if (previewUser) {
       getUserInfo(previewUser, null, setUserName);
     }
@@ -276,10 +234,8 @@ export default function Collection() {
     };
 
     getRecordsData(filterInfo).then((allData) => {
-      // console.log("got data", userId);
       setAllData(allData);
     });
-    // }
   }, [previewUser]);
 
   useEffect(() => {
@@ -297,11 +253,8 @@ export default function Collection() {
 
   return (
     <div className={styles.collectionPageContainer}>
-      {/* <div className={styles.collectorListContainer}> */}
       <CollectorList
         userId={userId}
-        // setGetUserCollection={setGetUserCollection}
-        // getUserCollection={getUserCollection}
         searchUser={searchUser}
         searching={setSearchUser}
         searchResult={searchResult}
@@ -309,10 +262,7 @@ export default function Collection() {
         currentWatchList={watchListId}
         setWatchListChanges={setWatchListChanges}
         previewUser={previewUser}
-        // setSearchUserParam={setSearchUserParam}
-        // setUserName={setUserName}
       />
-      {/* </div> */}
       <div className={styles.collectionGallery}>
         <CollectionGalleryHeading
           userId={userId}
@@ -323,14 +273,12 @@ export default function Collection() {
           searching={setSearchUser}
           sameUser={sameUser}
           watchListId={watchListId}
-          // action={sameUser == true ? "createCollection" : "AddToWatchList"}
         />
         <CollectionGallery
           allData={allData}
           func={setOutput}
           output={output}
           action={sameUser == true ? "collectionPreview" : "displayOutput"}
-          // previewUser={previewUser}
         />
         {allData.length == 0 && (
           <div className={styles.createNow}>No Collection At The Moment</div>
