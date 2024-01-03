@@ -57,6 +57,12 @@ UNIVERSAL MEAT EXPO allows meat lovers to record, share and browse meat from all
 - Vercel
 - Prettier
 
+### Record Page Real Time Input Reflection Logic 🧩:
+
+<img src="public\README\RecordLogic.png">
+  
+  - React State for radar chart data and other data is managed separately as updating any state would cause re-rendering in related components. Separating the two states could reduce the number of re-rendering for the radar chart, hence, does not trigger its animation, therefore, improve the user's experience.
+
 ## Screen Compatibility 🔁:
 
 #### Support Screen Size of: 360px - 1900px
