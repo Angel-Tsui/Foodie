@@ -2,9 +2,13 @@
 
 UNIVERSAL MEAT EXPO allows meat lovers to record, share and browse meat from all over the world.
 
-Website URL: https://foodie-amber.vercel.app/
+#### Website URL: https://foodie-amber.vercel.app/
 
-Screen Compatibility: 360px - 1900px
+#### Testing Account:
+
+| Email Address     | Password |
+| ----------------- | -------- |
+| testtest@test.com | testtest |
 
 ## Key Features ⭐
 
@@ -53,11 +57,15 @@ Screen Compatibility: 360px - 1900px
 - Vercel
 - Prettier
 
-## Screen Compatibility - Mobile View 📱:
+## Screen Compatibility 🔁:
+
+#### Support Screen Size of: 360px - 1900px
+
+### Mobile View 📱:
 
 |                           Home Page                           |                       Collection Page                       |                          Record Page                          |
 | :-----------------------------------------------------------: | :---------------------------------------------------------: | :-----------------------------------------------------------: |
-| <img src="public\README\HomeFilterMobile.gif" height="200px"> | <img src="public\README\CollectionPage.gif" height="200px"> | <img src="public\README\RecordPageMobile.gif" height="200px"> |
+| <img src="public\README\HomeFilterMobile.gif" height="300px"> | <img src="public\README\CollectionPage.gif" height="300px"> | <img src="public\README\RecordPageMobile.gif" height="300px"> |
 
 ## File Structure 🗂️:
 
