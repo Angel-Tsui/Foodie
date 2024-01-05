@@ -475,7 +475,7 @@ export default function Modal(action) {
                           fillTestingInfo(e);
                         }}
                       >
-                        TESTING
+                        DEMO
                       </div>
                     </div>
                   </form>
