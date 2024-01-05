@@ -470,7 +470,7 @@ export default function Modal(action) {
                         SIGN IN
                       </div>
                       <div
-                        className={styles.modal__submitButton}
+                        className={styles.modal__testButton}
                         onClick={(e) => {
                           fillTestingInfo(e);
                         }}
