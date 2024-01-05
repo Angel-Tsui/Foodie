@@ -83,6 +83,12 @@ body.active-modal {
   align-items: flex-end;
 }
 
+.modal__buttonContainer {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
 .modal__submitButton {
   border: 1px solid black;
   background-color: rgb(114, 17, 17);
