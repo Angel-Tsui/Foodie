@@ -107,6 +107,12 @@ export default function Modal(action) {
     }
   }
 
+  async function fillTestingInfo(e) {
+    signInForm["signInUserEmail"].value = "testtest@test.com";
+    signInForm["signInUserPw"].value = "testtest";
+    handleSignIn(e);
+  }
+
   async function handleSignIn(e) {
     e.preventDefault();
     const signInUserEmail = signInForm["signInUserEmail"].value;
@@ -454,13 +460,23 @@ export default function Modal(action) {
                       placeholder="Password"
                       id="signInUserPw"
                     />
-                    <div
-                      className={styles.modal__submitButton}
-                      onClick={(e) => {
-                        handleSignIn(e);
-                      }}
-                    >
-                      SIGN IN
+                    <div className={styles.modal__buttonContainer}>
+                      <div
+                        className={styles.modal__submitButton}
+                        onClick={(e) => {
+                          handleSignIn(e);
+                        }}
+                      >
+                        SIGN IN
+                      </div>
+                      <div
+                        className={styles.modal__testButton}
+                        onClick={(e) => {
+                          fillTestingInfo(e);
+                        }}
+                      >
+                        TESTING
+                      </div>
                     </div>
                   </form>
                 </div>
